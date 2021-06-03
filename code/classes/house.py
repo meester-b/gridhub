@@ -1,3 +1,7 @@
+import csv
+
+houses = []
+
 class House():
     '''
     Initializes the House class
@@ -8,3 +12,8 @@ class House():
         self.y_coordinate = y_coordinate
         self.max_output = max_output
         self.connected = False
+        self.cables = []
+
+        #read csv
+            #create all battery objects
+        #batteries.append(battery)
