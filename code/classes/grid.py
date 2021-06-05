@@ -1,21 +1,28 @@
-#from .battery import Battery, batteries
-#from .house import House, houses
+from .battery import Battery
+from .cable import Cable
+from .house import House
 
 class Grid():
-    def __init__(self):
-        self.row = 4
-        self.col = 4
+    def __init__(self, ):
+        ## heb hier een s achter gezet
+        self.rows = 4
+        self.cols = 4
         self.grid = []
 
+        ## 
         # loopen door je rijen
         # maak voor elke rij een lijst aan met daarin de y-coordinaten (dus de kolommen)
         # maak een grid aan als lijst van al je rijen
         row = []
-        for i in range(self.col + 1):
+        for i in range(self.cols + 1):
             row.append(0)
             self.grid.append(row)
             row.clear
 
+        
+
+    ## ik denk dat dit niet nodig is. Dit moet in main en kan "over elkaar heen liggen"
+    ## dus verschillende lijsten met elkaar vergelijken ipv ze er echt op plaatsen.
     # functie die battery objects in de grid plaatst en coordinaten vervangt
     '''
     def add_batteries(self, batteries):
@@ -33,6 +40,8 @@ class Grid():
             y_coordinate = house.y_coordinate - 1
             self.grid[x_coordinate][y_coordinate] = house
     '''
+    ## tot en met hier
+
 
 grid = Grid()
 print(grid.grid)

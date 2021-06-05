@@ -18,7 +18,7 @@ class Battery():
         Creates batteries from csv
         """
         id = 0
-        batteries = {}
+        batteries = []
 
         with open(source_file, 'r') as in_file:           
             # later route name variabel maken
@@ -33,13 +33,19 @@ class Battery():
             #     battery = Battery(x_coordinate=x_coordinate, y_coordinate=y_coordinate, capacity=capacity)
             #     batteries.append(battery)
 
+            ## dit is wel goed
             for row in reader:
                 split = row.replace('"', "").split(",")
                 x = split[0]
                 y = split[1]
-                output = split[3]
-                batteries[id] = Battery(x, y, output, id)
+                cap = split[3]
+                battery = Battery(x, y , cap, id)
+                batteries.append(battery)
                 id += 1
+
+        ## toch maar geen dict
+        #         batteries[id] = Battery(x, y, output, id)
+        #         id += 1
 
         return batteries
                 

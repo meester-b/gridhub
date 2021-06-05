@@ -4,6 +4,7 @@ class House():
     '''
     Initializes the House class
     '''
+
     def __init__(self, x_coordinate, y_coordinate, max_output, uid):
         self.id = uid
         self.x_coordinate = x_coordinate
@@ -16,8 +17,9 @@ class House():
         """
         Creates batteries from csv
         """
+
         id = 0
-        houses = {}
+        houses = []
 
         with open(source_file, 'r') as in_file:           
             # later route name variabel maken
@@ -28,7 +30,16 @@ class House():
                 x = split[0]
                 y = split[1]
                 cap = split[3]
-                houses[id] = House(x, y, cap, id)
+                house = House(x, y, cap, id)
                 id += 1
+                houses.append(house)
 
         return houses
+
+    def is_linked(self):
+        """
+        Marks a house as connected if there exists a cable
+        between the house and a battery.
+        """
+        return self.connected
+
