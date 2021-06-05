@@ -13,33 +13,33 @@ class House():
         self.connected = False
         self.cables = []
 
-    def load_houses(self, source_file):     
-        """
-        Creates batteries from csv
-        """
+    ## naar graph als relative import werkt
+    # def load_houses(self, source_file):     
+    #     """
+    #     Creates batteries from csv
+    #     """
 
-        id = 0
-        houses = []
+    #     id = 0
+    #     houses = []
 
-        with open(source_file, 'r') as in_file:           
-            # later route name variabel maken
-            reader = csv.reader(in_file)
+    #     with open(source_file, 'r') as in_file:           
+    #         # later route name variabel maken
+    #         reader = csv.reader(in_file)
 
-            for row in reader:
-                split = row.replace('"', "").split(",")
-                x = split[0]
-                y = split[1]
-                cap = split[3]
-                house = House(x, y, cap, id)
-                id += 1
-                houses.append(house)
+    #         for row in reader:
+    #             split = row.replace('"', "").split(",")
+    #             x = split[0]
+    #             y = split[1]
+    #             cap = split[3]
+    #             house = House(x, y, cap, id)
+    #             id += 1
+    #             houses.append(house)
 
-        return houses
+    #     return houses
 
     def is_linked(self):
         """
-        Marks a house as connected if there exists a cable
-        between the house and a battery.
+        Check if there exists a cable between the house and a battery.
         """
         return self.connected
 
