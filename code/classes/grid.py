@@ -119,8 +119,9 @@ class Grid():
     # '''
     def add_cables(self, path):
         for cable in path:
-            x_coordinate = int(cable.x_coordinate)
-            y_coordinate = int(cable.y_coordinate)
+            location = cable.split(",")
+            x_coordinate = int(location[0])
+            y_coordinate = int(location[1])
             self.grid[y_coordinate][x_coordinate] = 3
 
 
