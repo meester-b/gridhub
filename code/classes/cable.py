@@ -18,43 +18,35 @@ class Cable():
             for x_step in range(self.x_start, self.x_end + 1):
                 self.path.append(f"{x_step}, {self.y_start}")
 
-                self.path.pop()
+            self.path.pop()
 
-            if self.y_start < self.y_start:
-
+            if self.y_start < self.y_end:
                 for y_step in range(self.y_start, self.y_end + 1):
                     self.path.append(f"{self.x_end}, {y_step}")
+                print(1)
             else:
-                
-
                 for y_step in range(self.y_end, self.y_start + 1):
+                    self.path.append(f"{self.x_end}, {self.y_start - y_step}")
+                print(2)
         else:
-            if self.y_start < self.y_start:
-                for x_step in range(self.x_end, self.x_start + 1):
+            for x_step in range(self.x_end, self.x_start + 1):
+                self.path.append(f"{self.x_end - x_step}, {self.y_start}")
 
-                self.path.pop()
+            self.path.pop()
+
+            if self.y_start < self.y_end:
+                self.path.append(f"x, x")
+                print(3)
             else:
-                for x_step in range(self.x_end, self.x_start + 1):
+                self.path.append(f"x, x")
+                print(4)
 
-                self.path.pop()
-
-
-                self.path.append(f"{self.x_end + x_step}, {self.y_end}")
-
-        
-
-        if self.y_start < self.y_end:
-
-        else:
-                self.path.append(f"{self.x_start}, {self.y_end - y_step}")
-        
-        return self
 
     def calc_length(self):
         self.length = abs(self.x_start - self.x_end) + abs(self.y_start - self.y_end)
         return self
 
 if __name__ == "__main__":
-    cable = Cable(5,10,10,20,1)
+    cable = Cable(10,10,5,0,1)
     cable.add_path()
     print(cable.path)
