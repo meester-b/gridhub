@@ -26,15 +26,22 @@ class Grid():
         #     self.grid.append(row)
         #     row.clear
 
-        row = []
+        # row = []
         ## liever 1 minder ver en dimensie zoals het echt is (51x51)
-        for i in range(self.cols):
-            ## of i in de toekomst
-            ## dit is mooier denk ik, kan je list gebruiken voor y en getal voor x
-            row.append(0)
+        # for i in range(self.cols):
+        #     ## of i in de toekomst
+        #     ## dit is mooier denk ik, kan je list gebruiken voor y en getal voor x
+        #     row.append(0)
 
         for i in range(self.rows):
-            self.grid.append(row)
+            new_row = []
+
+            for i in range(self.cols):
+                ## of i in de toekomst
+                ## dit is mooier denk ik, kan je list gebruiken voor y en getal voor x
+                new_row.append(0)
+
+            self.grid.append(new_row)
 
     # uncomment als relative import werkt 
     def load_houses(self, source_file):     
@@ -94,14 +101,11 @@ class Grid():
     ## functie die battery objects in de grid plaatst en coordinaten vervangt
     # '''
     def add_batteries(self, batteries):
-        self.grid[0][0] = 1
-        # for battery in batteries:
-        #     x_coordinate = int(battery.x_coordinate)
-        #     y_coordinate = int(battery.y_coordinate)
-        #     print(x_coordinate, y_coordinate)
-        #     self.grid[x_coordinate][y_coordinate] = 1
-        return self
-    # '''
+        for battery in batteries:
+            x_coordinate = int(battery.x_coordinate)
+            y_coordinate = int(battery.y_coordinate)
+            print(x_coordinate, y_coordinate)
+            self.grid[y_coordinate][x_coordinate] = 1
 
     # # functie die house objects in de grid plaatst en coordinaten vervangt
     # '''
@@ -109,8 +113,16 @@ class Grid():
         for house in houses:
             x_coordinate = int(house.x_coordinate)
             y_coordinate = int(house.y_coordinate)
-            self.grid[x_coordinate][y_coordinate] = 2
-        return self
+            self.grid[y_coordinate][x_coordinate] = 2
+
+    ## functie die paths toevoegt
+    def add_cables(self, path):
+        for cable in path:
+            x_coordinate = int(cable.x_coordinate)
+            y_coordinate = int(cable.y_coordinate)
+            self.grid[y_coordinate][x_coordinate] = 3
+
+
     # '''
     ### tot en met hier
 

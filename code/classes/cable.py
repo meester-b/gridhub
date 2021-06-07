@@ -17,17 +17,35 @@ class Cable():
         if self.x_start < self.x_end:
             for x_step in range(self.x_start, self.x_end + 1):
                 self.path.append(f"{x_step}, {self.y_start}")
+
+                self.path.pop()
+
+            if self.y_start < self.y_start:
+
+                for y_step in range(self.y_start, self.y_end + 1):
+                    self.path.append(f"{self.x_end}, {y_step}")
+            else:
+                
+
+                for y_step in range(self.y_end, self.y_start + 1):
         else:
-            for x_step in range(self.x_end, self.x_start + 1):
+            if self.y_start < self.y_start:
+                for x_step in range(self.x_end, self.x_start + 1):
+
+                self.path.pop()
+            else:
+                for x_step in range(self.x_end, self.x_start + 1):
+
+                self.path.pop()
+
+
                 self.path.append(f"{self.x_end + x_step}, {self.y_end}")
 
-        self.path.pop()
+        
 
         if self.y_start < self.y_end:
-            for y_step in range(self.y_start, self.y_end + 1):
-                self.path.append(f"{self.x_end}, {y_step}")
+
         else:
-            for y_step in range(self.y_end, self.y_start + 1):
                 self.path.append(f"{self.x_start}, {self.y_end - y_step}")
         
         return self
@@ -37,6 +55,6 @@ class Cable():
         return self
 
 if __name__ == "__main__":
-    cable = Cable(3,2,2,3,1)
+    cable = Cable(5,10,10,20,1)
     cable.add_path()
     print(cable.path)
