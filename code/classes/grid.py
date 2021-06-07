@@ -98,16 +98,16 @@ class Grid():
 
     ### ik denk dat dit niet nodig is. Dit moet in main en kan "over elkaar heen liggen"
     ### dus verschillende lijsten met elkaar vergelijken ipv ze er echt op plaatsen.
+
     ## functie die battery objects in de grid plaatst en coordinaten vervangt
     # '''
     def add_batteries(self, batteries):
         for battery in batteries:
             x_coordinate = int(battery.x_coordinate)
             y_coordinate = int(battery.y_coordinate)
-            print(x_coordinate, y_coordinate)
             self.grid[y_coordinate][x_coordinate] = 1
 
-    # # functie die house objects in de grid plaatst en coordinaten vervangt
+    ## functie die house objects in de grid plaatst en coordinaten vervangt
     # '''
     def add_houses(self, houses):
         for house in houses:
@@ -115,7 +115,8 @@ class Grid():
             y_coordinate = int(house.y_coordinate)
             self.grid[y_coordinate][x_coordinate] = 2
 
-    ## functie die paths toevoegt
+    ## functie die paths toevoegt op alle coordinaten waar de kabel langskomt en die coordinaten vervangt
+    # '''
     def add_cables(self, path):
         for cable in path:
             x_coordinate = int(cable.x_coordinate)
