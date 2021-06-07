@@ -1,11 +1,11 @@
-# from .battery import *
-# from .cable import *
-# from .house import *
+from .battery import *
+from .cable import *
+from .house import *
 
-DIMENSION = 5
+DIMENSION = 51
 
 class Grid():
-    def __init__(self, ):
+    def __init__(self):
         ## heb hier een s achter gezet en constante gebruikt
         self.rows = DIMENSION
         self.cols = DIMENSION
@@ -26,61 +26,66 @@ class Grid():
         #     self.grid.append(row)
         #     row.clear
 
-        ## dit is mooier denk ik, kan je list gebruiken voor y en getal voor x
         row = []
         ## liever 1 minder ver en dimensie zoals het echt is (51x51)
         for i in range(self.cols):
-            row.append(i)
+            ## of i in de toekomst
+            ## dit is mooier denk ik, kan je list gebruiken voor y en getal voor x
+            row.append(0)
 
         for i in range(self.rows):
             self.grid.append(row)
 
-    ## uncomment als relative import werkt 
-    # def load_houses(self, source_file):     
-    #     """
-    #     Creates batteries from csv
-    #     """
+    # uncomment als relative import werkt 
+    def load_houses(self, source_file):     
+        """
+        Creates batteries from csv
+        """
 
-    #     id = 0
-    #     houses = []
+        id = 0
+        houses = []
 
-    #     with open(source_file, 'r') as in_file:           
-    #         # later route name variabel maken
-    #         reader = csv.reader(in_file)
+        with open(source_file, 'r') as in_file:           
+            # later route name variabel maken
+            reader = csv.reader(in_file)
+            next(reader)
 
-    #         for row in reader:
-    #             split = row.replace('"', "").split(",")
-    #             x = split[0]
-    #             y = split[1]
-    #             cap = split[3]
-    #             house = House(x, y, cap, id)
-    #             id += 1
-    #             houses.append(house)
+            for row in reader:
+                # print(row)
+                # split = row.replace('"', "")
+                # split = split.split(",")
+                x = row[0]
+                y = row[1]
+                cap = row[2]
+                house = House(x, y, cap, id)
+                houses.append(house)
+                id += 1
 
-    #     return houses
+        return houses
 
-    # def load_houses(self, source_file):     
-    #     """
-    #     Creates batteries from csv
-    #     """
-    #     id = 0
-    #     batteries = []
+    def load_batteries(self, source_file):     
+        """
+        Creates batteries from csv
+        """
+        id = 0
+        batteries = []
 
-    #     with open(source_file, 'r') as in_file:           
-    #         # later route name variabel maken
-    #         reader = csv.reader(in_file)
+        with open(source_file, 'r') as in_file:           
+            # later route name variabel maken
+            reader = csv.reader(in_file)
+            next(reader)
 
-    #         for row in reader:
-    #             split = row.replace('"', "").split(",")
-    #             x = split[0]
-    #             y = split[1]
-    #             cap = split[3]
-    #             battery = Battery(x, y , cap, id)
-    #             batteries.append(battery)
-    #             id += 1
+            for row in reader:
+                cap = row[1]
+                split = row[0].split(",")
+                x = split[0]
+                y = split[1]
+                battery = Battery(x, y , cap, id)
+                batteries.append(battery)
+                id += 1
 
-    #     return batteries
-    ## tot hier
+        return batteries
+    # tot hier
 
 
 
@@ -88,26 +93,27 @@ class Grid():
     ### dus verschillende lijsten met elkaar vergelijken ipv ze er echt op plaatsen.
     ## functie die battery objects in de grid plaatst en coordinaten vervangt
     # '''
-    # def add_batteries(self, batteries):
-    #     for battery in batteries:
-    #         x_coordinate = battery.x_coordinate - 1
-    #         y_coordinate = battery.y_coordinate - 1
-    #         self.grid[x_coordinate][y_coordinate] = battery
+    def add_batteries(self, batteries):
+        self.grid[0][0] = 1
+        # for battery in batteries:
+        #     x_coordinate = int(battery.x_coordinate)
+        #     y_coordinate = int(battery.y_coordinate)
+        #     print(x_coordinate, y_coordinate)
+        #     self.grid[x_coordinate][y_coordinate] = 1
+        return self
     # '''
 
     # # functie die house objects in de grid plaatst en coordinaten vervangt
     # '''
-    # def add_houses(self, houses):
-    #     for house in houses:
-    #         x_coordinate = house.x_coordinate - 1
-    #         y_coordinate = house.y_coordinate - 1
-    #         self.grid[x_coordinate][y_coordinate] = house
+    def add_houses(self, houses):
+        for house in houses:
+            x_coordinate = int(house.x_coordinate)
+            y_coordinate = int(house.y_coordinate)
+            self.grid[x_coordinate][y_coordinate] = 2
+        return self
     # '''
     ### tot en met hier
 
-
-grid = Grid()
-print(grid.grid)
 
 
 

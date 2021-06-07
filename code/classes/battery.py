@@ -18,7 +18,7 @@ class Battery():
 
 
     ## naar graph als relative import werkt
-    # def load_houses(self, source_file):     
+    # def load_batteries(self, source_file):     
     #     """
     #     Creates batteries from csv
     #     """
@@ -29,28 +29,15 @@ class Battery():
     #         # later route name variabel maken
     #         reader = csv.reader(in_file)
 
-    #         ## dit is niet goed, het format van locaties heeft 3 kommas
-    #         # for row in reader:
-    #         #     coordinate = row[0].split(",")
-    #         #     x_coordinate = int(coordinate[0])
-    #         #     y_coordinate = int(coordinate[1])
-    #         #     capacity = int(row[1])
-    #         #     battery = Battery(x_coordinate=x_coordinate, y_coordinate=y_coordinate, capacity=capacity)
-    #         #     batteries.append(battery)
-
     #         ## dit is wel goed
     #         for row in reader:
     #             split = row.replace('"', "").split(",")
     #             x = split[0]
     #             y = split[1]
-    #             cap = split[3]
-    #             battery = Battery(x, y , cap, id)
+    #             cap = split[2]
+    #             battery = Battery(x, y, cap, id)
     #             batteries.append(battery)
     #             id += 1
-
-    #     ## toch maar geen dict
-    #     #         batteries[id] = Battery(x, y, output, id)
-    #     #         id += 1
 
     #     return batteries
 
@@ -61,3 +48,11 @@ class Battery():
         """
         return self.max_capacity
 
+    def add_house(self, house):
+        """
+        Adds a house to a battery.
+        """
+
+        self.houses.add(house)
+
+        return 

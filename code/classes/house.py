@@ -30,14 +30,14 @@ class House():
     #             split = row.replace('"', "").split(",")
     #             x = split[0]
     #             y = split[1]
-    #             cap = split[3]
+    #             cap = split[2]
     #             house = House(x, y, cap, id)
     #             id += 1
     #             houses.append(house)
 
     #     return houses
 
-    def is_linked(self):
+    def is_connected(self):
         """
         Check if there exists a cable between the house and a battery.
         """
