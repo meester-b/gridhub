@@ -33,7 +33,8 @@ class Cable():
                 self.path.append(f"{self.x_end - x_step}, {self.y_start}")
 
             self.path.pop()
-
+            # dit maakt de lijst op de goede volgorde, gebaseerd op hoe de punten ten op zichte van elkaar liggen
+            # dit is nog niet af
             if self.y_start < self.y_end:
                 self.path.append(f"x, x")
                 print(3)
@@ -47,6 +48,8 @@ class Cable():
         return self
 
 if __name__ == "__main__":
-    cable = Cable(10,10,5,0,1)
+    cable = Cable(0,10,5,15,1)
     cable.add_path()
     print(cable.path)
+    print(cable.path.split(","))
+    # print(cable.path[0:5])

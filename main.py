@@ -11,7 +11,7 @@ if __name__ == "__main__":
     batteries = test_grid.load_batteries("data/district_1/district-1_batteries.csv")
     # print(batteries)
 
-    # test_grid.add_houses(houses)
+    test_grid.add_houses(houses)
     test_grid.add_batteries(batteries)
 
     # test = test_grid.grid[1]

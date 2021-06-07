@@ -5,11 +5,14 @@ from .house import *
 DIMENSION = 51
 
 class Grid():
+    # infile_house, infile_batteries bij init
     def __init__(self):
         ## heb hier een s achter gezet en constante gebruikt
         self.rows = DIMENSION
         self.cols = DIMENSION
         self.grid = []
+        self.houses = self.load_houses()
+        self.batteries = self.load_batteries()
 
         # uncommenten als relative import werkt
         # self.houses = self.load_houses(source_file)
@@ -98,16 +101,16 @@ class Grid():
 
     ### ik denk dat dit niet nodig is. Dit moet in main en kan "over elkaar heen liggen"
     ### dus verschillende lijsten met elkaar vergelijken ipv ze er echt op plaatsen.
+
     ## functie die battery objects in de grid plaatst en coordinaten vervangt
     # '''
     def add_batteries(self, batteries):
         for battery in batteries:
             x_coordinate = int(battery.x_coordinate)
             y_coordinate = int(battery.y_coordinate)
-            print(x_coordinate, y_coordinate)
             self.grid[y_coordinate][x_coordinate] = 1
 
-    # # functie die house objects in de grid plaatst en coordinaten vervangt
+    ## functie die house objects in de grid plaatst en coordinaten vervangt
     # '''
     def add_houses(self, houses):
         for house in houses:
@@ -115,9 +118,17 @@ class Grid():
             y_coordinate = int(house.y_coordinate)
             self.grid[y_coordinate][x_coordinate] = 2
 
-    # def add_cables(self, cables):
-    #     for cable in cables:
+    ## functie die paths toevoegt op alle coordinaten waar de kabel langskomt en die coordinaten vervangt
+    # '''
+    def add_cables(self, path):
+        for cable in path:
+            x_coordinate = int(cable.x_coordinate)
+            y_coordinate = int(cable.y_coordinate)
+            self.grid[y_coordinate][x_coordinate] = 3
 
+
+    def print_grid():
+        pass
 
     # '''
     ### tot en met hier
