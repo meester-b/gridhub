@@ -33,6 +33,7 @@ def unconstrained_baseline(tries):
             current_distance += segment_distance
 
         current_distances.append(current_distance)
+        
     
     shortest_dist = current_distances[0]
     sum_dist = 0
@@ -46,9 +47,10 @@ def unconstrained_baseline(tries):
     avg_dist = sum_dist / len(current_distances)
 
     print(f"The shortest distance is {shortest_dist}")
-    print(f"The average distance is {avg_dist}")
+    print(f"The average distance is {avg_dist}\n")
 
-    plt.hist(current_distances, 50)
+    # plt.hist(current_distances, 50)
+    
 
 
 def constrained_baseline(tries):
@@ -59,6 +61,7 @@ def constrained_baseline(tries):
         deepcopy_grid = copy.deepcopy(test_grid)
         current_distance = 0
         sum_output = 0
+        is_valid = True
 
         while deepcopy_grid.houses:
             random.shuffle(deepcopy_grid.houses)
@@ -80,8 +83,9 @@ def constrained_baseline(tries):
                     teller += 1
 
             if teller == len(deepcopy_grid.batteries):
-                if len(deepcopy_grid.houses) != 0:
-                    failed_attempts += 1
+                # if len(deepcopy_grid.houses) != 0:
+                is_valid = False
+                failed_attempts += 1
                 break
 
             while float(connecting_house.output) > random_bat.capacity_left:
@@ -100,12 +104,12 @@ def constrained_baseline(tries):
 
             # print(f"\n")
             # print(len(deepcopy_grid.houses))
-
-        if len(deepcopy_grid.houses) == 0:
+        print(x)
+        if is_valid:
             current_distances.append(current_distance)
 
-        print(len(deepcopy_grid.houses))
-        print(f"This tries' distance is {current_distance}\n")
+        # print(len(deepcopy_grid.houses))
+        # print(f"This tries' distance is {current_distance}\n")
 
 
 
@@ -127,5 +131,6 @@ def constrained_baseline(tries):
     print(f"\nThe shortest distance is {shortest_dist}")
     print(f"The average distance is {avg_dist}\n")
     print(f"The amount of failed attempts is {failed_attempts}")
-    print(current_distances)
-    print(len(current_distances))
+    print(f"The amount of passed attempts is {len(current_distances)}\n")
+    # print(f"The list of valid outcomes of the length of the cables is {current_distances}")
+  
