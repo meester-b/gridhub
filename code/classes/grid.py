@@ -5,48 +5,25 @@ from .house import *
 DIMENSION = 51
 
 class Grid():
-    # infile_house, infile_batteries bij init
-    def __init__(self):
-        ## heb hier een s achter gezet en constante gebruikt
+    def __init__(self, infile_house, infile_battery):
         self.rows = DIMENSION
         self.cols = DIMENSION
         self.grid = []
-        self.houses = self.load_houses()
-        self.batteries = self.load_batteries()
+        self.houses = self.load_houses(infile_house)
+        self.batteries = self.load_batteries(infile_battery)
 
-        # uncommenten als relative import werkt
-        # self.houses = self.load_houses(source_file)
-        # self.batteries = self.load_batteries(source_file)
-
-        # loopen door je rijen
-        # maak voor elke rij een lijst aan met daarin de y-coordinaten (dus de kolommen)
-        # maak een grid aan als lijst van al je rijen
-
-        ## niet zo mooi
-        # row = []
-        # for i in range(self.cols + 1):
-        #     row.append(0)
-        #     self.grid.append(row)
-        #     row.clear
-
-        # row = []
-        ## liever 1 minder ver en dimensie zoals het echt is (51x51)
-        # for i in range(self.cols):
-        #     ## of i in de toekomst
-        #     ## dit is mooier denk ik, kan je list gebruiken voor y en getal voor x
-        #     row.append(0)
-
+        # list of lists maken voor coordinaten, overal nullen
         for i in range(self.rows):
             new_row = []
 
             for i in range(self.cols):
-                ## of i in de toekomst
-                ## dit is mooier denk ik, kan je list gebruiken voor y en getal voor x
                 new_row.append(0)
 
             self.grid.append(new_row)
 
-    # uncomment als relative import werkt 
+        self.add_houses(self.houses)
+        self.add_batteries(self.batteries)
+
     def load_houses(self, source_file):     
         """
         Creates batteries from csv
@@ -61,9 +38,6 @@ class Grid():
             next(reader)
 
             for row in reader:
-                # print(row)
-                # split = row.replace('"', "")
-                # split = split.split(",")
                 x = row[0]
                 y = row[1]
                 cap = row[2]
@@ -95,12 +69,6 @@ class Grid():
                 id += 1
 
         return batteries
-    # tot hier
-
-
-
-    ### ik denk dat dit niet nodig is. Dit moet in main en kan "over elkaar heen liggen"
-    ### dus verschillende lijsten met elkaar vergelijken ipv ze er echt op plaatsen.
 
     ## functie die battery objects in de grid plaatst en coordinaten vervangt
     # '''
@@ -127,24 +95,6 @@ class Grid():
             y_coordinate = int(location[1])
             self.grid[y_coordinate][x_coordinate] = 3
 
-
-    def print_grid():
-        pass
-
-    # '''
-    ### tot en met hier
-
-
-
-
-
-
-
-# maak hiervan een 2D-array (dus lijsten in een lijst, default waarde is None/0), eventueel later met hash table
-# for i in range(self.row + 1):
-#     i = []
-#     for col in range(self.col + 1):        # line break toevoegen zodat het een grid wordt
-#         i.append(col)
-#         coordinate = [row, col, None, None]
-#         self.grid.append(coordinate)
-# print(self.grid)
+    def print_grid(self):
+        for list in self.grid:
+            print(f"{list}\n")
