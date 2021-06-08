@@ -9,6 +9,6 @@ if __name__ == "__main__":
     
     # call algorithm 
     # baseline.unconstrained_baseline(1000)
-    baseline.constrained_baseline(1)
+    baseline.constrained_baseline(10)
 
     
