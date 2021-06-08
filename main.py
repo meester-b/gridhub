@@ -9,4 +9,5 @@ if __name__ == "__main__":
 
     test_grid = grid.Grid(f"data/district_{dist}/district-{dist}_houses.csv", f"data/district_{dist}/district-{dist}_batteries.csv")
     
+    # call algorithm 
     baseline.baseline()
