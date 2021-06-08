@@ -73,6 +73,9 @@ class Grid():
     ## functie die battery objects in de grid plaatst en coordinaten vervangt
     # '''
     def add_batteries(self, batteries):
+        """
+
+        """
         for battery in batteries:
             x_coordinate = int(battery.x_coordinate)
             y_coordinate = int(battery.y_coordinate)
@@ -81,6 +84,9 @@ class Grid():
     ## functie die house objects in de grid plaatst en coordinaten vervangt
     # '''
     def add_houses(self, houses):
+        """
+
+        """
         for house in houses:
             x_coordinate = int(house.x_coordinate)
             y_coordinate = int(house.y_coordinate)
@@ -89,6 +95,9 @@ class Grid():
     ## functie die paths toevoegt op alle coordinaten waar de kabel langskomt en die coordinaten vervangt
     # '''
     def add_cables(self, path):
+        """
+
+        """
         for cable in path:
             location = cable.split(",")
             x_coordinate = int(location[0])
@@ -96,5 +105,8 @@ class Grid():
             self.grid[y_coordinate][x_coordinate] = 3
 
     def print_grid(self):
+        """
+        
+        """
         for list in self.grid:
             print(f"{list}\n")
