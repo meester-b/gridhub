@@ -11,7 +11,7 @@ class Battery():
         self.capacity = capacity
         self.cost = 5000
         self.houses = []
-        self.capacity_left = False
+        self.capacity_left = 1507
         self.max_capacity = False
 
         ## misschien handig? moet leeg zijn
