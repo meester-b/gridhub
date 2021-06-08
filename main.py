@@ -1,6 +1,6 @@
 import random
 import copy
-from code.algorithms import baseline
+from code.algorithms import *
 from code.classes import battery, house, cable, grid
 # from code.visualisations import visualise as vis       
         
