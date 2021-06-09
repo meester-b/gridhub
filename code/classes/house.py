@@ -7,8 +7,8 @@ class House():
 
     def __init__(self, x_coordinate, y_coordinate, output, uid):
         self.id = uid
-        self.x_coordinate = x_coordinate
-        self.y_coordinate = y_coordinate
+        self.x_coordinate = int(x_coordinate)
+        self.y_coordinate = int(y_coordinate)
         self.output = output
         self.connected = False
         self.cables = []
@@ -19,3 +19,5 @@ class House():
         """
         return self.connected
 
+    def house_coords(self):
+        return [self.x_coordinate, self.y_coordinate]

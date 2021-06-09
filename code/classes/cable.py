@@ -1,14 +1,24 @@
+from csv import unix_dialect
+
+
 class Cable():
     """
     Cable links two objects. It is always drawn from a House.
     """
-
-    def __init__(self, x_start, y_start, x_end, y_end, uid):
+    def __init__(self, first_item, second_item, uid):
         self.uid = uid
-        self.x_start = int(x_start)
-        self.x_end = int(x_end)
-        self.y_start = int(y_start)
-        self.y_end = int(y_end)
+        self.x_start = first_item.x_coordinate
+        self.y_start = first_item.y_coordinate
+        self.x_end = second_item.x_coordinate
+        self.y_end = second_item.y_coordinate
+
+
+    # def __init__(self, x_start, y_start, x_end, y_end, uid):
+    #     self.uid = uid
+    #     self.x_start = int(x_start)
+    #     self.x_end = int(x_end)
+    #     self.y_start = int(y_start)
+    #     self.y_end = int(y_end)
         self.path = self.add_path()
         self.length = self.calc_length()
 

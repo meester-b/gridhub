@@ -1,3 +1,4 @@
+import random
 from .battery import *
 from .cable import *
 from .house import *
@@ -110,3 +111,18 @@ class Grid():
         """
         for list in self.grid:
             print(f"{list}\n")
+
+
+    def pick_random_house(self, list):
+        """
+
+        """
+        random.shuffle(list)
+        return list.pop()
+
+    def pick_random_bat(self, list):
+        """
+
+        """
+        random.shuffle(list)
+        return list[0]

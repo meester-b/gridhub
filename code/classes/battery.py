@@ -6,8 +6,8 @@ class Battery():
     '''
     def __init__(self, x_coordinate, y_coordinate, capacity, uid):
         self.id = uid
-        self.x_coordinate = x_coordinate
-        self.y_coordinate = y_coordinate
+        self.x_coordinate = int(x_coordinate)
+        self.y_coordinate = int(y_coordinate)
         self.capacity = capacity
         self.cost = 5000
         self.houses = []
@@ -29,6 +29,10 @@ class Battery():
         Adds a house to a battery.
         """
 
-        self.houses.add(house)
+        self.houses.append(house)
 
         return 
+
+
+    def bat_coords(self):
+        return [self.x_coordinate, self.y_coordinate]
