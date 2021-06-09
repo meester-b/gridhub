@@ -1,6 +1,6 @@
 import random
 import copy
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 from code.classes import battery, house, cable, grid
 
