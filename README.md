@@ -3,7 +3,7 @@
 Smart Grid is a case where 150 houses and 5 batteries are distributed on a 50x50 grid. Each house contains solars panels that have a distinctive output and each battery has a max capacity to hold 1507 output. Houses are connected to a battery with a cable. This cable has a certain cost of 9 per grid-segment. Each battery also has a cost of 5000, which remains constant for now.
 
 ##### OPTIMIZATION GOAL
-Our goal is to match each house to a battery, but doing this in the most efficient way to minimize the total cost by implementing different algorithmes.
+Our goal is to match each house to a battery doing this in the most efficient way to minimize the total cost by implementing different algorithmes.
 
 ##### TOTAL COST
 TC = LEN(grid-segment) * 9 + 5 * BAT price
