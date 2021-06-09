@@ -9,9 +9,9 @@ if __name__ == "__main__":
     
     ## call algorithms
     # baseline
-    # baseline.unconstrained_baseline(100000)
+    baseline.unconstrained_baseline(10)
     # baseline.constrained_baseline(100000)  
 
     # greedy
-    greedy.unconstrained_greedy()
-    greedy.constrained_greedy(1000)
+    # greedy.unconstrained_greedy()
+    # greedy.constrained_greedy(400000)

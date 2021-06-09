@@ -5,51 +5,55 @@ class Cable():
 
     def __init__(self, x_start, y_start, x_end, y_end, uid):
         self.uid = uid
-        self.x_start = x_start
-        self.x_end = x_end
-        self.y_start = y_start
-        self.y_end = y_end
-        # self.length = length
-        self.path = []
+        self.x_start = int(x_start)
+        self.x_end = int(x_end)
+        self.y_start = int(y_start)
+        self.y_end = int(y_end)
+        self.path = self.add_path()
+        self.length = self.calc_length()
 
     # check functies (valid, met een huis verbonden, niet twee batterijen verbonden)
     def add_path(self):
-        if self.x_start < self.x_end:
-            for x_step in range(self.x_start, self.x_end + 1):
-                self.path.append(f"{x_step}, {self.y_start}")
+        path = []
 
-            self.path.pop()
+        if self.x_start < self.x_end:
+            for x_step in range(self.x_start, self.x_end):
+                path.append([x_step, self.y_start])
 
             if self.y_start < self.y_end:
                 for y_step in range(self.y_start, self.y_end + 1):
-                    self.path.append(f"{self.x_end}, {y_step}")
-                print(1)
+                    path.append([self.x_end, y_step])
             else:
                 for y_step in range(self.y_end, self.y_start + 1):
-                    self.path.append(f"{self.x_end}, {self.y_start - y_step}")
-                print(2)
+                    path.append([self.x_end, self.y_start - y_step + self.y_end])
         else:
-            for x_step in range(self.x_end, self.x_start + 1):
-                self.path.append(f"{self.x_end - x_step}, {self.y_start}")
+            for x_step in range(self.x_end, self.x_start):
+                path.append([self.x_start - x_step, self.y_start])
 
-            self.path.pop()
-            # dit maakt de lijst op de goede volgorde, gebaseerd op hoe de punten ten op zichte van elkaar liggen
-            # dit is nog niet af
             if self.y_start < self.y_end:
-                self.path.append(f"x, x")
-                print(3)
+                for y_step in range(self.y_start, self.y_end + 1):
+                    path.append([self.x_end, y_step])
             else:
-                self.path.append(f"x, x")
-                print(4)
-
+                for y_step in range(self.y_end, self.y_start + 1):
+                    path.append([self.x_end, self.y_start - y_step + self.y_end])
+            
+        return path
 
     def calc_length(self):
-        self.length = abs(self.x_start - self.x_end) + abs(self.y_start - self.y_end)
-        return self
+        length = len(self.path)
+        return length
 
 if __name__ == "__main__":
-    cable = Cable(0,10,5,15,1)
+    cable = Cable(5,15,0,10,1)
     cable.add_path()
+    print(cable.calc_length())
     print(cable.path)
-    print(cable.path.split(","))
-    # print(cable.path[0:5])
+    # list = []
+
+    # for coords in cable.path:
+    #     app = coords.split(",")
+    #     list.append(app)
+
+    # # print(cable.path.split(","))
+    # # print(cable.path[0:5])
+    # print(list)

@@ -12,27 +12,47 @@ def unconstrained_baseline(tries):
     current_distances = []
 
     for x in range(tries):
-        available_houses = copy.deepcopy(test_grid.houses)
+        deepcopy = copy.deepcopy(test_grid)
+        # deepcopy.houses = copy.deepcopy(test_grid.houses)
         current_distance = 0
+        id = 0
+        connected_houses = []
 
-        while available_houses:
-            random.shuffle(available_houses)
-            connecting_house = available_houses.pop()
+        while deepcopy.houses:
+            random.shuffle(deepcopy.houses)
+            connecting_house = deepcopy.houses.pop()
             
             x_house = int(connecting_house.x_coordinate)
             y_house = int(connecting_house.y_coordinate)
         
-            random_bat = random.choice(test_grid.batteries)
+            random_bat = random.choice(deepcopy.batteries)
 
             x_bat = int(random_bat.x_coordinate)
             y_bat = int(random_bat.y_coordinate)
 
             random_bat.houses.append(connecting_house)
+            new_cable = cable.Cable(x_house, y_house, x_bat, y_bat, id)
+            connecting_house.cables.append(new_cable)
 
-            segment_distance = abs(x_bat - x_house) + abs(y_bat - y_house)
-            current_distance += segment_distance
+            # segment_distance = abs(x_bat - x_house) + abs(y_bat - y_house)
+            # current_distance += segment_distance
+            current_distance += new_cable.length
+
+            connected_houses.append(connecting_house)
 
         current_distances.append(current_distance)
+        id += 1
+
+        total_cables = 0
+
+        for house in connected_houses:
+            total_cables += 1
+            # print(len(house.cables))
+            
+            # for cables in house.cables:
+                # print(cables.path)
+        
+        # print(total_cables)
         
     
     shortest_dist = current_distances[0]
@@ -48,10 +68,6 @@ def unconstrained_baseline(tries):
 
     print(f"The shortest distance is {shortest_dist}")
     print(f"The average distance is {avg_dist}\n")
-
-    # plt.hist(current_distances, 50)
-    
-
 
 def constrained_baseline(tries):
     current_distances = []
@@ -83,7 +99,6 @@ def constrained_baseline(tries):
                     teller += 1
 
             if teller == len(deepcopy_grid.batteries):
-                # if len(deepcopy_grid.houses) != 0:
                 is_valid = False
                 failed_attempts += 1
                 break
