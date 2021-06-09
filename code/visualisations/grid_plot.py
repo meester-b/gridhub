@@ -7,7 +7,12 @@ RUN BY:
 """
 import numpy as np
 from matplotlib import pyplot as plt
-# from code.classes import battery, house, cable, grid
+
+# In de juiste mappen gaan
+import sys, os
+sys.path.insert(0, os.path.abspath('../..'))
+from code.classes import battery, house, cable, grid
+
 
 def visualise():
     """

@@ -34,9 +34,9 @@ def unconstrained_greedy():
 
     # print(min_sum_cables)
 
-    for battery in test_grid.batteries:
+    # for battery in test_grid.batteries:
         # print(battery.houses)
-        print(len(battery.houses))
+        # print(len(battery.houses))
 
 def constrained_greedy(tries):
     """
