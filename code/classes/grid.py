@@ -34,7 +34,6 @@ class Grid():
         houses = []
 
         with open(source_file, 'r') as in_file:           
-            # later route name variabel maken
             reader = csv.reader(in_file)
             next(reader)
 
@@ -56,7 +55,6 @@ class Grid():
         batteries = []
 
         with open(source_file, 'r') as in_file:           
-            # later route name variabel maken
             reader = csv.reader(in_file)
             next(reader)
 
@@ -72,7 +70,6 @@ class Grid():
         return batteries
 
     ## functie die battery objects in de grid plaatst en coordinaten vervangt
-    # '''
     def add_batteries(self, batteries):
         """
 
@@ -83,7 +80,6 @@ class Grid():
             self.grid[y_coordinate][x_coordinate] = 1
 
     ## functie die house objects in de grid plaatst en coordinaten vervangt
-    # '''
     def add_houses(self, houses):
         """
 
@@ -94,7 +90,6 @@ class Grid():
             self.grid[y_coordinate][x_coordinate] = 2
 
     ## functie die paths toevoegt op alle coordinaten waar de kabel langskomt en die coordinaten vervangt
-    # '''
     def add_cables(self, path):
         """
 
