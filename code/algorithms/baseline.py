@@ -14,7 +14,7 @@ class Baseline():
 
         for x in range(tries):
             deepcopy = copy.deepcopy(test_grid)
-            # deepcopy.houses = copy.deepcopy(test_grid.houses)
+
             current_distance = 0
             id = 0
             connected_houses = []
@@ -39,8 +39,9 @@ class Baseline():
 
                 random_bat.add_house(connecting_house)
                 new_cable = cable.Cable(connecting_house, random_bat, id)
+                random_bat.cables.append(new_cable)
                 # new_cable = cable.Cable(x_house, y_house, x_bat, y_bat, id)
-                connecting_house.cables.append(new_cable)
+                # connecting_house.cables.append(new_cable)
 
                 # segment_distance = abs(x_bat - x_house) + abs(y_bat - y_house)
                 # current_distance += segment_distance
