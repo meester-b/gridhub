@@ -6,13 +6,11 @@ class Battery():
     '''
     def __init__(self, x_coordinate, y_coordinate, capacity, uid):
         self.id = uid
-        self.coordinates = self.bat_coords()
         self.x_coordinate = int(x_coordinate)
         self.y_coordinate = int(y_coordinate)
         self.capacity = capacity
         self.cost = 5000
         self.houses = []
-        self.cables = []
         self.capacity_left = 1507
         self.max_capacity = False
 

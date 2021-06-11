@@ -20,6 +20,7 @@ class Baseline():
 
         # loop for a given number of tries to create a new grid
         for x in range(tries):
+
             grid = copy.deepcopy(test_grid)
 
             current_distance = 0

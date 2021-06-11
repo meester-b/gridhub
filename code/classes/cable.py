@@ -29,16 +29,23 @@ class Cable():
         if self.x_start < self.x_end:
             for x_step in range(self.x_start, self.x_end):
                 path.append([x_step, self.y_start])
+
+            if self.y_start < self.y_end:
+                for y_step in range(self.y_start, self.y_end + 1):
+                    path.append([self.x_end, y_step])
+            else:
+                for y_step in range(self.y_end, self.y_start + 1):
+                    path.append([self.x_end, self.y_start - y_step + self.y_end])
         else:
             for x_step in range(self.x_end, self.x_start):
                 path.append([self.x_start - x_step, self.y_start])
 
-        if self.y_start < self.y_end:
-            for y_step in range(self.y_start, self.y_end + 1):
-                path.append([self.x_end, y_step])
-        else:
-            for y_step in range(self.y_end, self.y_start + 1):
-                path.append([self.x_end, self.y_start - y_step + self.y_end])
+            if self.y_start < self.y_end:
+                for y_step in range(self.y_start, self.y_end + 1):
+                    path.append([self.x_end, y_step])
+            else:
+                for y_step in range(self.y_end, self.y_start + 1):
+                    path.append([self.x_end, self.y_start - y_step + self.y_end])
             
         return path
 
@@ -47,7 +54,7 @@ class Cable():
         return length
 
 if __name__ == "__main__":
-    #cable = Cable()
+    cable = Cable(5,15,0,10,1)
     cable.add_path()
     print(cable.calc_length())
     print(cable.path)
