@@ -8,7 +8,6 @@ class Battery():
         Initializes the Battery class
         """
         self.id = uid
-        self.coordinates = self.bat_coords()
         self.x_coordinate = int(x_coordinate)
         self.y_coordinate = int(y_coordinate)
         self.capacity = capacity
@@ -30,10 +29,15 @@ class Battery():
         Adds a house to a battery.
         """
         self.houses.append(house)
-        # return 
 
     def bat_coords(self):
         """
         Adds a house to a battery.
         """
         return [self.x_coordinate, self.y_coordinate]
+
+    def add_cable(self, first_item, second_item, uid):
+        """
+        Adds a cable to a battery.
+        """
+        

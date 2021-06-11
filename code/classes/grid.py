@@ -9,7 +9,7 @@ DIMENSION = 51
 
 class Grid():
     """
-    This Grid Class initializes the Battery object with attributes: a grid with N DIMESIONS rows and columns.
+    This Grid Class initializes the Battery object with attributes: a grid with N DIMENSIONS rows and columns.
     Also the list of house and battery objects live here
     """
     def __init__(self, infile_house, infile_battery):
@@ -98,15 +98,15 @@ class Grid():
             y_coordinate = int(house.y_coordinate)
             self.grid[y_coordinate][x_coordinate] = 2
 
-    def add_cables(self, path):
-        """
-        Functie die paths toevoegt op alle coordinaten waar de kabel langskomt en die coordinaten vervangt  ######
-        """
-        for cable in path:
-            location = cable.split(",")
-            x_coordinate = int(location[0])
-            y_coordinate = int(location[1])
-            self.grid[y_coordinate][x_coordinate] = 3
+    # def add_cables(self, path):
+    #     """
+    #     Functie die paths toevoegt op alle coordinaten waar de kabel langskomt en die coordinaten vervangt  ######
+    #     """
+    #     for cable in path:
+    #         location = cable.split(",")
+    #         x_coordinate = int(location[0])
+    #         y_coordinate = int(location[1])
+    #         self.grid[y_coordinate][x_coordinate] = 3
 
     def print_grid(self):
         """
@@ -114,7 +114,6 @@ class Grid():
         """
         for list in self.grid:
             print(f"{list}\n")
-
 
     def pick_random_house(self, list):
         """

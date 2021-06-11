@@ -1,6 +1,6 @@
 from code.algorithms import baseline, greedy
 from code.classes import grid
-from code.visualisations.grid_plot import visualise
+#from code.visualisations.grid_plot import visualise
         
 if __name__ == "__main__":
     district = "1"
@@ -10,19 +10,14 @@ if __name__ == "__main__":
     #print(test_grid)
     # print(visualise())
 
-
-
-
-
-
     ## call algorithms
     # baseline
 
     # baseline.Baseline.unconstrained_baseline(10)
-    # baseline.constrained_baseline(10)  
+    # baseline.Baseline.constrained_baseline(10)  
 
     # greedy
-    # greedy.unconstrained_greedy()
-    greedy.Greedy.constrained_greedy(100)
+    # greedy.Greedy.unconstrained_greedy()
+    greedy.Greedy.constrained_greedy(1)
 
-    # test_grid.run()
+    test_grid.print_grid()

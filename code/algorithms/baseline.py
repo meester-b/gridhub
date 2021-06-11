@@ -1,11 +1,13 @@
-import random
 import copy
+import random
 
 from code.classes import battery, house, cable, grid
 
 district = "1"
 
 test_grid = grid.Grid(f"data/district_{district}/district-{district}_houses.csv", f"data/district_{district}/district-{district}_batteries.csv")
+
+# TODO: run function
 
 class Baseline():
     '''
@@ -16,7 +18,7 @@ class Baseline():
         '''
         Randomly connects houses to batteries.
         '''
-        grid_distances = []
+        grid_distances = []     
 
         # loop for a given number of tries to create a new grid
         for x in range(tries):
@@ -53,11 +55,6 @@ class Baseline():
             grid_distances.append(current_distance)
             id += 1
 
-            total_cables = 0                    # doen we hier iets mee?
-
-            for house in connected_houses:
-                total_cables += 1
-
         # pick the shortest total distance of all tries 
         shortest_dist = grid_distances[0]
         sum_dist = 0
@@ -89,14 +86,16 @@ def constrained_baseline(tries):
         is_valid = True
 
         while grid.houses:
-            random.shuffle(grid.houses)
-            connecting_house = grid.houses.pop()
+            #random.shuffle(grid.houses)
+            #connecting_house = grid.houses.pop()
+            connecting_house = grid.pick_random_house(grid.houses)
             sum_output += float(connecting_house.output)
             
             x_house = int(connecting_house.x_coordinate)
             y_house = int(connecting_house.y_coordinate)
         
-            random_bat = random.choice(rid.batteries)
+            #random_bat = random.choice(grid.batteries)
+            random_bat = grid.pick_random_bat(grid.batteries)
 
             x_bat = int(random_bat.x_coordinate)
             y_bat = int(random_bat.y_coordinate)
