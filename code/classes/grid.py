@@ -2,37 +2,48 @@ import random
 from .battery import *
 from .cable import *
 from .house import *
+import csv
 
+# Dimensions in our grid
 DIMENSION = 51
 
 class Grid():
+    """
+    This Grid Class initializes the Battery object with attributes: a grid with N DIMESIONS rows and columns.
+    Also the list of house and battery objects live here
+    """
     def __init__(self, infile_house, infile_battery):
+        """
+        Initialize the Grid class.
+        """
         self.rows = DIMENSION
         self.cols = DIMENSION
         self.grid = []
         self.houses = self.load_houses(infile_house)
         self.batteries = self.load_batteries(infile_battery)
 
-        # list of lists maken voor coordinaten, overal nullen
+        # create a empty list of lists filled with 0's
         for i in range(self.rows):
             new_row = []
 
+            # append 0's into every list
             for i in range(self.cols):
                 new_row.append(0)
 
             self.grid.append(new_row)
 
+        # place into grid
         self.add_houses(self.houses)
         self.add_batteries(self.batteries)
 
     def load_houses(self, source_file):     
         """
-        Creates batteries from csv
+        Creates House objects and load them into a list of houses from csv.
         """
-
         id = 0
         houses = []
 
+        # Open the data from 
         with open(source_file, 'r') as in_file:           
             reader = csv.reader(in_file)
             next(reader)
@@ -49,7 +60,7 @@ class Grid():
 
     def load_batteries(self, source_file):     
         """
-        Creates batteries from csv
+        Creates battery objects and load them into a list of batteries from csv.
         """
         id = 0
         batteries = []
@@ -69,30 +80,27 @@ class Grid():
 
         return batteries
 
-    ## functie die battery objects in de grid plaatst en coordinaten vervangt
     def add_batteries(self, batteries):
         """
-
+        Functie die battery objects in de grid plaatst en coordinaten vervangt.
         """
         for battery in batteries:
             x_coordinate = int(battery.x_coordinate)
             y_coordinate = int(battery.y_coordinate)
             self.grid[y_coordinate][x_coordinate] = 1
 
-    ## functie die house objects in de grid plaatst en coordinaten vervangt
     def add_houses(self, houses):
         """
-
+        Functie die house objects in de grid plaatst en coordinaten vervangt.
         """
         for house in houses:
             x_coordinate = int(house.x_coordinate)
             y_coordinate = int(house.y_coordinate)
             self.grid[y_coordinate][x_coordinate] = 2
 
-    ## functie die paths toevoegt op alle coordinaten waar de kabel langskomt en die coordinaten vervangt
     def add_cables(self, path):
         """
-
+        Functie die paths toevoegt op alle coordinaten waar de kabel langskomt en die coordinaten vervangt  ######
         """
         for cable in path:
             location = cable.split(",")
@@ -102,7 +110,7 @@ class Grid():
 
     def print_grid(self):
         """
-        
+        Function that prints the grid.
         """
         for list in self.grid:
             print(f"{list}\n")
@@ -110,14 +118,14 @@ class Grid():
 
     def pick_random_house(self, list):
         """
-
+        Pick a random House from list.
         """
         random.shuffle(list)
         return list.pop()
 
     def pick_random_bat(self, list):
         """
-
+        Pick a random Battery from list.
         """
         random.shuffle(list)
         return list[0]
