@@ -16,7 +16,7 @@ class Baseline():
         '''
         Randomly connects houses to batteries.
         '''
-        current_distances = []
+        grid_distances = []
 
         # loop for a given number of tries to create a new grid
         for x in range(tries):
@@ -50,7 +50,7 @@ class Baseline():
                 connected_houses.append(connecting_house)
 
             # add total grid cable length to list of all grid cable lengths
-            current_distances.append(current_distance)
+            grid_distances.append(current_distance)
             id += 1
 
             total_cables = 0                    # doen we hier iets mee?
@@ -59,22 +59,26 @@ class Baseline():
                 total_cables += 1
 
         # pick the shortest total distance of all tries 
-        shortest_dist = current_distances[0]
+        shortest_dist = grid_distances[0]
         sum_dist = 0
 
-        for dist in current_distances:
+        for dist in grid_distances:
             sum_dist += dist
             if dist < shortest_dist:
                 shortest_dist = dist
 
-        avg_dist = sum_dist / len(current_distances)
+        # calculate average distance
+        avg_dist = sum_dist / len(grid_distances)
 
         # print output
         print(f"The shortest distance is {shortest_dist}")
         print(f"The average distance is {avg_dist}\n")
 
 def constrained_baseline(tries):
-    current_distances = []
+    '''
+    Randomly connects houses to batteries, with battery constraints.
+    '''
+    grid_distances = []
     failed_attempts = 0
 
     for x in range(tries):
@@ -120,21 +124,21 @@ def constrained_baseline(tries):
             current_distance += segment_distance
 
         if is_valid:
-            current_distances.append(current_distance)
+            grid_distances.append(current_distance)
     
-    shortest_dist = current_distances[0]
+    shortest_dist = grid_distances[0]
     sum_dist = 0
 
-    for dist in current_distances:
+    for dist in grid_distances:
         sum_dist += dist
 
         if dist < shortest_dist:
             shortest_dist = dist
 
-    avg_dist = sum_dist / len(current_distances)
+    avg_dist = sum_dist / len(grid_distances)
 
     # print output
     print(f"\nThe shortest distance is {shortest_dist}")
     print(f"The average distance is {avg_dist}\n")
     print(f"The amount of failed attempts is {failed_attempts}")
-    print(f"The amount of passed attempts is {len(current_distances)}\n")
+    print(f"The amount of valid attempts is {len(grid_distances)}\n")
