@@ -1,8 +1,13 @@
+import csv
 import random
+import statistics
+
 from .battery import *
 from .cable import *
 from .house import *
-import csv
+
+
+from code.classes import cable
 
 # Dimensions in our grid
 DIMENSION = 51
@@ -12,15 +17,18 @@ class Grid():
     This Grid Class initializes the Battery object with attributes: a grid with N DIMENSIONS rows and columns.
     Also the list of house and battery objects live here
     """
+
     def __init__(self, infile_house, infile_battery):
         """
         Initialize the Grid class.
         """
+
         self.rows = DIMENSION
         self.cols = DIMENSION
         self.grid = []
         self.houses = self.load_houses(infile_house)
         self.batteries = self.load_batteries(infile_battery)
+        self.grid_distances = [] 
 
         # create a empty list of lists filled with 0's
         for i in range(self.rows):
@@ -40,6 +48,7 @@ class Grid():
         """
         Creates House objects and load them into a list of houses from csv.
         """
+
         id = 0
         houses = []
 
@@ -62,6 +71,7 @@ class Grid():
         """
         Creates battery objects and load them into a list of batteries from csv.
         """
+
         id = 0
         batteries = []
 
@@ -84,6 +94,7 @@ class Grid():
         """
         Functie die battery objects in de grid plaatst en coordinaten vervangt.
         """
+
         for battery in batteries:
             x_coordinate = int(battery.x_coordinate)
             y_coordinate = int(battery.y_coordinate)
@@ -93,6 +104,7 @@ class Grid():
         """
         Functie die house objects in de grid plaatst en coordinaten vervangt.
         """
+
         for house in houses:
             x_coordinate = int(house.x_coordinate)
             y_coordinate = int(house.y_coordinate)
@@ -112,6 +124,7 @@ class Grid():
         """
         Function that prints the grid.
         """
+
         for list in self.grid:
             print(f"{list}\n")
 
@@ -119,6 +132,7 @@ class Grid():
         """
         Pick a random House from list.
         """
+
         random.shuffle(list)
         return list.pop()
 
@@ -126,5 +140,31 @@ class Grid():
         """
         Pick a random Battery from list.
         """
+
         random.shuffle(list)
         return list[0]
+    
+    def lay_cable(self, bat, house):
+        """
+        Creates a cable between a battery and a house.
+        """
+
+        new_cable = cable.Cable(bat, house)
+        bat.cables.append(new_cable)
+
+        return new_cable
+
+    def calc_dist(self):
+        sum = 0
+
+        for bat in self.batteries:
+            for cable in bat.cables:
+                sum += cable.length
+
+        self.grid_distances.append(sum)
+
+    def print_stats(self):
+        min_dist = min(self.grid_distances)
+        mean_dist = statistics.mean(self.grid_distances)
+
+        print(f"The best try has a distance of {min_dist} \nThe average distance is {mean_dist}")

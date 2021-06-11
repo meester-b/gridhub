@@ -17,17 +17,14 @@ class Baseline():
     def unconstrained_baseline(tries):
         '''
         Randomly connects houses to batteries.
-        '''
-        grid_distances = []     
+        '''    
 
         # loop for a given number of tries to create a new grid
         for x in range(tries):
 
             grid = copy.deepcopy(test_grid)
 
-            current_distance = 0
-            id = 0
-            connected_houses = []
+            # connected_houses = []
 
             # loop for each grid through all available houses
             while grid.houses:
@@ -42,34 +39,41 @@ class Baseline():
                 random_bat.add_house(connecting_house)
 
                 # create a cable between house and battery
-                new_cable = cable.Cable(connecting_house, random_bat, id)
-                random_bat.cables.append(new_cable)
+                # new_cable = cable.Cable(connecting_house, random_bat, id)
+                # random_bat.cables.append(new_cable)
+
+                grid.lay_cable(random_bat, connecting_house)
+                
                 
                 # add cable length to total grid cable length
-                current_distance += new_cable.length
+                # current_distance += new_cable.length
+                
 
                 # make sure the current house can't be connected again
-                connected_houses.append(connecting_house)
+                # connected_houses.append(connecting_house)
 
             # add total grid cable length to list of all grid cable lengths
-            grid_distances.append(current_distance)
-            id += 1
+            # grid_distances.append(current_distance)
+            grid.calc_dist()
 
         # pick the shortest total distance of all tries 
-        shortest_dist = grid_distances[0]
-        sum_dist = 0
+        # shortest_dist = grid_distances[0]
+        # sum_dist = 0
 
-        for dist in grid_distances:
-            sum_dist += dist
-            if dist < shortest_dist:
-                shortest_dist = dist
+        grid.print_stats()
+
+
+        # for dist in grid_distances:
+        #     sum_dist += dist
+        #     if dist < shortest_dist:
+        #         shortest_dist = dist
 
         # calculate average distance
-        avg_dist = sum_dist / len(grid_distances)
+        # avg_dist = sum_dist / len(grid_distances)
 
         # print output
-        print(f"The shortest distance is {shortest_dist}")
-        print(f"The average distance is {avg_dist}\n")
+        # print(f"The shortest distance is {shortest_dist}")
+        # print(f"The average distance is {avg_dist}\n")
 
 def constrained_baseline(tries):
     '''
