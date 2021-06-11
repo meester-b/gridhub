@@ -14,6 +14,7 @@ class Baseline():
     Baseline algorithm randomly connects houses to batteries. Unconstrained version does not take max capacity into account,
     constrained version does.
     '''
+    
     def unconstrained_baseline(tries):
         '''
         Randomly connects houses to batteries.
