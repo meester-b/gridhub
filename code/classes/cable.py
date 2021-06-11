@@ -6,7 +6,9 @@ class Cable():
         """
         Initialize the Cable class with a starting point, ending point, a path list and a length.
         """
-        # self.id = uid
+        
+        self.id = uid
+
         self.x_start = first_item.x_coordinate
         self.y_start = first_item.y_coordinate
         self.x_end = second_item.x_coordinate

@@ -14,12 +14,14 @@ class Baseline():
     Baseline algorithm randomly connects houses to batteries. Unconstrained version does not take max capacity into account,
     constrained version does.
     '''
-    
-    def unconstrained_baseline(tries):
+    def __init__(self):
+        self.min_score = None
+        self.score_list = []
+
+    def unconstrained_baseline(self, tries):
         '''
         Randomly connects houses to batteries.
         '''    
-
         # loop for a given number of tries to create a new grid
         for x in range(tries):
 
@@ -55,7 +57,7 @@ class Baseline():
 
             # add total grid cable length to list of all grid cable lengths
             # grid_distances.append(current_distance)
-            grid.calc_dist()
+            self.calc_dist()
 
         # pick the shortest total distance of all tries 
         # shortest_dist = grid_distances[0]
