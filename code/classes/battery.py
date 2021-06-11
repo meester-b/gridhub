@@ -7,6 +7,7 @@ class Battery():
         """
         Initializes the Battery class
         """
+        
         self.id = uid
         self.x_coordinate = int(x_coordinate)
         self.y_coordinate = int(y_coordinate)
