@@ -1,6 +1,5 @@
 import random
 import copy
-# import matplotlib.pyplot as plt
 
 from code.classes import battery, house, cable, grid
 
@@ -9,72 +8,68 @@ district = "1"
 test_grid = grid.Grid(f"data/district_{district}/district-{district}_houses.csv", f"data/district_{district}/district-{district}_batteries.csv")
 
 class Baseline():
+    '''
+    Baseline algorithm randomly connects houses to batteries. Unconstrained version does not take max capacity into account,
+    constrained version does.
+    '''
     def unconstrained_baseline(tries):
+        '''
+        Randomly connects houses to batteries.
+        '''
         current_distances = []
 
+        # loop for a given number of tries to create a new grid
         for x in range(tries):
-            deepcopy = copy.deepcopy(test_grid)
+
+            grid = copy.deepcopy(test_grid)
 
             current_distance = 0
             id = 0
             connected_houses = []
 
-            while deepcopy.houses:
-                # print(type(deepcopy.houses))
-                # print(len(deepcopy.houses))
-                connecting_house = deepcopy.pick_random_house(deepcopy.houses)
-                # print(type(connecting_house))
-                # connecting_house.house_coords()
-                # random.shuffle(deepcopy.houses)
-                # connecting_house = deepcopy.houses.pop()
-            
-                # x_house = int(connecting_house.x_coordinate)
-                # y_house = int(connecting_house.y_coordinate)
-            
-                random_bat = deepcopy.pick_random_bat(deepcopy.batteries)
-                # random_bat.bat_coords()
+            # loop for each grid through all available houses
+            while grid.houses:
+                
+                # select a random house from the list of houses
+                connecting_house = grid.pick_random_house(grid.houses)
+                
+                # select a random battery from the list of batteries
+                random_bat = grid.pick_random_bat(grid.batteries)
 
-                # x_bat = int(random_bat.x_coordinate)
-                # y_bat = int(random_bat.y_coordinate)
-
+                # connect the house to the battery
                 random_bat.add_house(connecting_house)
+
+                # create a cable between house and battery
                 new_cable = cable.Cable(connecting_house, random_bat, id)
                 random_bat.cables.append(new_cable)
-                # new_cable = cable.Cable(x_house, y_house, x_bat, y_bat, id)
-                # connecting_house.cables.append(new_cable)
-
-                # segment_distance = abs(x_bat - x_house) + abs(y_bat - y_house)
-                # current_distance += segment_distance
+                
+                # add cable length to total grid cable length
                 current_distance += new_cable.length
 
+                # make sure the current house can't be connected again
                 connected_houses.append(connecting_house)
 
+            # add total grid cable length to list of all grid cable lengths
             current_distances.append(current_distance)
             id += 1
 
-            total_cables = 0
+            total_cables = 0                    # doen we hier iets mee?
 
             for house in connected_houses:
                 total_cables += 1
-                # print(len(house.cables))
-                
-                # for cables in house.cables:
-                    # print(cables.path)
-            
-            # print(total_cables)
-            
-        
+
+        # pick the shortest total distance of all tries 
         shortest_dist = current_distances[0]
         sum_dist = 0
 
         for dist in current_distances:
             sum_dist += dist
-
             if dist < shortest_dist:
                 shortest_dist = dist
 
         avg_dist = sum_dist / len(current_distances)
 
+        # print output
         print(f"The shortest distance is {shortest_dist}")
         print(f"The average distance is {avg_dist}\n")
 
@@ -83,37 +78,38 @@ def constrained_baseline(tries):
     failed_attempts = 0
 
     for x in range(tries):
-        deepcopy_grid = copy.deepcopy(test_grid)
+        grid = copy.deepcopy(test_grid)
+
         current_distance = 0
         sum_output = 0
         is_valid = True
 
-        while deepcopy_grid.houses:
-            random.shuffle(deepcopy_grid.houses)
-            connecting_house = deepcopy_grid.houses.pop()
+        while grid.houses:
+            random.shuffle(grid.houses)
+            connecting_house = grid.houses.pop()
             sum_output += float(connecting_house.output)
             
             x_house = int(connecting_house.x_coordinate)
             y_house = int(connecting_house.y_coordinate)
         
-            random_bat = random.choice(deepcopy_grid.batteries)
+            random_bat = random.choice(rid.batteries)
 
             x_bat = int(random_bat.x_coordinate)
             y_bat = int(random_bat.y_coordinate)
 
             teller = 0
 
-            for bat in deepcopy_grid.batteries:
+            for bat in grid.batteries:
                 if float(connecting_house.output) > float(bat.capacity_left):
                     teller += 1
 
-            if teller == len(deepcopy_grid.batteries):
+            if teller == len(grid.batteries):
                 is_valid = False
                 failed_attempts += 1
                 break
 
             while float(connecting_house.output) > random_bat.capacity_left:
-                random_bat = random.choice(deepcopy_grid.batteries)
+                random_bat = random.choice(grid.batteries)
 
             random_bat.capacity_left -= float(connecting_house.output)
 
@@ -123,20 +119,8 @@ def constrained_baseline(tries):
             segment_distance = abs(x_bat - x_house) + abs(y_bat - y_house)
             current_distance += segment_distance
 
-            # for bat in deepcopy_grid.batteries:
-            #     print(bat.capacity_left)
-
-            # print(f"\n")
-            # print(len(deepcopy_grid.houses))
-        # print(x)
         if is_valid:
             current_distances.append(current_distance)
-
-        # print(len(deepcopy_grid.houses))
-        # print(f"This tries' distance is {current_distance}\n")
-
-
-
     
     shortest_dist = current_distances[0]
     sum_dist = 0
@@ -149,13 +133,8 @@ def constrained_baseline(tries):
 
     avg_dist = sum_dist / len(current_distances)
 
-        
-    # print(f"Sum of output is {sum_output}\n")
-    
+    # print output
     print(f"\nThe shortest distance is {shortest_dist}")
     print(f"The average distance is {avg_dist}\n")
     print(f"The amount of failed attempts is {failed_attempts}")
     print(f"The amount of passed attempts is {len(current_distances)}\n")
-    # print(f"The list of valid outcomes of the length of the cables is {current_distances}")
-
-    # def run(self, algorithm, district):

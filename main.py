@@ -8,7 +8,7 @@ if __name__ == "__main__":
     test_grid = grid.Grid(f"data/district_{district}/district-{district}_houses.csv", f"data/district_{district}/district-{district}_batteries.csv")
      
     #print(test_grid)
-    print(visualise())
+    # print(visualise())
 
 
 
@@ -23,6 +23,6 @@ if __name__ == "__main__":
 
     # greedy
     # greedy.unconstrained_greedy()
-    #greedy.Greedy.constrained_greedy(100)
+    greedy.Greedy.constrained_greedy(100)
 
     # test_grid.run()
