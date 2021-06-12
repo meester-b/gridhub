@@ -1,6 +1,5 @@
 import csv
 import random
-import statistics
 
 from .battery import *
 from .cable import *
@@ -153,18 +152,3 @@ class Grid():
         bat.cables.append(new_cable)
 
         return new_cable
-
-    def calc_dist(self):
-        sum = 0
-
-        for bat in self.batteries:
-            for cable in bat.cables:
-                sum += cable.length
-
-        self.grid_distances.append(sum)
-
-    def print_stats(self):
-        min_dist = min(self.grid_distances)
-        mean_dist = statistics.mean(self.grid_distances)
-
-        print(f"The best try has a distance of {min_dist} \nThe average distance is {mean_dist}")

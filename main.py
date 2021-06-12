@@ -12,8 +12,8 @@ if __name__ == "__main__":
 
     ## call algorithms
     # baseline
-
-    baseline.Baseline.unconstrained_baseline(100)
+    run = baseline.Baseline()
+    run.unconstrained_baseline(1000)
     # baseline.Baseline.constrained_baseline(10)  
 
     # greedy

@@ -1,7 +1,8 @@
 import copy
 import random
+import statistics
 
-from code.classes import battery, house, cable, grid
+from code.classes import grid
 
 district = "1"
 
@@ -15,7 +16,6 @@ class Baseline():
     constrained version does.
     '''
     def __init__(self):
-        self.min_score = None
         self.score_list = []
 
     def unconstrained_baseline(self, tries):
@@ -57,13 +57,13 @@ class Baseline():
 
             # add total grid cable length to list of all grid cable lengths
             # grid_distances.append(current_distance)
-            self.calc_dist()
+            self.calc_dist(grid)
 
         # pick the shortest total distance of all tries 
         # shortest_dist = grid_distances[0]
         # sum_dist = 0
 
-        grid.print_stats()
+        self.print_stats()
 
 
         # for dist in grid_distances:
@@ -78,73 +78,90 @@ class Baseline():
         # print(f"The shortest distance is {shortest_dist}")
         # print(f"The average distance is {avg_dist}\n")
 
-def constrained_baseline(tries):
-    '''
-    Randomly connects houses to batteries, with battery constraints.
-    '''
-    grid_distances = []
-    failed_attempts = 0
+    def constrained_baseline(tries):
+        '''
+        Randomly connects houses to batteries, with battery constraints.
+        '''
+        grid_distances = []
+        failed_attempts = 0
 
-    for x in range(tries):
-        grid = copy.deepcopy(test_grid)
+        for x in range(tries):
+            grid = copy.deepcopy(test_grid)
 
-        current_distance = 0
-        sum_output = 0
-        is_valid = True
+            current_distance = 0
+            sum_output = 0
+            is_valid = True
 
-        while grid.houses:
-            #random.shuffle(grid.houses)
-            #connecting_house = grid.houses.pop()
-            connecting_house = grid.pick_random_house(grid.houses)
-            sum_output += float(connecting_house.output)
+            while grid.houses:
+                #random.shuffle(grid.houses)
+                #connecting_house = grid.houses.pop()
+                connecting_house = grid.pick_random_house(grid.houses)
+                sum_output += float(connecting_house.output)
+                
+                x_house = int(connecting_house.x_coordinate)
+                y_house = int(connecting_house.y_coordinate)
             
-            x_house = int(connecting_house.x_coordinate)
-            y_house = int(connecting_house.y_coordinate)
+                #random_bat = random.choice(grid.batteries)
+                random_bat = grid.pick_random_bat(grid.batteries)
+
+                x_bat = int(random_bat.x_coordinate)
+                y_bat = int(random_bat.y_coordinate)
+
+                teller = 0
+
+                for bat in grid.batteries:
+                    if float(connecting_house.output) > float(bat.capacity_left):
+                        teller += 1
+
+                if teller == len(grid.batteries):
+                    is_valid = False
+                    failed_attempts += 1
+                    break
+
+                while float(connecting_house.output) > random_bat.capacity_left:
+                    random_bat = random.choice(grid.batteries)
+
+                random_bat.capacity_left -= float(connecting_house.output)
+
+                random_bat.houses.append(connecting_house)
+
+
+                segment_distance = abs(x_bat - x_house) + abs(y_bat - y_house)
+                current_distance += segment_distance
+
+            if is_valid:
+                grid_distances.append(current_distance)
         
-            #random_bat = random.choice(grid.batteries)
-            random_bat = grid.pick_random_bat(grid.batteries)
+        shortest_dist = grid_distances[0]
+        sum_dist = 0
 
-            x_bat = int(random_bat.x_coordinate)
-            y_bat = int(random_bat.y_coordinate)
+        for dist in grid_distances:
+            sum_dist += dist
 
-            teller = 0
+            if dist < shortest_dist:
+                shortest_dist = dist
 
-            for bat in grid.batteries:
-                if float(connecting_house.output) > float(bat.capacity_left):
-                    teller += 1
+        avg_dist = sum_dist / len(grid_distances)
 
-            if teller == len(grid.batteries):
-                is_valid = False
-                failed_attempts += 1
-                break
-
-            while float(connecting_house.output) > random_bat.capacity_left:
-                random_bat = random.choice(grid.batteries)
-
-            random_bat.capacity_left -= float(connecting_house.output)
-
-            random_bat.houses.append(connecting_house)
+        # print output
+        print(f"\nThe shortest distance is {shortest_dist}")
+        print(f"The average distance is {avg_dist}\n")
+        print(f"The amount of failed attempts is {failed_attempts}")
+        print(f"The amount of valid attempts is {len(grid_distances)}\n")
 
 
-            segment_distance = abs(x_bat - x_house) + abs(y_bat - y_house)
-            current_distance += segment_distance
 
-        if is_valid:
-            grid_distances.append(current_distance)
-    
-    shortest_dist = grid_distances[0]
-    sum_dist = 0
+    def calc_dist(self, grid):
+        sum = 0
 
-    for dist in grid_distances:
-        sum_dist += dist
+        for bat in grid.batteries:
+            for cable in bat.cables:
+                sum += cable.length
 
-        if dist < shortest_dist:
-            shortest_dist = dist
+        self.score_list.append(sum)
 
-    avg_dist = sum_dist / len(grid_distances)
+    def print_stats(self):
+        min_dist = min(self.score_list)
+        mean_dist = statistics.mean(self.score_list)
 
-    # print output
-    print(f"\nThe shortest distance is {shortest_dist}")
-    print(f"The average distance is {avg_dist}\n")
-    print(f"The amount of failed attempts is {failed_attempts}")
-    print(f"The amount of valid attempts is {len(grid_distances)}\n")
+        print(f"The best try has a distance of {min_dist} \nThe average distance is {mean_dist}")
