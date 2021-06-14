@@ -19,10 +19,10 @@ if __name__ == "__main__":
 
     # --------------------------------- Greedy --------------------------------------------
     # greedy.Greedy.unconstrained_greedy()
-    valid_graph = greedy.Greedy.constrained_greedy(10)
-    # print(valid_graph)
+    valid_grid = greedy.Greedy.constrained_greedy(10)
+    # print(valid_grid)
 
     # --------------------------------- Hill Climber --------------------------------------
-    # climber = hillclimber.HillClimber(valid_graph)
+    # climber = hillclimber.HillClimber(valid_grid)
     # climber.run(50)
 
