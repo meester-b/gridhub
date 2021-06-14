@@ -127,8 +127,8 @@ class Greedy():
         print(f"The average distance is {avg_dist}\n")
         print(f"The amount of valid attempts is {valid_attempts}")
         print(f"The amount of failed attempts is {failed_attempts}")
-        print(f"Best try is {best_try}")
+        # print(f"Best try is {best_try}")
 
-        # return best_try
+        return best_try
 
 

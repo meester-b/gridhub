@@ -13,7 +13,7 @@ DIMENSION = 51
 
 class Grid():
     """
-    This Grid Class initializes the Battery object with attributes: a grid with N DIMENSIONS rows and columns.
+    This Grid Class initializes the Battery object with attributes: a grid with DIMENSIONS rows and columns.
     Also the list of house and battery objects live here
     """
 
@@ -152,3 +152,13 @@ class Grid():
         bat.cables.append(new_cable)
 
         return new_cable
+
+    def delete_cable(self, bat, house):
+        """
+        Changes a cable between a battery and a house.
+        """
+        
+        pass
+
+        # access current cable between house and battery
+        # delete current cable
