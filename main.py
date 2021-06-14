@@ -12,12 +12,12 @@ if __name__ == "__main__":
 
     ## call algorithms
     # baseline
-    run = baseline.Baseline()
-    run.unconstrained_baseline(1000)
+    # run = baseline.Baseline()
+    # run.unconstrained_baseline(1000)
     # baseline.Baseline.constrained_baseline(10)  
 
     # greedy
     # greedy.Greedy.unconstrained_greedy()
-    # greedy.Greedy.constrained_greedy(1)
+    greedy.Greedy.constrained_greedy(10)
 
     # test_grid.print_grid()

@@ -59,20 +59,21 @@ class Greedy():
         # try x amount of times
         for x in range(tries):
             # make deepcopy
-            deepcopy = copy.deepcopy(test_grid)
-            random.shuffle(deepcopy.houses)
+            grid = copy.deepcopy(test_grid)
+            best_try = grid
+            random.shuffle(grid.houses)
             # each try starts as valid
             is_valid = True
             # keep track of current try
             sum_cables = 0
 
             # empty list per house
-            for house in deepcopy.houses:
+            for house in grid.houses:
                 distances = []
                 available_bat = []
 
                 # check which battery is still usable for this house
-                for bat in deepcopy.batteries:
+                for bat in grid.batteries:
                     if float(house.output) < float(bat.capacity_left):
                         available_bat.append(bat)
 
@@ -113,6 +114,7 @@ class Greedy():
                 # update if new try is better
                 if sum_cables < min_sum_cables:
                     min_sum_cables = sum_cables
+                    best_try = grid
 
                 # sum total dist
                 total_dist += sum_cables
@@ -125,5 +127,8 @@ class Greedy():
         print(f"The average distance is {avg_dist}\n")
         print(f"The amount of valid attempts is {valid_attempts}")
         print(f"The amount of failed attempts is {failed_attempts}")
+        print(f"Best try is {best_try}")
+
+        # return best_try
 
 
