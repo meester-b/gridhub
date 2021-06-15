@@ -1,6 +1,6 @@
 from code.algorithms import baseline, greedy, hillclimber
 from code.classes import grid
-#from code.visualisations.grid_plot import visualise
+from code.visualisations.visualise import visualise as vis
         
 if __name__ == "__main__":
     district = "1"
@@ -19,9 +19,11 @@ if __name__ == "__main__":
 
     # --------------------------------- Greedy --------------------------------------------
     valid_grid = greedy.Greedy.constrained_greedy(10)
-    valid_grid.print_grid()
+    #valid_grid.print_grid()
 
     # --------------------------------- Hill Climber --------------------------------------
     # climber = hillclimber.HillClimber(valid_grid)
     # climber.run(50)
 
+    # --------------------------------- Visualise --------------------------------------
+    vis.visualise(valid_grid, test_grid)
