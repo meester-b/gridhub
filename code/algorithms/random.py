@@ -18,8 +18,10 @@ class Random():
     def __init__(self, tries):
         self.score_list = []
         self.best_try = None
+        self.best_con_try = None
         # tries meegeven met object 
         self.tries = tries
+        self.false_tries = 0
 
     def unconstrained_random(self):
         '''
@@ -54,76 +56,47 @@ class Random():
 
         self.print_stats()
 
-    def constrained_baseline(tries):
+    def constrained_random(self):
         '''
         Randomly connects houses to batteries, with battery constraints.
         '''
         grid_distances = []
-        failed_attempts = 0
 
-        for x in range(tries):
+        for x in range(self.tries):
             grid = copy.deepcopy(test_grid)
 
-            current_distance = 0
-            sum_output = 0
-            is_valid = True
-
             while grid.houses:
-                #random.shuffle(grid.houses)
-                #connecting_house = grid.houses.pop()
                 connecting_house = grid.pick_random_house(grid.houses)
-                sum_output += float(connecting_house.output)
-                
-                x_house = int(connecting_house.x_coordinate)
-                y_house = int(connecting_house.y_coordinate)
-            
-                #random_bat = random.choice(grid.batteries)
                 random_bat = grid.pick_random_bat(grid.batteries)
 
-                x_bat = int(random_bat.x_coordinate)
-                y_bat = int(random_bat.y_coordinate)
-
-                teller = 0
-
-                for bat in grid.batteries:
-                    if float(connecting_house.output) > float(bat.capacity_left):
-                        teller += 1
-
-                if teller == len(grid.batteries):
-                    is_valid = False
-                    failed_attempts += 1
+                if not grid.bat_available(connecting_house):
+                    self.false_try(grid)
                     break
+                else:
+                    grid.connect_house_con(connecting_house, random_bat)
+                    
+            if grid.is_valid:
+                grid.calc_dist()
+                self.keep_track(grid, self.best_try)
 
-                while float(connecting_house.output) > random_bat.capacity_left:
-                    random_bat = random.choice(grid.batteries)
-
-                random_bat.capacity_left -= float(connecting_house.output)
-
-                random_bat.houses.append(connecting_house)
-
-
-                segment_distance = abs(x_bat - x_house) + abs(y_bat - y_house)
-                current_distance += segment_distance
-
-            if is_valid:
-                grid_distances.append(current_distance)
+        self.print_stats()
         
-        shortest_dist = grid_distances[0]
-        sum_dist = 0
+        # shortest_dist = grid_distances[0]
+        # sum_dist = 0
 
-        for dist in grid_distances:
-            sum_dist += dist
+        # for dist in grid_distances:
+        #     sum_dist += dist
 
-            if dist < shortest_dist:
-                shortest_dist = dist
+        #     if dist < shortest_dist:
+        #         shortest_dist = dist
 
-        avg_dist = sum_dist / len(grid_distances)
+        # avg_dist = sum_dist / len(grid_distances)
 
         # print output
-        print(f"\nThe shortest distance is {shortest_dist}")
-        print(f"The average distance is {avg_dist}\n")
-        print(f"The amount of failed attempts is {failed_attempts}")
-        print(f"The amount of valid attempts is {len(grid_distances)}\n")
+        # print(f"\nThe shortest distance is {shortest_dist}")
+        # print(f"The average distance is {avg_dist}\n")
+        # print(f"The amount of failed attempts is {failed_attempts}")
+        # print(f"The amount of valid attempts is {len(grid_distances)}\n")
 
 
     ## naar grid
@@ -142,6 +115,8 @@ class Random():
         elif new_grid.score < best_grid.score:
             self.best_try = new_grid
 
+    
+
 
 
     def print_stats(self):
@@ -151,3 +126,7 @@ class Random():
         print(f"The best try has a distance of {min_dist}")
 
     # \nThe average distance is {mean_dist}
+
+    def false_try(self, grid):
+        grid.is_valid = False
+        self.false_tries += 1
