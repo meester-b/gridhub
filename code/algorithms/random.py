@@ -15,8 +15,8 @@ class Random():
     '''
     def __init__(self, tries):
         self.score_list = []
-        self.best_try_unc = None
-        self.best_try_con = None
+        self.best_random_unc = None
+        self.best_random_con = None
         self.tries = tries
         self.false_tries = 0
 
@@ -34,62 +34,61 @@ class Random():
             while grid.houses:
                 
                 # select a random house from the list of houses
-                connecting_house = grid.pick_random_house(grid.houses)
+                house = grid.pick_random_house(grid.houses)
                 
                 # select a random battery from the list of batteries
                 random_bat = grid.pick_random_bat(grid.batteries)
 
                 # connect the house to the battery
-                random_bat.add_house(connecting_house)
+                random_bat.add_house(house)
 
                 # create a cable between house and battery
-                grid.lay_cable(random_bat, connecting_house)
+                grid.lay_cable(random_bat, house)
 
             # calc the total length of cable for this try
             grid.calc_dist()
 
             # remember if its the best try
-            self.keep_track_unc(grid, self.best_try_unc)
+            self.keep_track_random_unc(grid, self.best_random_unc)
 
     def constrained_random(self):
         '''
         Randomly connects houses to batteries, with battery constraints.
         '''
-        grid_distances = []
 
         for x in range(self.tries):
             grid = copy.deepcopy(test_grid)
 
             while grid.houses:
-                connecting_house = grid.pick_random_house(grid.houses)
+                house = grid.pick_random_house(grid.houses)
                 random_bat = grid.pick_random_bat(grid.batteries)
 
-                if not grid.bat_available(connecting_house):
+                if not grid.bat_available(house):
                     self.false_try(grid)
                     break
                 else:
-                    grid.connect_house_con(connecting_house, random_bat)
+                    grid.connect_house_con(house, random_bat)
                     
             if grid.is_valid:
                 grid.calc_dist()
-                self.keep_track_con(grid, self.best_try_con)
+                self.keep_track_random_con(grid, self.best_random_con)
 
-    def keep_track_unc(self, new_grid, best_grid):
-        if self.best_try_unc is None:
-            self.best_try_unc = new_grid
+    def keep_track_random_unc(self, new_grid, best_grid):
+        if self.best_random_unc is None:
+            self.best_random_unc = new_grid
         elif new_grid.score < best_grid.score:
-            self.best_try_unc = new_grid
+            self.best_random_unc = new_grid
 
-    def keep_track_con(self, new_grid, best_grid):
-        if self.best_try_con is None:
-            self.best_try_con = new_grid
+    def keep_track_random_con(self, new_grid, best_grid):
+        if self.best_random_con is None:
+            self.best_random_con = new_grid
         elif new_grid.score < best_grid.score:
-            self.best_try_con = new_grid
+            self.best_random_con = new_grid
 
-    def print_stats(self):
-        min_dist_unc = self.best_try_unc.score
-        min_dist_con = self.best_try_con.score
-        print(f"The best try has a distance of {min_dist_unc} \n The best valid try has a dist of {min_dist_con}")
+    def print_stats_random(self):
+        min_dist_unc = self.best_random_unc.score
+        min_dist_con = self.best_random_con.score
+        print(f"The best try has a distance of {min_dist_unc} \nThe best valid try has a dist of {min_dist_con}")
 
     def false_try(self, grid):
         grid.is_valid = False
@@ -98,5 +97,5 @@ class Random():
     def run(self):
         self.unconstrained_random()
         self.constrained_random()  
-        self.print_stats()
-        return self.best_try_con
+        self.print_stats_random()
+        return self.best_random_con

@@ -13,40 +13,29 @@ test_grid = grid.Grid(f"data/district_{district}/district-{district}_houses.csv"
 class Greedy(Random):
     def __init__(self, tries):
         super().__init__(tries)
-    def unconstrained_greedy():
+        self.best_greedy_unc = None
+        self.best_greedy_con = None
+
+    def unconstrained_greedy(self):
         """
         Sums up all minimum distances from houses to batteries, without constraints.
         """
 
+        grid = copy.deepcopy(test_grid)
+
         # to summarize cable lenghts
-        min_sum_cables = 0
+        # min_sum_cables = 0
 
         # for every house an empty list
-        for house in test_grid.houses:
-            distances = []
+        for house in grid.houses:
+            bat = grid.pick_closest_battery(house)
+            bat.add_house(house)
+            grid.lay_cable(bat, house)
 
-            # calc all distances to batteries from houses and append to list
-            for battery in test_grid.batteries:
-                dist = abs(int(house.y_coordinate) - int(battery.y_coordinate)) + abs(int(house.x_coordinate) - int(battery.x_coordinate))
-                distances.append(dist)
+        grid.calc_dist()
+        self.keep_track_greedy_unc(grid)
 
-            # look for the shortest distance in list
-            shortest_dist = distances[0]
-
-            # look for the shortest distance in list
-            for dist in distances:
-                if dist < shortest_dist:
-                    shortest_dist = dist
-
-            # look for the house that has this distance and append it to battery object
-            for bat in test_grid.batteries:
-                if shortest_dist == abs(int(house.y_coordinate) - int(bat.y_coordinate)) + abs(int(house.x_coordinate) - int(bat.x_coordinate)):
-                    bat.houses.append(house)
-            
-            # summarize cable lengths
-            min_sum_cables += shortest_dist
-
-    def constrained_greedy(tries):
+    def constrained_greedy(self):
         """
         Sums up all minimum distances from houses to batteries, without constraints.
         """
@@ -60,7 +49,7 @@ class Greedy(Random):
         total_dist = 0
 
         # try x amount of times
-        for x in range(tries):
+        for x in range(self.tries):
             # make deepcopy
             grid = copy.deepcopy(test_grid)
             best_try = grid
@@ -135,3 +124,28 @@ class Greedy(Random):
         return best_try
 
 
+
+    def keep_track_greedy_unc(self, grid):
+        if self.best_greedy_con is None:
+            self.best_greedy_unc = grid
+
+    def keep_track_greedy_con(self, new_grid, best_grid):
+        if self.best_greedy_con is None:
+            self.best_greedy_unc = new_grid
+        elif new_grid.score < best_grid.score:
+            self.best_greedy_con = new_grid
+
+    def print_stats_greedy(self):
+        min_dist_unc = self.best_greedy_unc.score
+        # min_dist_con = self.best_greedy_con.score
+        print(f"The best try has a distance of {min_dist_unc}")
+        # \nThe best valid try has a dist of {min_dist_con}")
+
+    def run(self):
+        self.unconstrained_greedy()
+        # self.constrained_greedy()
+        self.print_stats_greedy()
+        # return super().run()
+        
+
+    
