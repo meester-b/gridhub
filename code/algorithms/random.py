@@ -99,3 +99,4 @@ class Random():
         self.unconstrained_random()
         self.constrained_random()  
         self.print_stats()
+        return self.best_try_con
