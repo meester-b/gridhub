@@ -13,12 +13,12 @@ if __name__ == "__main__":
 
     ## call algorithms
     # --------------------------------- Random ------------------------------------------
-    random = random.Random(1000)
-    random_grid = random.run()
+    # random = random.Random(1000)
+    # random_grid = random.run()
     
 
     # --------------------------------- Greedy --------------------------------------------
-    # valid_grid = greedy.Greedy.constrained_greedy(10)
+    greedy.Greedy.constrained_greedy(100000)
     # valid_grid.print_grid()
 
     # --------------------------------- Hill Climber --------------------------------------
