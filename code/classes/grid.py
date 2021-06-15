@@ -126,7 +126,7 @@ class Grid():
 
         random.shuffle(list)
         return list.pop()
-
+    
     def pick_random_bat(self, list):
         """
         Pick a random Battery from list.
@@ -135,6 +135,17 @@ class Grid():
         random.shuffle(list)
         return list[0]
     
+    def pick_closest_battery(self, house):
+        distances = []
+        bats = []
+
+        for battery in self.batteries:
+            dist = abs(house.y_coordinate - battery.y_coordinate) + abs(house.x_coordinate - battery.x_coordinate)
+            distances.append(dist)
+            bats.append(battery)
+
+        return bats[distances.index(min(distances))]
+
     def lay_cable(self, bat, house):
         """
         Creates a cable between a battery and a house.
