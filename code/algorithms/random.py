@@ -8,8 +8,6 @@ district = "1"
 
 test_grid = grid.Grid(f"data/district_{district}/district-{district}_houses.csv", f"data/district_{district}/district-{district}_batteries.csv")
 
-# TODO: run function
-
 class Random():
     '''
     Baseline algorithm randomly connects houses to batteries. Unconstrained version does not take max capacity into account,
@@ -19,7 +17,6 @@ class Random():
         self.score_list = []
         self.best_try_unc = None
         self.best_try_con = None
-        # tries meegeven met object 
         self.tries = tries
         self.false_tries = 0
 
@@ -77,36 +74,6 @@ class Random():
                 grid.calc_dist()
                 self.keep_track_con(grid, self.best_try_con)
 
-
-        
-        # shortest_dist = grid_distances[0]
-        # sum_dist = 0
-
-        # for dist in grid_distances:
-        #     sum_dist += dist
-
-        #     if dist < shortest_dist:
-        #         shortest_dist = dist
-
-        # avg_dist = sum_dist / len(grid_distances)
-
-        # print output
-        # print(f"\nThe shortest distance is {shortest_dist}")
-        # print(f"The average distance is {avg_dist}\n")
-        # print(f"The amount of failed attempts is {failed_attempts}")
-        # print(f"The amount of valid attempts is {len(grid_distances)}\n")
-
-
-    ## naar grid
-    # def calc_dist(self, grid):
-    #     sum = 0
-
-    #     for bat in grid.batteries:
-    #         for cable in bat.cables:
-    #             sum += cable.length
-
-        # self.score_list.append(sum)
-
     def keep_track_unc(self, new_grid, best_grid):
         if self.best_try_unc is None:
             self.best_try_unc = new_grid
@@ -119,18 +86,10 @@ class Random():
         elif new_grid.score < best_grid.score:
             self.best_try_con = new_grid
 
-    
-
-
-
     def print_stats(self):
         min_dist_unc = self.best_try_unc.score
         min_dist_con = self.best_try_con.score
-        # mean_dist = statistics.mean(self.score_list)
-
         print(f"The best try has a distance of {min_dist_unc} \n The best valid try has a dist of {min_dist_con}")
-
-    # \nThe average distance is {mean_dist}
 
     def false_try(self, grid):
         grid.is_valid = False

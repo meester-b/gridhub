@@ -28,7 +28,6 @@ class Grid():
         self.houses = self.load_houses(infile_house)
         self.batteries = self.load_batteries(infile_battery)
         self.grid_distances = []
-        # grid kent zijn eigen score
         self.score = 0
         self.is_valid = True
 
@@ -111,16 +110,6 @@ class Grid():
             x_coordinate = int(house.x_coordinate)
             y_coordinate = int(house.y_coordinate)
             self.grid[y_coordinate][x_coordinate] = 2
-
-    # def add_cables(self, path):
-    #     """
-    #     Functie die paths toevoegt op alle coordinaten waar de kabel langskomt en die coordinaten vervangt  ######
-    #     """
-    #     for cable in path:
-    #         location = cable.split(",")
-    #         x_coordinate = int(location[0])
-    #         y_coordinate = int(location[1])
-    #         self.grid[y_coordinate][x_coordinate] = 3
 
     def print_grid(self):
         """
