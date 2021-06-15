@@ -17,8 +17,8 @@ class Random():
     '''
     def __init__(self, tries):
         self.score_list = []
-        self.best_try = None
-        self.best_con_try = None
+        self.best_try_unc = None
+        self.best_try_con = None
         # tries meegeven met object 
         self.tries = tries
         self.false_tries = 0
@@ -52,9 +52,7 @@ class Random():
             grid.calc_dist()
 
             # remember if its the best try
-            self.keep_track(grid, self.best_try)
-
-        self.print_stats()
+            self.keep_track_unc(grid, self.best_try_unc)
 
     def constrained_random(self):
         '''
@@ -77,9 +75,9 @@ class Random():
                     
             if grid.is_valid:
                 grid.calc_dist()
-                self.keep_track(grid, self.best_try)
+                self.keep_track_con(grid, self.best_try_con)
 
-        self.print_stats()
+
         
         # shortest_dist = grid_distances[0]
         # sum_dist = 0
@@ -109,24 +107,36 @@ class Random():
 
         # self.score_list.append(sum)
 
-    def keep_track(self, new_grid, best_grid):
-        if self.best_try is None:
-            self.best_try = new_grid
+    def keep_track_unc(self, new_grid, best_grid):
+        if self.best_try_unc is None:
+            self.best_try_unc = new_grid
         elif new_grid.score < best_grid.score:
-            self.best_try = new_grid
+            self.best_try_unc = new_grid
+
+    def keep_track_con(self, new_grid, best_grid):
+        if self.best_try_con is None:
+            self.best_try_con = new_grid
+        elif new_grid.score < best_grid.score:
+            self.best_try_con = new_grid
 
     
 
 
 
     def print_stats(self):
-        min_dist = self.best_try.score
+        min_dist_unc = self.best_try_unc.score
+        min_dist_con = self.best_try_con.score
         # mean_dist = statistics.mean(self.score_list)
 
-        print(f"The best try has a distance of {min_dist}")
+        print(f"The best try has a distance of {min_dist_unc} \n The best valid try has a dist of {min_dist_con}")
 
     # \nThe average distance is {mean_dist}
 
     def false_try(self, grid):
         grid.is_valid = False
         self.false_tries += 1
+
+    def run(self):
+        self.unconstrained_random()
+        self.constrained_random()  
+        self.print_stats()

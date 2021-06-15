@@ -13,9 +13,9 @@ if __name__ == "__main__":
 
     ## call algorithms
     # --------------------------------- Random ------------------------------------------
-    run = random.Random(1000)
-    run.unconstrained_random()
-    run.constrained_random()  
+    random = random.Random(1000)
+    random.run()
+    
 
     # --------------------------------- Greedy --------------------------------------------
     # valid_grid = greedy.Greedy.constrained_greedy(10)
