@@ -23,7 +23,7 @@ class Greedy(Random):
 
         grid = copy.deepcopy(test_grid)
 
-        # to summarize cable lenghts
+        # to summarize cable lenghtswel ge 
         # min_sum_cables = 0
 
         # for every house an empty list
@@ -32,6 +32,8 @@ class Greedy(Random):
             bat.add_house(house)
             grid.lay_cable(bat, house)
 
+        for bat in grid.batteries:
+            print(len(bat.cables))
         grid.calc_dist()
         self.keep_track_greedy_unc(grid)
 
@@ -41,18 +43,18 @@ class Greedy(Random):
         """
         
         # keep track of try valid ratio
-        failed_attempts = 0
-        valid_attempts = 0 
+        # failed_attempts = 0
+        # valid_attempts = 0 
 
         # keep track of vars acrros tries
-        min_sum_cables = 0
-        total_dist = 0
+        # min_sum_cables = 0
+        # total_dist = 0
 
         # try x amount of times
         for x in range(self.tries):
             # make deepcopy
             grid = copy.deepcopy(test_grid)
-            best_try = grid
+            # best_try = grid
             random.shuffle(grid.houses)
             # each try starts as valid
             is_valid = True
@@ -65,16 +67,15 @@ class Greedy(Random):
                 available_bat = []
 
                 # check which battery is still usable for this house
-                for bat in grid.batteries:
-                    if float(house.output) < float(bat.capacity_left):
-                        available_bat.append(bat)
-
-                # stop try if invalid and count 
-                if not available_bat:
-                    is_valid = False
-                    failed_attempts += 1
+                # for bat in grid.batteries:
+                #     if float(house.output) < float(bat.capacity_left):
+                #         available_bat.append(bat)
+                if not grid.bat_available(house):
+                    self.false_try(grid)
                     break
-                
+                else:
+                    grid.connect_house_greedy_con(house)
+
                 # calc all distances to batteries from houses and append to list
                 for battery in available_bat:
                     dist = abs(int(house.y_coordinate) - int(battery.y_coordinate)) + abs(int(house.x_coordinate) - int(battery.x_coordinate))
@@ -90,7 +91,7 @@ class Greedy(Random):
                 available_bat[closest_house_index].capacity_left -= float(house.output)
 
                 # keep track of length per try
-                sum_cables += closest_house
+                # sum_cables += closest_house
 
 
             # count valid tries

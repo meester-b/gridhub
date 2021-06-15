@@ -67,7 +67,7 @@ class Random():
                     self.false_try(grid)
                     break
                 else:
-                    grid.connect_house_con(house, random_bat)
+                    grid.connect_house_random_con(house, random_bat)
                     
             if grid.is_valid:
                 grid.calc_dist()

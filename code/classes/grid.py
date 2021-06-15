@@ -168,7 +168,7 @@ class Grid():
 
         return True
 
-    def connect_house_con(self, house, bat):
+    def connect_house_random_con(self, house, bat):
         while house.output > bat.capacity_left:
             bat = self.pick_random_bat(self.batteries)
 
@@ -194,3 +194,6 @@ class Grid():
 
         # access current cable between house and battery
         # delete current cable
+
+    # def connect_house_greedy_con(self, house, bat):
+        
