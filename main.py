@@ -18,17 +18,12 @@ if __name__ == "__main__":
     
 
     # --------------------------------- Greedy --------------------------------------------
-<<<<<<< HEAD
-    valid_grid = greedy.Greedy.constrained_greedy(10)
-    #valid_grid.print_grid()
-=======
     # valid_grid = greedy.Greedy.constrained_greedy(10)
     # valid_grid.print_grid()
->>>>>>> 36b6a0c540ba0e6578b87baee8822eaec89d2172
 
     # --------------------------------- Hill Climber --------------------------------------
     # climber = hillclimber.HillClimber(valid_grid)
     # climber.run(50)
 
     # --------------------------------- Visualise --------------------------------------
-    vis.visualise(valid_grid, test_grid)
+    # vis.visualise(valid_grid, test_grid)

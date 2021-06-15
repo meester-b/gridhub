@@ -10,7 +10,9 @@ test_grid = grid.Grid(f"data/district_{district}/district-{district}_houses.csv"
 
 # TODO: run function    
 
-class Greedy():
+class Greedy(Random):
+    def __init__(self, tries):
+        super().__init__(tries)
     def unconstrained_greedy():
         """
         Sums up all minimum distances from houses to batteries, without constraints.
