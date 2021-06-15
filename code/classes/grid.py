@@ -27,7 +27,9 @@ class Grid():
         self.grid = []
         self.houses = self.load_houses(infile_house)
         self.batteries = self.load_batteries(infile_battery)
-        self.grid_distances = [] 
+        self.grid_distances = []
+        # grid kent zijn eigen score
+        self.score = 0 
 
         # create a empty list of lists filled with 0's
         for i in range(self.rows):
@@ -152,6 +154,15 @@ class Grid():
         bat.cables.append(new_cable)
 
         return new_cable
+
+    def calc_dist(self):
+        sum = 0
+
+        for bat in self.batteries:
+            for cable in bat.cables:
+                sum += cable.length
+
+        self.score = sum
 
     def delete_cable(self, bat, house):
         """

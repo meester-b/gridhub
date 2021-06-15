@@ -1,4 +1,4 @@
-from code.algorithms import baseline, greedy, hillclimber
+from code.algorithms import random, greedy, hillclimber
 from code.classes import grid
 #from code.visualisations.grid_plot import visualise
         
@@ -12,14 +12,14 @@ if __name__ == "__main__":
     # test_grid.print_grid()
 
     ## call algorithms
-    # --------------------------------- Baseline ------------------------------------------
-    # run = baseline.Baseline()
-    # run.unconstrained_baseline(1000)
-    # baseline.Baseline.constrained_baseline(10)  
+    # --------------------------------- Random ------------------------------------------
+    run = random.Random(100)
+    run.unconstrained_random()
+    # baseline.Baseline.constrained_baseline()  
 
     # --------------------------------- Greedy --------------------------------------------
-    valid_grid = greedy.Greedy.constrained_greedy(10)
-    valid_grid.print_grid()
+    # valid_grid = greedy.Greedy.constrained_greedy(10)
+    # valid_grid.print_grid()
 
     # --------------------------------- Hill Climber --------------------------------------
     # climber = hillclimber.HillClimber(valid_grid)

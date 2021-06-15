@@ -2,8 +2,9 @@ import copy
 import random
 
 from code.classes import grid
+from .greedy import Greedy
 
-class HillClimber():
+class HillClimber(Greedy):
     """
     HillClimber class takes a valid grid as input and randomly changes one cable. Each improvement is saved and
     used as input for the next iteration.
@@ -13,6 +14,7 @@ class HillClimber():
         self.distance = sum(grid.grid_distances)     # appenden we ergens waarden aan deze lijst?
 
     # 1) kies een random huis uit grid.houses, pick_random_list kan misschien niet gebruikt worden want lijst moet volledig blijven?
+    ## ik denk een tweede lijst maken die we wel poppen en dan daarna met originele steps zetten
     def select_random_house(self, list):
         random.shuffle(list)
         return list[0]
@@ -22,7 +24,8 @@ class HillClimber():
         # pick random battery
         random_bat = new_grid.pick_random_bat()
         # pick random house from list of houses connected with that battery
-        random_house = select_random_house(random_bat.houses)
+        ## self. ervoor gezet
+        random_house = self.select_random_house(random_bat.houses)
 
         # delete cable between battery and house
         new_grid.delete_cable(random_bat, random_house)     # delete kabel uit lijst en uit totale cable distance, functie werkt nog niet!
