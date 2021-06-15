@@ -18,9 +18,8 @@ if __name__ == "__main__":
     # baseline.Baseline.constrained_baseline(10)  
 
     # --------------------------------- Greedy --------------------------------------------
-    # greedy.Greedy.unconstrained_greedy()
     valid_grid = greedy.Greedy.constrained_greedy(10)
-    # print(valid_grid)
+    valid_grid.print_grid()
 
     # --------------------------------- Hill Climber --------------------------------------
     # climber = hillclimber.HillClimber(valid_grid)

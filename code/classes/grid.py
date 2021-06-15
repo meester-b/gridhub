@@ -155,10 +155,10 @@ class Grid():
 
     def delete_cable(self, bat, house):
         """
-        Changes a cable between a battery and a house.
+        Deletes a cable between a battery and a house.
         """
         
-        pass
+        cable.Cable(bat, house).delete()        # werkt dit zo?
 
         # access current cable between house and battery
         # delete current cable
