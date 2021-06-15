@@ -27,7 +27,10 @@ class Grid():
         self.grid = []
         self.houses = self.load_houses(infile_house)
         self.batteries = self.load_batteries(infile_battery)
-        self.grid_distances = [] 
+        self.grid_distances = []
+        # grid kent zijn eigen score
+        self.score = 0
+        self.is_valid = True
 
         # create a empty list of lists filled with 0's
         for i in range(self.rows):
@@ -152,6 +155,35 @@ class Grid():
         bat.cables.append(new_cable)
 
         return new_cable
+
+    def bat_available(self, house):
+        count = 0
+
+        for bat in self.batteries:
+            if house.output > bat.capacity_left:
+                count += 1
+            
+        if count == len(self.batteries):
+            return False
+
+        return True
+
+    def connect_house_con(self, house, bat):
+        while house.output > bat.capacity_left:
+            bat = self.pick_random_bat(self.batteries)
+
+        bat.capacity_left -= house.output
+        bat.add_house(house)
+        self.lay_cable(bat, house)
+
+    def calc_dist(self):
+        sum = 0
+
+        for bat in self.batteries:
+            for cable in bat.cables:
+                sum += cable.length
+
+        self.score = sum
 
     def delete_cable(self, bat, house):
         """

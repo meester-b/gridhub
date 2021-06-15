@@ -11,7 +11,7 @@ class House():
         self.id = uid
         self.x_coordinate = int(x_coordinate)
         self.y_coordinate = int(y_coordinate)
-        self.output = output
+        self.output = float(output)
         self.connected = False
 
     def is_connected(self):

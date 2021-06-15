@@ -2,6 +2,7 @@ import copy
 import random
 
 from code.classes import grid
+from .random import Random
 
 district = "1"
 
