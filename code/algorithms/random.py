@@ -130,7 +130,7 @@ class Random():
 
         """
         # self.unconstrained_random()
-        self.constrained_random()  
+        self.constrained_random()
         self.print_stats_random()
         return self.best_random_con
 
