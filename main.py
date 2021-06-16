@@ -15,7 +15,7 @@ if __name__ == "__main__":
     # --------------------------------- Random ------------------------------------------
     rando = random.Random(100)
     valid_grid = rando.run()
-    # print(valid_grid)s
+    # print(valid_grid)
 
     # --------------------------------- Greedy --------------------------------------------
     # greed = greedy.Greedy(10)
@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
     # --------------------------------- Hill Climber --------------------------------------
     # climber = hillclimber.HillClimber(valid_grid)
-    # print(f"Running Hillclimber...")
+    # print(f"Running HillClimber...")
     # climber.run(100)
 
     # --------------------------------- Visualise --------------------------------------
