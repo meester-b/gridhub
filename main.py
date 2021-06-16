@@ -1,9 +1,9 @@
 from code.algorithms import random, greedy, hillclimber
 from code.classes import grid
-from code.visualisations.visualise import visualise as vis
+from code.visualisations import visualise as vis
         
 if __name__ == "__main__":
-    district = "1"
+    district = "2"
 
     test_grid = grid.Grid(f"data/district_{district}/district-{district}_houses.csv", f"data/district_{district}/district-{district}_batteries.csv")
      
@@ -13,16 +13,18 @@ if __name__ == "__main__":
 
     ## call algorithms
     # --------------------------------- Random ------------------------------------------
-    # rando = random.Random(1000)
-    # rando.run()
+    rando = random.Random(100)
+    valid_grid = rando.run()
+    # print(valid_grid)
 
     # --------------------------------- Greedy --------------------------------------------
-    greed = greedy.Greedy(10)
-    greed.run()
+    # greed = greedy.Greedy(10)
+    # greed.run()
 
     # --------------------------------- Hill Climber --------------------------------------
-    # climber = hillclimber.HillClimber(valid_grid)
-    # climber.run(50)
+    climber = hillclimber.HillClimber(valid_grid)
+    print(f"Running Hillclimber...")
+    climber.run(100)
 
     # --------------------------------- Visualise --------------------------------------
-    # vis.visualise(valid_grid, test_grid)
+    vis.visualise(valid_grid)

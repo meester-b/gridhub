@@ -32,10 +32,13 @@ class Greedy(Random):
             bat.add_house(house)
             grid.lay_cable(bat, house)
 
-        for bat in grid.batteries:
-            print(len(bat.cables))
+        # for house in grid.houses:
+        #     print(len(house.cables))
+
         grid.calc_dist()
         self.keep_track_greedy_unc(grid)
+
+        return self.best 
 
     def constrained_greedy(self):
         """
@@ -43,12 +46,12 @@ class Greedy(Random):
         """
         
         # keep track of try valid ratio
-        # failed_attempts = 0
-        # valid_attempts = 0 
+        failed_attempts = 0
+        valid_attempts = 0 
 
         # keep track of vars acrros tries
-        # min_sum_cables = 0
-        # total_dist = 0
+        min_sum_cables = 0
+        total_dist = 0
 
         # try x amount of times
         for x in range(self.tries):
@@ -67,12 +70,12 @@ class Greedy(Random):
                 available_bat = []
 
                 # check which battery is still usable for this house
-                # for bat in grid.batteries:
-                #     if float(house.output) < float(bat.capacity_left):
-                #         available_bat.append(bat)
-                if not grid.bat_available(house):
-                    self.false_try(grid)
-                    break
+                for bat in grid.batteries:
+                    if float(house.output) < float(bat.capacity_left):
+                        available_bat.append(bat)
+                # if not grid.bat_available(house):
+                #     self.false_try(grid)
+                #     break
                 else:
                     grid.connect_house_greedy_con(house)
 
@@ -147,6 +150,7 @@ class Greedy(Random):
         # self.constrained_greedy()
         self.print_stats_greedy()
         # return super().run()
+        # return self.best
         
 
     
