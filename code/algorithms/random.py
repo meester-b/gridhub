@@ -8,6 +8,7 @@ district = "1"          ### ?
 
 test_grid = grid.Grid(f"data/district_{district}/district-{district}_houses.csv", f"data/district_{district}/district-{district}_batteries.csv")
 
+
 class Random():
     '''
     Baseline algorithm randomly connects houses to batteries. Unconstrained version does not take max capacity into account,
@@ -58,31 +59,18 @@ class Random():
 
         for x in range(self.tries):
             grid = copy.deepcopy(test_grid)
-            # count = 0 
-            # print(x)
 
             grid.shuffle_list(grid.houses)
 
             for i in range(len(grid.houses)):
                 house = grid.pick_random_house(grid.houses, i)
-                # print(f" Length is: {len(grid.houses)}")
-                # house = grid.pick_random_house(grid.houses)
                 random_bat = grid.pick_random_bat(grid.batteries)
                 
-
                 if not grid.bat_available(house):
                     self.false_try(grid)
-                    # print("failed")
-                    # print(count)
-
-                    # print(f"Ouput is: {house.output}")
-
-                    # for bat in grid.batteries:
-                        # print(f"Capacity left is: {bat.capacity_left}")
+                    print("failed")
                     break
                 else:
-                    # print(2)
-                    # count += 1
                     grid.connect_house_random_con(house, random_bat)
                     
             if grid.is_valid:

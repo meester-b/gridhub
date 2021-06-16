@@ -23,22 +23,16 @@ class Greedy(Random):
 
         grid = copy.deepcopy(test_grid)
 
-        # to summarize cable lenghtswel ge 
-        # min_sum_cables = 0
-
         # for every house an empty list
         for house in grid.houses:
             bat = grid.pick_closest_battery(house)
             bat.add_house(house)
             grid.lay_cable(bat, house)
 
-        # for house in grid.houses:
-        #     print(len(house.cables))
-
         grid.calc_dist()
         self.keep_track_greedy_unc(grid)
 
-        return self.best 
+        # return self.best_greedy_unc
 
     def constrained_greedy(self):
         """
@@ -49,7 +43,7 @@ class Greedy(Random):
         failed_attempts = 0
         valid_attempts = 0 
 
-        # keep track of vars acrros tries
+        # keep track of variables across tries
         min_sum_cables = 0
         total_dist = 0
 
