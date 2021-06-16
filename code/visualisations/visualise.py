@@ -7,6 +7,7 @@ RUN BY:
 """
 #import numpy as np
 from matplotlib import pyplot as plt
+import csv
 
 # In de juiste mappen gaan
 import sys, os
@@ -14,15 +15,13 @@ sys.path.insert(0, os.path.abspath('../..'))
 from code.classes import battery, house, cable, grid
 
 ##
-def visualise(grid_input, test_grid):
+def visualise(grid_input):
     """
     Visualise our output
     """
     print("Loading visualisation...")
-
-
-
-    # create x and y axes
+    
+    #create x and y axes
     plt.axis([0, 50, 0, 50])
     plt.xticks([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ,16 ,17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
     31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50])
@@ -31,12 +30,38 @@ def visualise(grid_input, test_grid):
     plt.title('GridHub')
     plt.grid(True)
 
+    houses = grid_input.houses
+    batteries = grid_input.batteries
+    for house in houses:
+        x_house = house.x_coordinate
+        y_house = house.y_coordinate
+        plt.plot(x_house, y_house)
+
+    # with open(house_file, 'r') as in_file:           
+    #     reader = csv.reader(in_file)
+    #     next(reader)
+    #     for row in reader:
+    #         x = row[0]
+    #         y = row[1]
+    #         plt.draw(x,y, '^', color='red')
+
+    # with open(bat_file, 'r') as in_file:           
+    #     reader = csv.reader(in_file)
+    #     next(reader)
+
+    #     for row in reader:
+    #         split = row[0].split(",")
+    #         x = split[0]
+    #         y = split[1]
+    #         plt.plot(x,y, 'o', color='green')
+
+
     ##https://matplotlib.org/2.1.1/api/_as_gen/matplotlib.pyplot.plot.html
     ## to plot a 'o' at a point
     #plot(x,y,'o')
 
 
-    
+
     # plt.plot(15,15, '^', color='red')
     # plt.plot(15,30, 'o', color='green')
     # plt.plot(18, 19, '^', color='red')

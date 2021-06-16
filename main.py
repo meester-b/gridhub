@@ -1,6 +1,7 @@
 from code.algorithms import random, greedy, hillclimber
 from code.classes import grid
-from code.visualisations.visualise import visualise as vis
+from code.visualisations import visualise as vis
+
         
 if __name__ == "__main__":
     district = "1"
@@ -13,12 +14,12 @@ if __name__ == "__main__":
 
     ## call algorithms
     # --------------------------------- Random ------------------------------------------
-    random = random.Random(1000)
-    random.run()
+    # random = random.Random(10)
+    # random.run()
     
 
     # --------------------------------- Greedy --------------------------------------------
-    # valid_grid = greedy.Greedy.constrained_greedy(10)
+    valid_grid = greedy.Greedy.constrained_greedy(10)
     # valid_grid.print_grid()
 
     # --------------------------------- Hill Climber --------------------------------------
@@ -26,4 +27,4 @@ if __name__ == "__main__":
     # climber.run(50)
 
     # --------------------------------- Visualise --------------------------------------
-    # vis.visualise(valid_grid, test_grid)
+    vis.visualise(valid_grid)
