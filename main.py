@@ -3,7 +3,7 @@ from code.classes import grid
 from code.visualisations import visualise as vis
         
 if __name__ == "__main__":
-    district = "1"
+    district = "2"
 
     test_grid = grid.Grid(f"data/district_{district}/district-{district}_houses.csv", f"data/district_{district}/district-{district}_batteries.csv")
      
@@ -22,9 +22,9 @@ if __name__ == "__main__":
     # greed.run()
 
     # --------------------------------- Hill Climber --------------------------------------
-    # climber = hillclimber.HillClimber(valid_grid)
-    # print(f"Running HillClimber...")
-    # climber.run(100)
+    climber = hillclimber.HillClimber(valid_grid)
+    print(f"Running Hillclimber...")
+    climber.run(100)
 
     # --------------------------------- Visualise --------------------------------------
     vis.visualise(valid_grid)
