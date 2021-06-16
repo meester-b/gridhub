@@ -14,14 +14,13 @@ sys.path.insert(0, os.path.abspath('../..'))
 from code.classes import battery, house, cable, grid
 
 ##
-def visualise(grid_input, test_grid):
+def visualise(grid_input):
     """
     Visualise our output
     """
+    # 
     print("Loading visualisation...")
-
-
-
+    
     # create x and y axes
     plt.axis([0, 50, 0, 50])
     plt.xticks([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ,16 ,17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
@@ -31,13 +30,23 @@ def visualise(grid_input, test_grid):
     plt.title('GridHub')
     plt.grid(True)
 
+
+    grid = grid_input
+    houses = grid.houses
+    batteries = grid.batteries
+    for house in houses:
+        x_house = house.x_coordinate
+        y_house = house.y_coordinate
+        plt.plot(x_house, y_house, '^', color='red')
+    
+    plt.show()
     ##https://matplotlib.org/2.1.1/api/_as_gen/matplotlib.pyplot.plot.html
     ## to plot a 'o' at a point
     #plot(x,y,'o')
 
 
     
-    # plt.plot(15,15, '^', color='red')
+    # 
     # plt.plot(15,30, 'o', color='green')
     # plt.plot(18, 19, '^', color='red')
     # plt.plot(40,37, '^', color='red')
@@ -45,7 +54,7 @@ def visualise(grid_input, test_grid):
     # point2 =[15,30]
     # x_values = [point1[0], point2[0]]
     # y_values = [point1[1], point2[1]]
-    # plt.plot(x_values, y_values)
+    # 
     """
     If we have interval info of this list of paths draw lines between them.
     point1 = [1, 2]
@@ -56,7 +65,7 @@ def visualise(grid_input, test_grid):
 
     
     """
-    plt.show()
+
 
 
 # if __name__ == "__main__":

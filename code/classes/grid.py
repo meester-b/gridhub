@@ -27,7 +27,7 @@ class Grid():
         self.grid = []
         self.houses = self.load_houses(infile_house)
         self.batteries = self.load_batteries(infile_battery)
-        self.grid_distances = []
+        # self.grid_distances = []
         self.score = 0
         self.is_valid = True
 
@@ -119,21 +119,23 @@ class Grid():
         for list in self.grid:
             print(f"{list}\n")
 
-    def pick_random_house(self, list):
+    def pick_random_house(self, list, i):
         """
         Pick a random House from list.
         """
+        return list[i]
 
-        random.shuffle(list)
-        return list.pop()
-    
     def pick_random_bat(self, list):
         """
         Pick a random Battery from list.
         """
+        return random.choice(list)
 
+    def shuffle_list(self, list):
+        
         random.shuffle(list)
-        return list[0]
+
+    
     
     def pick_closest_battery(self, house):
         distances = []
@@ -152,11 +154,15 @@ class Grid():
         """
 
         new_cable = cable.Cable(bat, house)
-        bat.cables.append(new_cable)
+        house.cables.append(new_cable)
+        house.bats.append(bat)
 
         return new_cable
 
     def bat_available(self, house):
+        """
+
+        """
         count = 0
 
         for bat in self.batteries:
@@ -169,18 +175,34 @@ class Grid():
         return True
 
     def connect_house_random_con(self, house, bat):
+        """
+
+        """
         while house.output > bat.capacity_left:
             bat = self.pick_random_bat(self.batteries)
 
         bat.capacity_left -= house.output
-        bat.add_house(house)
+        self.lay_cable(bat, house)
+
+    def reconnect_constraint(self, house, bat):
+        """
+
+        """
+        bat.capacity_left -= house.output
+        
+        house.bats.clear()
+        house.cables.clear()
+        
         self.lay_cable(bat, house)
 
     def calc_dist(self):
+        """
+
+        """
         sum = 0
 
-        for bat in self.batteries:
-            for cable in bat.cables:
+        for house in self.houses:
+            for cable in house.cables:
                 sum += cable.length
 
         self.score = sum
