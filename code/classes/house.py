@@ -13,6 +13,8 @@ class House():
         self.y_coordinate = int(y_coordinate)
         self.output = float(output)
         self.connected = False
+        self.cables = []
+        self.bats = []
 
     def is_connected(self):
         """
@@ -25,3 +27,9 @@ class House():
         Returns the house coordinates.
         """
         return [self.x_coordinate, self.y_coordinate]
+
+    def add_house(self, bat):
+        """
+        Adds a house to a battery.
+        """
+        self.bats.append(bat)
