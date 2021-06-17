@@ -140,9 +140,9 @@ class Greedy(Random):
         # \nThe best valid try has a dist of {min_dist_con}")
 
     def run(self):
-        self.unconstrained_greedy()
-        # self.constrained_greedy()
-        self.print_stats_greedy()
+        #self.unconstrained_greedy()
+        #self.constrained_greedy()
+        #self.print_stats_greedy()
         # return super().run()
         # return self.best
         

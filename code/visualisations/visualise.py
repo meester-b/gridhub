@@ -51,6 +51,11 @@ def visualise(grid_input):
                 x_line = [x_begin, x_end]
                 y_line = [y_begin, y_end]
                 plt.plot(x_line, y_line, color='blue')
+                # if i%2 == 0:
+                #     plt.plot(x_line, y_line, color='blue')
+                # else:
+                #     plt.plot(x_line, y_line, color='yellow')
+
 
     # for each battery plot the battery with x and y coordinates
     for battery in batteries:
