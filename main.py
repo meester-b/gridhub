@@ -19,8 +19,8 @@ if __name__ == "__main__":
     # print(valid_grid)
 
     # --------------------------------- Greedy --------------------------------------------
-    # greed = greedy.Greedy(10)
-    # greed.run()
+    greed = greedy.Greedy(10)
+    greed.run()
 
     # --------------------------------- Hill Climber --------------------------------------
     climber = hillclimber.HillClimber(valid_grid)
@@ -28,4 +28,4 @@ if __name__ == "__main__":
     climber.run(10000)
 
     # --------------------------------- Visualise --------------------------------------
-    #vis.visualise(valid_grid)
+    # vis.visualise(valid_grid)
