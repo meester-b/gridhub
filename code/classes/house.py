@@ -15,6 +15,7 @@ class House():
         self.connected = False
         self.cables = []
         self.bats = []
+        self.bat_options = 5
 
     def is_connected(self):
         """

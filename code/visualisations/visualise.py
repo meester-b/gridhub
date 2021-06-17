@@ -48,7 +48,17 @@ def visualise(grid_input):
                 y_end = cable.path[i+1][1]
                 x_line = [x_begin, x_end]
                 y_line = [y_begin, y_end]
-                plt.plot(x_line, y_line, color='blue')
+                # plt.plot(x_line, y_line, color='blue')
+                if (x_begin == 38) & (y_begin == 12):
+                    plt.plot(x_line, y_line, color='blue')
+                elif (x_begin == 43) & (y_begin == 13):
+                    plt.plot(x_line, y_line, color='yellow')
+                elif (x_begin == 42) & (y_begin == 3):
+                    plt.plot(x_line, y_line, color='green')
+                elif (x_begin == 49) & (y_begin == 23):
+                    plt.plot(x_line, y_line, color='red')
+                elif (x_begin == 3) & (y_begin == 45):
+                    plt.plot(x_line, y_line, color='purple')
                 # if i%2 == 0:
                 #     plt.plot(x_line, y_line, color='blue')
                 # else:

@@ -9,7 +9,7 @@ Our goal is to match each house to a battery doing this in the most efficient wa
 TC = LEN(grid-segment) * 9 + 5 * BAT price
 
 ##### RESTRICTIONS
-- Batteries may not be connected
+- Batteries may not be connected to each other 
 - Each house can only be connected with 1 battery 
 - Each hose has a unique cable to the battery 
 - Multiple calbles can be placed on the same grid segments, but these cables must be unique.

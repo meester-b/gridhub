@@ -29,14 +29,3 @@ class Battery():
         Adds a house to a battery.
         """
         return [self.x_coordinate, self.y_coordinate]
-
-    # def add_cable(self, first_item, second_item, uid):
-    #     """
-    #     Adds a cable to a battery.
-    #     """
-
-    # def add_house(self, house):
-    #     """
-    #     Adds a house to a battery.
-    #     """
-    #     self.houses.append(house)
