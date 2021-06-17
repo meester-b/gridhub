@@ -2,8 +2,6 @@
 Do not forget to install matplotlib on laptop
 pip3 install matplotlib
 
-RUN BY:
-
 """
 # import matplotlib
 from matplotlib import pyplot as plt

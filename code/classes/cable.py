@@ -6,7 +6,7 @@ class Cable():
         """
         Initialize the Cable class with a starting point, ending point, a path list and a length.
         """
-        
+        # check functies (valid, met een huis verbonden, niet twee batterijen verbonden)
 
         self.x_start = first_item.x_coordinate
         self.y_start = first_item.y_coordinate
@@ -14,8 +14,7 @@ class Cable():
         self.y_end = second_item.y_coordinate
         self.path = self.add_path()
         self.length = self.calc_length()
-
-    # check functies (valid, met een huis verbonden, niet twee batterijen verbonden)
+    
     def add_path(self):
         """
         This function returns a list of the grid-segment steps from a battery to a house.
@@ -43,18 +42,3 @@ class Cable():
         """
         length = len(self.path)
         return length
-
-# if __name__ == "__main__":
-#     #cable = Cable()
-#     cable.add_path()
-#     print(cable.calc_length())
-#     print(cable.path)
-#     # list = []
-
-#     # for coords in cable.path:
-#     #     app = coords.split(",")
-#     #     list.append(app)
-
-#     # # print(cable.path.split(","))
-#     # # print(cable.path[0:5])
-#     # print(list)

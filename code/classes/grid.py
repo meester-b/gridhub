@@ -1,3 +1,4 @@
+#
 import csv
 import random
 
@@ -21,7 +22,6 @@ class Grid():
         """
         Initialize the Grid class.
         """
-
         self.rows = DIMENSION
         self.cols = DIMENSION
         self.grid = []
