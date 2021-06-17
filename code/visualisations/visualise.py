@@ -19,6 +19,8 @@ def visualise(grid_input):
     # load visualisations
     print("Loading visualisation...")
     
+    #plt.savefig("fig.png")
+    
     # create a grid with x and y axes -5 to -55 and every interval of 1 for each x and y
     plt.axis([-5, 55, -5, 55])
     plt.xticks([-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ,16 ,17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
@@ -32,12 +34,18 @@ def visualise(grid_input):
     grid = grid_input
     houses = grid.houses
     batteries = grid.batteries
+    
+    #rid.houses[12].print_house()
+    # for cable in grid.houses[12].cables:
+    #     print(cable.path)
 
+    
     # for each house plot the house with x and y coordinates
     for house in houses:
         x_house = house.x_coordinate
         y_house = house.y_coordinate
         plt.plot(x_house, y_house, '^', color='red')
+
 
         # for each cable plot each cable segment line
         for cable in house.cables:
@@ -48,17 +56,20 @@ def visualise(grid_input):
                 y_end = cable.path[i+1][1]
                 x_line = [x_begin, x_end]
                 y_line = [y_begin, y_end]
-                # plt.plot(x_line, y_line, color='blue')
-                if (x_begin == 38) & (y_begin == 12):
-                    plt.plot(x_line, y_line, color='blue')
-                elif (x_begin == 43) & (y_begin == 13):
-                    plt.plot(x_line, y_line, color='yellow')
-                elif (x_begin == 42) & (y_begin == 3):
-                    plt.plot(x_line, y_line, color='green')
-                elif (x_begin == 49) & (y_begin == 23):
-                    plt.plot(x_line, y_line, color='red')
-                elif (x_begin == 3) & (y_begin == 45):
-                    plt.plot(x_line, y_line, color='purple')
+                plt.plot(x_line, y_line, color='blue')
+
+
+                
+                # if (x_begin == 38) & (y_begin == 12):
+                #     plt.plot(x_line, y_line, color='blue')
+                # elif (x_begin == 43) & (y_begin == 13):
+                #     plt.plot(x_line, y_line, color='yellow')
+                # elif (x_begin == 42) & (y_begin == 3):
+                #     plt.plot(x_line, y_line, color='green')
+                # elif (x_begin == 49) & (y_begin == 23):
+                #     plt.plot(x_line, y_line, color='red')
+                # elif (x_begin == 3) & (y_begin == 45):
+                #     plt.plot(x_line, y_line, color='purple')
                 # if i%2 == 0:
                 #     plt.plot(x_line, y_line, color='blue')
                 # else:
