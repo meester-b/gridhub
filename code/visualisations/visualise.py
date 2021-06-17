@@ -21,14 +21,8 @@ def visualise(grid_input):
     """
     # load visualisations
     print("Loading visualisation...")
-<<<<<<< HEAD
     fig = plt.figure()
     ax = fig.add_subplot(111)
-=======
-    
-    #plt.savefig("fig.png")
-    
->>>>>>> 58717b05ffd97fb8480ce1e60b0a863438d456f6
     # create a grid with x and y axes -5 to -55 and every interval of 1 for each x and y
     plt.axis([-5, 55, -5, 55])
     plt.xticks = np.arange(-5, 55)

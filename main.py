@@ -10,13 +10,14 @@ if __name__ == "__main__":
      
 
     # --------------------------------- Random ------------------------------------------
-    random_algorithm = random.Random(100)
-    valid_grid = random_algorithm.run()
-    print(valid_grid)
+    # random_algorithm = random.Random(100)
+    # valid_grid = random_algorithm.run()
+    # print(valid_grid)
 
     # --------------------------------- Greedy UNCONSTRAINED--------------------------------------------
     greed = greedy.Greedy(100)
-    valid_grid = greed.run_unconstrained()
+    # valid_grid = greed.run_unconstrained()
+    valid_grid = greed.run_constrained()
 
     # --------------------------------- Greedy CONSTRAINED ----------------------------------------------
     # greed = greedy.Greedy(8)
