@@ -199,7 +199,7 @@ class Greedy(Random):
         This function runs our unconstrained greedy algorithm
         """
         self.unconstrained_greedy()
-        return super().run()
+        return self.best_greedy_unc
 
     def run_constrained(self):
         """

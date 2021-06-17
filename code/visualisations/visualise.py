@@ -21,8 +21,14 @@ def visualise(grid_input):
     """
     # load visualisations
     print("Loading visualisation...")
+<<<<<<< HEAD
     fig = plt.figure()
     ax = fig.add_subplot(111)
+=======
+    
+    #plt.savefig("fig.png")
+    
+>>>>>>> 58717b05ffd97fb8480ce1e60b0a863438d456f6
     # create a grid with x and y axes -5 to -55 and every interval of 1 for each x and y
     plt.axis([-5, 55, -5, 55])
     plt.xticks = np.arange(-5, 55)
@@ -38,12 +44,18 @@ def visualise(grid_input):
     grid = grid_input
     houses = grid.houses
     batteries = grid.batteries
+    
+    #rid.houses[12].print_house()
+    # for cable in grid.houses[12].cables:
+    #     print(cable.path)
 
+    
     # for each house plot the house with x and y coordinates
     for house in houses:
         x_house = house.x_coordinate
         y_house = house.y_coordinate
         plt.plot(x_house, y_house, '^', color='red')
+
 
         # for each cable plot each cable segment line
         for cable in house.cables:
@@ -54,7 +66,10 @@ def visualise(grid_input):
                 y_end = cable.path[i+1][1]
                 x_line = [x_begin, x_end]
                 y_line = [y_begin, y_end]
-                # plt.plot(x_line, y_line, color='blue')
+                plt.plot(x_line, y_line, color='blue')
+
+
+                
                 # if (x_begin == 38) & (y_begin == 12):
                 #     plt.plot(x_line, y_line, color='blue')
                 # elif (x_begin == 43) & (y_begin == 13):
