@@ -15,6 +15,7 @@ class House():
         self.connected = False
         self.cables = []
         self.bats = []
+        self.bat_options = 5
 
     def is_connected(self):
         """
@@ -33,3 +34,8 @@ class House():
         Adds a house to a battery.
         """
         self.bats.append(bat)
+    
+    # def print_house(self):
+    #     print(self.x_coordinate)
+    #     print(self.y_coordinate)
+    #     print(self.cables)

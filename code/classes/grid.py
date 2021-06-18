@@ -1,6 +1,8 @@
+# import csv and random
 import csv
 import random
 
+# import all the battery adn
 from .battery import *
 from .cable import *
 from .house import *
@@ -21,7 +23,6 @@ class Grid():
         """
         Initialize the Grid class.
         """
-
         self.rows = DIMENSION
         self.cols = DIMENSION
         self.grid = []
@@ -183,6 +184,13 @@ class Grid():
 
         bat.capacity_left -= house.output
         self.lay_cable(bat, house)
+
+    def connect_con(self, bat, house):
+        bat.capacity_left -= house.output
+        self.lay_cable(bat, house)
+
+    # def pick_greedy(self, bat, house):
+        # pass 
 
     def reconnect_constraint(self, house, bat):
         """
