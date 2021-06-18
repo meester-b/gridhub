@@ -32,11 +32,7 @@ class Greedy(Random):
         # for every house an empty list
         for house in grid.houses:
             bat = grid.pick_closest_battery(house)
-<<<<<<< HEAD
-            house.add_house(house)
-=======
             house.add_house(bat)
->>>>>>> 8679b1024cb82c1bcd2285180e5c5a2471313a3d
             grid.lay_cable(bat, house)
 
         grid.calc_dist()
@@ -62,12 +58,8 @@ class Greedy(Random):
             
             # make deepcopy
             grid = copy.deepcopy(test_grid)
-<<<<<<< HEAD
-            best_try = grid
-=======
             
             # shuffle the houses in the grid
->>>>>>> 8679b1024cb82c1bcd2285180e5c5a2471313a3d
             random.shuffle(grid.houses)
             
             # each try starts as valid
