@@ -68,11 +68,11 @@ class Greedy(Random):
             # keep track of the cable length in the current try
             sum_cables = 0
 
-            c1 = 0
-            c2 = 0
-            c3 = 0
-            c4 = 0
-            c5 = 0
+            # c1 = 0
+            # c2 = 0
+            # c3 = 0
+            # c4 = 0
+            # c5 = 0
 
             # loop through the houses on the grid
             for house in grid.houses:
@@ -89,18 +89,18 @@ class Greedy(Random):
                         unavailable_bats.append(bat)
                 
                 # save the number of options the house had to connect
-                house.bat_options = len(available_bats)
+                # house.bat_options = len(available_bats)
                 # print(house.bat_options)
-                if house.bat_options == 5:
-                    c5 += 1
-                elif house.bat_options == 4:
-                    c4 += 1
-                elif house.bat_options == 3:
-                    c3 += 1
-                elif house.bat_options == 2:
-                    c2 += 1
-                elif house.bat_options == 1:
-                    c1 += 1
+                # if house.bat_options == 5:
+                #     c5 += 1
+                # elif house.bat_options == 4:
+                #     c4 += 1
+                # elif house.bat_options == 3:
+                #     c3 += 1
+                # elif house.bat_options == 2:
+                #     c2 += 1
+                # elif house.bat_options == 1:
+                #     c1 += 1
 
                 # ik weet niet of dit nuttig gaat zijn maar wellicht 
                 # calculate distances to unavailable batteries
@@ -136,9 +136,9 @@ class Greedy(Random):
                 # keep track of cable length per house and add to cable length of the try
                 sum_cables += shortest_dist
 
-            c = c1 + c2 +c3 +c4 +c5
+            # c = c1 + c2 +c3 +c4 +c5
 
-            print (c5, c4, c3, c2, c1, c)
+            # print (c5, c4, c3, c2, c1, c)
 
             # count valid tries
             if is_valid:
