@@ -29,7 +29,7 @@ class Greedy(Random):
         # for every house an empty list
         for house in grid.houses:
             bat = grid.pick_closest_battery(house)
-            bat.add_house(house)
+            house.add_house(house)
             grid.lay_cable(bat, house)
 
         # for house in grid.houses:
@@ -57,7 +57,7 @@ class Greedy(Random):
         for x in range(self.tries):
             # make deepcopy
             grid = copy.deepcopy(test_grid)
-            # best_try = grid
+            best_try = grid
             random.shuffle(grid.houses)
             # each try starts as valid
             is_valid = True

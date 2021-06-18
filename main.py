@@ -13,13 +13,15 @@ if __name__ == "__main__":
 
     ## call algorithms
     # --------------------------------- Random ------------------------------------------
-    rando = random.Random(100)
+    rando = random.Random(50000)
     valid_grid = rando.run()
-    # print(valid_grid)
+    print(valid_grid)
 
     # --------------------------------- Greedy --------------------------------------------
     # greed = greedy.Greedy(10)
     # greed.run()
+    # valid_grid = greedy.Greedy.constrained_greedy(test_grid)
+    # print(valid_grid)
 
     # --------------------------------- Hill Climber --------------------------------------
     climber = hillclimber.HillClimber(valid_grid)
@@ -27,4 +29,4 @@ if __name__ == "__main__":
     climber.run(100)
 
     # --------------------------------- Visualise --------------------------------------
-    vis.visualise(valid_grid)
+    #vis.visualise(valid_grid)
