@@ -32,16 +32,16 @@ class Random():
             grid = copy.deepcopy(test_grid)
 
             # loop for each grid through all available houses
-            while grid.houses:
+            for i in range(len(grid.houses)):
                 
                 # select a random house from the list of houses
-                house = grid.pick_random_house(grid.houses)
+                house = grid.pick_random_house(grid.houses, i)
                 
                 # select a random battery from the list of batteries
                 random_bat = grid.pick_random_bat(grid.batteries)
 
                 # connect the house to the battery
-                random_bat.add_house(house)
+                house.add_bat(random_bat)
 
                 # create a cable between house and battery
                 grid.lay_cable(random_bat, house)
@@ -51,6 +51,14 @@ class Random():
 
             # remember if its the best try
             self.keep_track_random_unc(grid, self.best_random_unc)
+
+            # for bat in grid.batteries:
+            #     print(bat)
+
+            # for house in grid.houses:
+            #     print(house)
+
+        # return grid
 
     def constrained_random(self):
         '''
@@ -102,8 +110,8 @@ class Random():
 
         """
         # min_dist_unc = self.best_random_unc.score
-        min_dist_con = self.best_random_con.score
-        print(f"The best try has a distance of {min_dist_con}")
+        min_dist = self.best_random_unc.score
+        print(f"The best try has a distance of {min_dist}")
         #  \nThe best valid try has a dist of {min_dist_con}")
 
     def false_try(self, grid):
@@ -117,9 +125,9 @@ class Random():
         """
 
         """
-        # self.unconstrained_random()
-        self.constrained_random()
+        self.unconstrained_random()
+        # self.constrained_random()
         self.print_stats_random()
-        return self.best_random_con
+        return self.best_random_unc
 
 

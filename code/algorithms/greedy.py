@@ -32,7 +32,7 @@ class Greedy(Random):
         # for every house an empty list
         for house in grid.houses:
             bat = grid.pick_closest_battery(house)
-            house.add_house(bat)
+            house.add_bat(bat)
             grid.lay_cable(bat, house)
 
         grid.calc_dist()
@@ -76,17 +76,14 @@ class Greedy(Random):
 
             # loop through the houses on the grid
             for house in grid.houses:
-                available_bats = []
-                battery_distances = []
-                unavailable_bats = []
-                unavailable_distances = []
 
                 # check which batteries are still available for this house and append to list
                 for bat in grid.batteries:
-                    if float(house.output) < float(bat.capacity_left):
-                        available_bats.append(bat)
+                    dist = abs(house.y_coordinate - bat.y_coordinate) + abs(house.x_coordinate - bat.x_coordinate)
+                    if house.output < bat.capacity_left:
+                        house.available_bats[bat] = dist
                     else:
-                        unavailable_bats.append(bat)
+                        house.unavailable_bats[bat] = dist
                 
                 # save the number of options the house had to connect
                 # house.bat_options = len(available_bats)
@@ -102,12 +99,6 @@ class Greedy(Random):
                 # elif house.bat_options == 1:
                 #     c1 += 1
 
-                # ik weet niet of dit nuttig gaat zijn maar wellicht 
-                # calculate distances to unavailable batteries
-                if unavailable_bats:
-                    for battery in unavailable_bats:
-                        dist = abs(int(house.y_coordinate) - int(battery.y_coordinate)) + abs(int(house.x_coordinate) - int(battery.x_coordinate))
-                        unavailable_distances.append(dist)
 
                 # break out of the loop if there are no available batteries left
                 if not grid.bat_available(house):
@@ -116,17 +107,9 @@ class Greedy(Random):
                     failed_attempts += 1
                     break
 
-                # calculate the distances from the house to all available batteries and append to list
-                for battery in available_bats:
-                    dist = abs(int(house.y_coordinate) - int(battery.y_coordinate)) + abs(int(house.x_coordinate) - int(battery.x_coordinate))
-                    battery_distances.append(dist)
-
-                # get shortest distance to a battery and the battery's index in list
-                shortest_dist = min(battery_distances)
-                shortest_dist_index = battery_distances.index(min(battery_distances))
-
-                # add the closest battery to the house and lay a cable
-                closest_battery = available_bats[shortest_dist_index]
+                # get closest battery and its distance and lay cable from battery to the house
+                closest_battery = min(house.available_bats, key=house.available_bats.get)
+                shortest_dist = house.available_bats.get(closest_battery)
                 house.bats.append(closest_battery)
                 grid.lay_cable(closest_battery, house)
 
@@ -135,10 +118,6 @@ class Greedy(Random):
 
                 # keep track of cable length per house and add to cable length of the try
                 sum_cables += shortest_dist
-
-            # c = c1 + c2 +c3 +c4 +c5
-
-            # print (c5, c4, c3, c2, c1, c)
 
             # count valid tries
             if is_valid:
@@ -188,7 +167,10 @@ class Greedy(Random):
         """
         Function that prints the statistics
         """
-        avg_dist = total_dist / valid_attempts
+        if valid_attempts > 0:
+            avg_dist = total_dist / valid_attempts
+        else:
+            avg_dist = 0
         print(f"\nThe shortest distance is {min_sum_cables}")
         print(f"The average distance is {avg_dist}\n")
         print(f"The number of valid attempts is {valid_attempts}")
@@ -199,13 +181,15 @@ class Greedy(Random):
         This function runs our unconstrained greedy algorithm
         """
         self.unconstrained_greedy()
+        print(self.best_greedy_unc.score)
         return self.best_greedy_unc
 
     def run_constrained(self):
         """
-        This function runs our contrained greedy algorithm
+        This function runs our constrained greedy algorithm
         """
         self.constrained_greedy()
+        print(self.best_try.score)
         return self.best_try
         
 

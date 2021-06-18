@@ -1,7 +1,6 @@
 import copy
 import random
 
-# from code.classes import grid
 from .greedy import Greedy
 
 class HillClimber(Greedy):
@@ -46,6 +45,29 @@ class HillClimber(Greedy):
             current_bat_1.capacity_left += random_house_1.output
             current_bat_2.capacity_left += random_house_2.output
 
+    # def select_houses(self, new_grid):
+    #     # shuffle the list of houses in the grid
+    #     new_grid.shuffle_list(new_grid.houses)
+
+    #     # select two houses from the shuffled list
+    #     random_house_1 = new_grid.pick_random_house(new_grid.houses, 0)
+    #     current_bat_1 = random_house_1.bats[0]
+    #     random_house_2 = new_grid.pick_random_house(new_grid.houses, 1)
+    #     current_bat_2 = random_house_2.bats[0]
+    
+    def swap_house(self, house_1, house_2, new_grid):
+        bat_1 = house_1.bats[0]
+        bat_2 = house_2.bats[0]
+        bat_1.capacity_left += house_1.output
+        bat_2.capacity_left += house_2.output
+
+        if house_1.output < bat_2.capacity_left:
+            if house_2.output < bat_1.capacity_left:
+                new_grid.reconnect_constraint(house_2, bat_1)
+                new_grid.reconnect_constraint(house_1, bat_2)
+            else:
+                bat_1.capacity_left += house_2.output
+                bat_2.capacity_left += house_1.output
 
     def check_solution(self, new_grid):
         """
@@ -56,6 +78,12 @@ class HillClimber(Greedy):
         if new_grid.score < self.grid.score:
             self.grid = new_grid
 
+    def calc_options(self, house):
+        """
+        Changes the amount of batteries the house can still be connected to.
+        """
+        house.bat_options = len(house.unavailable_bats)
+
 
     def print_stats(self):
         """
@@ -64,13 +92,33 @@ class HillClimber(Greedy):
         print(f"The HillClimbed improved version has a distance of {self.grid.score}")
 
 
+    def swap_best(self, new_grid):
+        for house_1 in self.grid.houses:
+            # print(1)
+            if house_1.bats == house_1.best_option():
+                # print(2)
+                continue
+
+            for house_2 in self.grid.houses:
+                # print(3)
+                if (house_1.bats == house_2.best_option) & (house_2.bats == house_1.best_option):
+                    # print(4)
+                    self.swap_house(house_1, house_2, new_grid)
+                    print("2 houses optimally swapped")
+
+        # self.grid = 
+
+            
+                    
     def run(self, iterations):
         """
         Runs HillClimber algorithm for given number of iterations.
         """
-        self.iterations = iterations
-        
-        for iteration in range(iterations):
+        new_grid = copy.deepcopy(self.grid)
+        self.swap_best(new_grid)
+        self.check_solution(new_grid)
+
+        for i in range(iterations):
             new_grid = copy.deepcopy(self.grid)
             self.reconnect_house(new_grid)
             self.check_solution(new_grid)

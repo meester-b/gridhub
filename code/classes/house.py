@@ -15,8 +15,10 @@ class House():
         self.connected = False
         self.cables = []
         self.bats = []
-        self.bat_options = 5
-
+        self.available_bats = {}
+        self.unavailable_bats = {}
+        self.bat_options = len(self.available_bats)
+        
     def is_connected(self):
         """
         Check if there exists a cable between the house and a battery.
@@ -29,7 +31,7 @@ class House():
         """
         return [self.x_coordinate, self.y_coordinate]
 
-    def add_house(self, bat):
+    def add_bat(self, bat):
         """
         Adds a house to a battery.
         """
@@ -39,3 +41,16 @@ class House():
     #     print(self.x_coordinate)
     #     print(self.y_coordinate)
     #     print(self.cables)
+
+    def better_option(self):
+        if min(self.unavailable_bats, key=self.unavailable_bats) < min(self.available_bats, key=self.available_bats):
+            return True
+        return False
+    
+    def best_option(self):
+        if self.available_bats:
+            return min(self.available_bats, key=self.available_bats.get)
+        return None
+
+    def __str__(self):
+        return f"House {self.id}"

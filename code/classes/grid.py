@@ -51,7 +51,7 @@ class Grid():
         Creates House objects and load them into a list of houses from csv.
         """
 
-        id = 0
+        id = 1
         houses = []
 
         # Open the data from 
@@ -74,7 +74,7 @@ class Grid():
         Creates battery objects and load them into a list of batteries from csv.
         """
 
-        id = 0
+        id = 1
         batteries = []
 
         with open(source_file, 'r') as in_file:           
@@ -205,7 +205,7 @@ class Grid():
 
     def calc_dist(self):
         """
-
+        Calculate the total distance 
         """
         sum = 0
 
@@ -226,4 +226,6 @@ class Grid():
         # delete current cable
 
     # def connect_house_greedy_con(self, house, bat):
-        
+    
+    def __str__(self):
+        return f"grid solution object"

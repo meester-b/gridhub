@@ -15,19 +15,19 @@ if __name__ == "__main__":
     # print(valid_grid)
 
     # --------------------------------- Greedy UNCONSTRAINED--------------------------------------------
-    greed = greedy.Greedy(100)
+    # greed = greedy.Greedy(1)
     # valid_grid = greed.run_unconstrained()
-    valid_grid = greed.run_constrained()
+    
 
     # --------------------------------- Greedy CONSTRAINED ----------------------------------------------
-    # greed = greedy.Greedy(8)
-    # valid_grid = greed.run_constrained()
-    # print(valid_grid.score) 
+    greed = greedy.Greedy(1000)
+    valid_grid = greed.run_constrained()
+    print(valid_grid.score) 
 
     # --------------------------------- Hill Climber --------------------------------------
-    # climber = hillclimber.HillClimber(valid_grid)
-    # print(f"Running HillClimber...")
-    # climber.run(10000)
+    climber = hillclimber.HillClimber(valid_grid)
+    print(f"Running HillClimber...")
+    climber.run(1000)
 
     # --------------------------------- Visualise --------------------------------------
     #vis.visualise(valid_grid)
