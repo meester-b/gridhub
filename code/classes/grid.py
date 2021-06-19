@@ -6,6 +6,7 @@ import random
 from .battery import *
 from .cable import *
 from .house import *
+from .coordinate import *
 
 
 from code.classes import cable
@@ -15,7 +16,7 @@ DIMENSION = 51
 
 class Grid():
     """
-    This Grid Class initializes the Battery object with attributes: a grid with DIMENSIONS rows and columns.
+    This Grid Class initializes the Battery object with attributes: a grid with DIMENSION rows and columns.
     Also the list of house and battery objects live here
     """
 
@@ -28,7 +29,8 @@ class Grid():
         self.grid = []
         self.houses = self.load_houses(infile_house)
         self.batteries = self.load_batteries(infile_battery)
-        # self.grid_distances = []
+        self.coordinates = self.add_coordinates
+        self.connected_coordinates = []
         self.score = 0
         self.is_valid = True
 
@@ -43,8 +45,10 @@ class Grid():
             self.grid.append(new_row)
 
         # place into grid
+        self.add_coordinates()
         self.add_houses(self.houses)
         self.add_batteries(self.batteries)
+        
 
     def load_houses(self, source_file):     
         """
@@ -89,6 +93,9 @@ class Grid():
                 battery = Battery(x, y , cap, id)
                 batteries.append(battery)
                 id += 1
+
+                self.coordinates[x + (51 - y) * 51].batteries.append(battery)
+                self.connected_coordinates.append[self.coordinates[x + (51 - y) * 51]]
 
         return batteries
 
@@ -189,9 +196,6 @@ class Grid():
         bat.capacity_left -= house.output
         self.lay_cable(bat, house)
 
-    # def pick_greedy(self, bat, house):
-        # pass 
-
     def reconnect_constraint(self, house, bat):
         """
 
@@ -228,4 +232,65 @@ class Grid():
     # def connect_house_greedy_con(self, house, bat):
     
     def __str__(self):
-        return f"grid solution object"
+        return f"grid object"
+
+
+    #######################
+    # Shared cables
+    #######################
+
+    def add_coordinates(self):
+        list = []
+
+        for y in range(DIMENSION):
+            for x in range(DIMENSION):
+                coordinate = Coordinate(x, y)
+                list.append(coordinate)
+
+        return list
+
+    def calc_distance(self, point1, point2):
+        dist = abs(point1.y_coordinate - point2.y_coordinate) + abs(point1.x_coordinate - point2.x_coordinate)
+        return dist
+
+    def calc_path(self, point1, point2):
+        path = []
+        
+        if point1.x_coordinate < point2.x_coordinate:
+            for x_step in range(point1.x_coordinate, point2.x_coordinate):
+                path.append([x_step, point1.y_coordinate])
+        else:
+            for x_step in range(point2.x_coordinate, point1.x_coordinate):
+                path.append([point1.x_coordinate - x_step + point2.x_coordinate, point1.y_coordinate])
+
+        if point1.y_coordinate < point2.y_coordinate:
+            for y_step in range(point1.y_coordinate, point2.y_coordinate + 1):
+                path.append([point2.x_coordinate, y_step])
+        else:
+            for y_step in range(point2.y_coordinate, point1.y_coordinate + 1):
+                path.append([point2.x_coordinate, point1.y_coordinate - y_step + point2.y_coordinate])
+        
+        return path
+
+    def mark_connected(self, coordinate, bat):
+        coordinate.batteries.append(bat)
+
+    def is_connected(self, coordinate):
+        if coordinate.batteries:
+            return True
+        return False
+
+    def connect_power(self, path, bat):
+        for point in path:
+            # for coordinate in self.coordinates:
+            #     if coordinate.id == 100 * point[0] + point[1]:
+            #         self.mark_connected(coordinate, bat)
+            self.coordinates[point[0] + (51 - point[1]) * 51].batteries.append(bat)
+            self.connected_coordinates.append(self.coordinates[point[0] + (51 - point[1]) * 51])
+
+            
+            
+
+        
+
+

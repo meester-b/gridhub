@@ -84,21 +84,6 @@ class Greedy(Random):
                         house.available_bats[bat] = dist
                     else:
                         house.unavailable_bats[bat] = dist
-                
-                # save the number of options the house had to connect
-                # house.bat_options = len(available_bats)
-                # print(house.bat_options)
-                # if house.bat_options == 5:
-                #     c5 += 1
-                # elif house.bat_options == 4:
-                #     c4 += 1
-                # elif house.bat_options == 3:
-                #     c3 += 1
-                # elif house.bat_options == 2:
-                #     c2 += 1
-                # elif house.bat_options == 1:
-                #     c1 += 1
-
 
                 # break out of the loop if there are no available batteries left
                 if not grid.bat_available(house):
@@ -191,7 +176,46 @@ class Greedy(Random):
         self.constrained_greedy()
         print(self.best_try.score)
         return self.best_try
+
+    #######################
+    # Cable Sharing
+    #######################
+
+    def greedy_share(self, grid):
         
+        ### ga langs radom huis
+        for x in range(self.tries):
+            
+            # make deepcopy
+            grid = copy.deepcopy(test_grid)
+            
+            # shuffle the houses in the grid
+            # random.shuffle(grid.houses)
+            grid.shuffle_list(grid.houses)
+            
+
+            # loop through the houses on the grid
+            for house in grid.houses:
+
+                # make a list of distances 
+                distances = []
+                # for every point on the connected coordinates cable line
+                for point in grid.connected_coordinates:
+                    
+                    # distances 
+                    distances = grid.calc_distance(house, point)
+                    
+                dist = min(distances)
+
+
+
+
+
+
+
+        ### zoek dichtsbijzijnde coordinate dat verbonden is aan een batterij 
+                ## anders verbindt huis met dichtsbijzijnde batterij 
+        ### 
 
 
     

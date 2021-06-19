@@ -4,7 +4,7 @@ import statistics
 
 from code.classes import grid
 
-district = "1"          ### ?
+district = "1"
 
 test_grid = grid.Grid(f"data/district_{district}/district-{district}_houses.csv", f"data/district_{district}/district-{district}_batteries.csv")
 
