@@ -84,7 +84,11 @@ class Greedy(Random):
                         house.available_bats[bat] = dist
                     else:
                         house.unavailable_bats[bat] = dist
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 2209ab06718c9c59d7154383bdfcf2430d35e25e
                 # break out of the loop if there are no available batteries left
                 if not grid.bat_available(house):
                     self.false_try(grid)
@@ -134,14 +138,14 @@ class Greedy(Random):
 
     def keep_track_greedy_unc(self, grid):
         """
-        Function that keeps track of 
+        Function that keeps track of greedy algorithm tries
         """
         if self.best_greedy_unc is None:
             self.best_greedy_unc = grid
 
     def keep_track_greedy_con(self, new_grid, best_grid):
         """
-        
+        Function that keeps track of greedy algorithm tries
         """
         if self.best_greedy_con is None:
             self.best_greedy_con = new_grid
