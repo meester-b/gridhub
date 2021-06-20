@@ -35,3 +35,4 @@ if __name__ == "__main__":
 
     # --------------------------------- Visualise --------------------------------------
     # vis.visualise(valid_grid)
+    vis.visualise_shared(valid_grid)
