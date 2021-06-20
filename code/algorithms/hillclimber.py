@@ -54,6 +54,8 @@ class HillClimber(Greedy):
     #     current_bat_1 = random_house_1.bats[0]
     #     random_house_2 = new_grid.pick_random_house(new_grid.houses, 1)
     #     current_bat_2 = random_house_2.bats[0]
+
+    #     return random_house_1, random_house_2
     
     def swap_house(self, house_1, house_2, new_grid):
         bat_1 = house_1.bats[0]
@@ -93,20 +95,18 @@ class HillClimber(Greedy):
 
 
     def swap_best(self, new_grid):
-        for house_1 in self.grid.houses:
+        for house_1 in new_grid.houses:
             # print(1)
             if house_1.bats == house_1.best_option():
                 # print(2)
                 continue
 
-            for house_2 in self.grid.houses:
+            for house_2 in new_grid.houses:
                 # print(3)
                 if (house_1.bats == house_2.best_option) & (house_2.bats == house_1.best_option):
                     # print(4)
                     self.swap_house(house_1, house_2, new_grid)
                     print("2 houses optimally swapped")
-
-        # self.grid = 
 
             
                     
