@@ -21,6 +21,7 @@ class Greedy(Random):
         self.best_greedy_unc = None
         self.best_greedy_con = None
         self.best_try = None
+        self.best_greedy_shared = None
 
     def unconstrained_greedy(self):
         """
@@ -84,11 +85,6 @@ class Greedy(Random):
                         house.available_bats[bat] = dist
                     else:
                         house.unavailable_bats[bat] = dist
-<<<<<<< HEAD
-
-=======
- 
->>>>>>> 2209ab06718c9c59d7154383bdfcf2430d35e25e
                 # break out of the loop if there are no available batteries left
                 if not grid.bat_available(house):
                     self.false_try(grid)
@@ -185,7 +181,7 @@ class Greedy(Random):
     # Cable Sharing
     #######################
 
-    def greedy_share(self, grid):
+    def greedy_share(self):
         
         ### ga langs radom huis
         for x in range(self.tries):
@@ -202,16 +198,65 @@ class Greedy(Random):
             for house in grid.houses:
 
                 # make a list of distances 
-                distances = []
+                distances = {}
+                
                 # for every point on the connected coordinates cable line
                 for point in grid.connected_coordinates:
-                    
+                                     
                     # distances 
-                    distances = grid.calc_distance(house, point)
+                    distances[point] = grid.calc_distance(house, point)
+                    # distances.append(grid.calc_distance(house, point))
                     
-                dist = min(distances)
+                connected_point = min(distances, key=distances.get)
+                
+                path = grid.calc_path(house, connected_point)
+                # print(path)
+                # for point in path:
+                    # print(point[0])
+                    # print(point[1])
+                    # print("\n")
+                grid.connect_power(path, connected_point.batteries[0])
+
+            # werkt niet meer
+            # grid.calc_dist()
+            self.calc_cable_length(grid)
 
 
+            self.keep_track_shared(grid, self.best_greedy_shared)
+
+                # for item in path:
+                #     # from item (x,y ) get point object
+                #     grid.mark_connected(grid.coordinates[int(item[0]) + (51 - int(item[1])) * 51], connected_point.batteries[0])
+
+                
+                # grid.lay_cable(closest_battery, house)
+
+    def calc_cable_length(self, grid):
+        sum = 0
+
+        for point in grid.coordinates:
+            for bat in point.batteries:
+                sum += 1
+
+        grid.score = sum
+        print(sum)
+
+    def keep_track_shared(self, new_grid, best_grid):
+        """
+        Function that keeps track of greedy algorithm tries
+        """
+        if self.best_greedy_shared is None:
+            self.best_greedy_shared = new_grid
+        elif new_grid.score < best_grid.score:
+            self.best_greedy_shared = new_grid
+
+    def run_shared(self):
+        """
+        This function runs our constrained greedy algorithm
+        """
+        self.greedy_share()
+        print(self.best_greedy_shared.score)
+        return self.best_greedy_shared
 
 
 

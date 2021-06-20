@@ -27,10 +27,10 @@ class Grid():
         self.rows = DIMENSION
         self.cols = DIMENSION
         self.grid = []
-        self.houses = self.load_houses(infile_house)
-        self.batteries = self.load_batteries(infile_battery)
-        self.coordinates = self.add_coordinates
         self.connected_coordinates = []
+        self.houses = self.load_houses(infile_house)
+        self.coordinates = self.add_coordinates()
+        self.batteries = self.load_batteries(infile_battery)
         self.score = 0
         self.is_valid = True
 
@@ -45,7 +45,7 @@ class Grid():
             self.grid.append(new_row)
 
         # place into grid
-        self.add_coordinates()
+        # self.add_coordinates()
         self.add_houses(self.houses)
         self.add_batteries(self.batteries)
         
@@ -94,8 +94,8 @@ class Grid():
                 batteries.append(battery)
                 id += 1
 
-                self.coordinates[x + (51 - y) * 51].batteries.append(battery)
-                self.connected_coordinates.append[self.coordinates[x + (51 - y) * 51]]
+                self.coordinates[int(x) + (51 - int(y)) * 51].batteries.append(battery)
+                self.connected_coordinates.append(self.coordinates[int(x) + (51 - int(y)) * 51])
 
         return batteries
 
@@ -285,8 +285,10 @@ class Grid():
             # for coordinate in self.coordinates:
             #     if coordinate.id == 100 * point[0] + point[1]:
             #         self.mark_connected(coordinate, bat)
-            self.coordinates[point[0] + (51 - point[1]) * 51].batteries.append(bat)
-            self.connected_coordinates.append(self.coordinates[point[0] + (51 - point[1]) * 51])
+            print(point)
+            # print(bat)
+            self.coordinates[point[0] + (50 - point[1]) * 51].batteries.append(bat)
+            self.connected_coordinates.append(self.coordinates[point[0] + (50 - point[1]) * 51])
 
             
             

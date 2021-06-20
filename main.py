@@ -14,17 +14,19 @@ if __name__ == "__main__":
     # valid_grid = random_algorithm.run()
 
     # --------------------------------- Greedy UNCONSTRAINED--------------------------------------------
-    greed = greedy.Greedy(1)
-    valid_grid = greed.run_unconstrained()
+    # greed = greedy.Greedy(1)
+    # valid_grid = greed.run_unconstrained()
     
 
     # --------------------------------- Greedy CONSTRAINED ----------------------------------------------
     # greed = greedy.Greedy(1000)
     # valid_grid = greed.run_constrained()
-<<<<<<< HEAD
-    # print(valid_grid.score) 
-=======
->>>>>>> d89abe1bdb28f63ef08fbc0fa38f98575266eb1f
+    # print(valid_grid.score)
+
+    # --------------------------------- Greedy SHARED UNCONSTRAINED ----------------------------------------------
+    greed = greedy.Greedy(10)
+    valid_grid = greed.run_shared()
+ 
 
     # --------------------------------- Hill Climber --------------------------------------
     # climber = hillclimber.HillClimber(valid_grid)
