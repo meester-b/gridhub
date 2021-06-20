@@ -20,9 +20,9 @@ if __name__ == "__main__":
     
 
     # --------------------------------- Greedy CONSTRAINED ----------------------------------------------
-    greed = greedy.Greedy(1000)
-    valid_grid = greed.run_constrained()
-    print(valid_grid.score) 
+    # greed = greedy.Greedy(1000)
+    # valid_grid = greed.run_constrained()
+    # print(valid_grid.score) 
 
     # --------------------------------- Hill Climber --------------------------------------
     climber = hillclimber.HillClimber(valid_grid)
