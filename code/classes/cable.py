@@ -41,3 +41,6 @@ class Cable():
         """
         length = len(self.path)
         return length
+
+    def __str__(self):
+        return f"Cable with path:{self.path}"

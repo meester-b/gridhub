@@ -6,11 +6,6 @@ pip3 install matplotlib
 # import matplotlib
 from matplotlib import pyplot as plt
 
-# In de juiste mappen gaan
-# import sys, os
-# sys.path.insert(0, os.path.abspath('../..'))
-
-
 def visualise(grid_input):
     """
     Visualise the grid we foud
@@ -54,19 +49,6 @@ def visualise(grid_input):
                 y_line = [y_begin, y_end]
 
                 plt.plot(x_line, y_line, color='blue')
-                
-                # if (x_begin == 38) & (y_begin == 12):
-                #     plt.plot(x_line, y_line, color='blue')
-                # elif (x_begin == 43) & (y_begin == 13):
-                #     plt.plot(x_line, y_line, color='yellow')
-                # elif (x_begin == 42) & (y_begin == 3):
-                #     plt.plot(x_line, y_line, color='green')
-                # elif (x_begin == 49) & (y_begin == 23):
-                #     plt.plot(x_line, y_line, color='red')
-                # elif (x_begin == 3) & (y_begin == 45):
-                #     plt.plot(x_line, y_line, color='purple')
-
-
 
     # for each battery plot the battery with x and y coordinates
     for battery in batteries:
@@ -79,4 +61,105 @@ def visualise(grid_input):
     # ax.set_aspect('equal', adjustable='box')
     # plt.savefig("grid.png")
 
+    plt.show()
+
+def visualise_shared(grid_input):
+    """
+    Visualise the grid we foud
+    """
+    # load visualisations
+    print("Loading visualisation...")
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    # create a grid with x and y axes -5 to -55 and every interval of 1 for each x and y
+    plt.axis([-5, 55, -5, 55])
+    # plt.xticks = np.arange(-5, 55)
+    # plt.yticks = np.arange(-5, 55)
+    plt.xticks([-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ,16 ,17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+    31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55])
+    plt.yticks([-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ,16 ,17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+    31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55])
+    plt.title('GridHub')
+    plt.grid(True)
+
+    # from our grid_input take the list of houses and batteries
+    grid = grid_input
+    houses = grid.houses
+    batteries = grid.batteries
+    
+    
+    # for each house plot the house with x and y coordinates
+    for house in houses:
+        x_house = house.x_coordinate
+        y_house = house.y_coordinate
+        plt.plot(x_house, y_house, '^', color='red')
+
+    for battery in batteries:
+        x_bat = battery.x_coordinate
+        y_bat = battery.y_coordinate
+        plt.plot(x_bat, y_bat, 'o', color='green')
+
+    
+
+    ## path is list [coordinaten]
+    # van coordinaat naar cordinate object (hoe?)
+    # check cordinate object connect bat
+    # kleur naar bat in list input bat
+    
+    #  for each cable plot each cable segment line
+    for path in grid.paths:
+        for i in range(len(path)-1): 
+            x_begin = path[i][0]
+            y_begin = path[i][1]
+            x_end = path[i+1][0]
+            y_end = path[i+1][1]
+            x_line = [x_begin, x_end]
+            y_line = [y_begin, y_end]
+               
+            coord1 = grid.coordinates[grid.rows * grid.cols + x_begin - grid.rows * (y_begin + 1)]
+            coord2 = grid.coordinates[grid.rows * grid.cols + x_end - grid.rows * (y_end + 1)]
+
+            print(len(coord1.batteries))
+            print(len(coord2.batteries))
+
+            if len(coord1.batteries) != 1:
+                plt.plot(x_line, y_line, color='black')
+            elif coord1.batteries == grid.batteries[0]:
+                plt.plot(x_line, y_line, color='blue')
+            elif coord1.batteries == grid.batteries[1]:
+                plt.plot(x_line, y_line, color='green')
+            elif coord1.batteries == grid.batteries[2]:
+                plt.plot(x_line, y_line, color='pink')
+            elif coord1.batteries == grid.batteries[3]:
+                plt.plot(x_line, y_line, color='yellow')
+            else:
+                plt.plot(x_line, y_line, color='purple')
+
+
+            
+            
+            
+            # for coord in grid_input.connected_coordinates:
+            #     # print(coord)
+            #     # print(coord.batteries)
+            #     # print("-")
+            #     # print(grid_input.batteries)
+            #     if coord.batteries[0] == grid_input.batteries[0]:
+            #         plt.plot(x_line, y_line, color='blue')
+            #     elif coord.batteries[0] == grid_input.batteries[1]:
+            #         plt.plot(x_line, y_line, color='yellow')
+            #     elif coord.batteries[0] == grid_input.batteries[2]:
+            #         plt.plot(x_line, y_line, color='orange')
+            #     elif coord.batteries[0] == grid_input.batteries[3]:
+            #         plt.plot(x_line, y_line, color='purple')
+            #     elif coord.batteries[0] == grid_input.batteries[4]:
+            #         plt.plot(x_line, y_line, color='pink')
+
+
+            plt.plot(x_line, y_line, color='blue')
+    
+
+    # plt.savefig("grid_shared.png")
+
+    # on mac
     plt.show()

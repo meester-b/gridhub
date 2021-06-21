@@ -181,57 +181,159 @@ class Greedy(Random):
     # Cable Sharing
     #######################
 
-    def greedy_share(self):
+    # def greedy_share(self):
+    #     """
+    #     ATTEMPT BASELINE
+    #     """
         
-        ### ga langs radom huis
+    #     ### ga langs random huis
+    #     for x in range(self.tries):
+            
+    #         # make deepcopy
+    #         grid = copy.deepcopy(test_grid)
+
+    #         houses_copy = copy.deepcopy(grid.houses)
+            
+    #         # shuffle the houses in the grid
+    #         grid.shuffle_list(grid.houses)
+            
+    #         # houses_copy = copy.deepcopy(grid.houses)
+
+    #         for i in range(len(grid.houses)):
+    #             best_options = {}
+
+    #             for house in houses_copy:
+    #                 distances = {}
+
+    #                 for point in grid.connected_coordinates:
+    #                     distances[point] = grid.calc_distance(house, point)
+                    
+    #                 closest_coord = min(distances, key=distances.get)
+    #                 distance = grid.calc_distance(house, closest_coord)
+    #                 # closest_coord_index = distances.index(min(distances))
+    #                 # closest_coord_dist = distances[closest_coord_index]
+    #                 # print(closest_coord)
+    #                 # closest_coord.remove if 0
+
+    #                 best_options[closest_coord] = distance
+                    
+    #             shortest_dist = min(best_options, key=best_options.get)
+
+    #             path = grid.calc_path(shortest_dist, closest_coord)
+    #             grid.add_path(path)
+    #             grid.connect_power(path, closest_coord.batteries[0])
+                
+    #         self.calc_cable_length(grid)
+    #         self.keep_track_shared(grid, self.best_greedy_shared)
+        
+    #     # print(self.best_greedy_shared)  
+    #     return self.best_greedy_shared
+
+
+    def greedy_shared_unc(self):
+        """
+        unconstrained greedy (BUT WITH MANY RUNS IT MAY RUN THE BASELINE)
+        """
+
+        # ga voor zoveel tries
         for x in range(self.tries):
+            print(x)
             
-            # make deepcopy
-            grid = copy.deepcopy(test_grid)
-            
-            # shuffle the houses in the grid
-            # random.shuffle(grid.houses)
-            grid.shuffle_list(grid.houses)
-            
+            # make deepcopy of houses and shuffle list
+            grid = copy.deepcopy(test_grid) 
+            grid.shuffle_list(grid.houses)      
 
             # loop through the houses on the grid
             for house in grid.houses:
 
                 # make a list of distances 
                 distances = {}
-                
+             
                 # for every point on the connected coordinates cable line
                 for point in grid.connected_coordinates:
-                                     
-                    # distances 
+    
+                    # the key is the point object and the value the distance
                     distances[point] = grid.calc_distance(house, point)
-                    # distances.append(grid.calc_distance(house, point))
-                    
+
+                # get the minimum distance for every point
                 connected_point = min(distances, key=distances.get)
                 
+                # calculate and add the path for visualisation
                 path = grid.calc_path(house, connected_point)
-                # print(path)
-                # for point in path:
-                    # print(point[0])
-                    # print(point[1])
-                    # print("\n")
+                grid.add_path(path)
+
+                # connect the battery with path
                 grid.connect_power(path, connected_point.batteries[0])
 
-            # werkt niet meer
-            # grid.calc_dist()
+            # calculate the length of the cable and keep track of best
             self.calc_cable_length(grid)
-
-
             self.keep_track_shared(grid, self.best_greedy_shared)
+        
+        # return the best
+        return self.best_greedy_shared
 
-                # for item in path:
-                #     # from item (x,y ) get point object
-                #     grid.mark_connected(grid.coordinates[int(item[0]) + (51 - int(item[1])) * 51], connected_point.batteries[0])
+    def greedy_shared_con(self):
+        """
+        constrained greedy
+        """
+        # keep track of try valid ratio
+        failed_attempts = 0
+        valid_attempts = 0 
 
+        # keep track of variables across tries
+        min_sum_cables = 0
+        total_dist = 0
+
+        ### ga langs random huis
+        for x in range(self.tries):
+            print(x)
+            
+            # make deepcopy
+            grid = copy.deepcopy(test_grid) 
+
+            grid.shuffle_list(grid.houses)      
+
+            # loop through the houses on the grid
+            for house in grid.houses:
+
+                # make a list of distances 
+                distances = {}
+             
+                # for every point on the connected coordinates cable line
+                for point in grid.connected_coordinates:
+    
+                    # distances
+                    if not grid.bat_full(point, house): 
+                        distances[point] = grid.calc_distance(house, point)
+
+                    # distances.append(grid.calc_distance(house, point))
+
+                if not distances:
+                    self.false_try(grid)
+                    failed_attempts += 1
+                    break
                 
-                # grid.lay_cable(closest_battery, house)
+                # point object
+                connected_point = min(distances, key=distances.get)
+                # checking battery object capacity left
+                connected_point.batteries[0].capacity_left -= house.output
+    
+                path = grid.calc_path(house, connected_point)
+                grid.add_path(path)
+                grid.connect_power(path, connected_point.batteries[0])
+                
+
+            self.calc_cable_length(grid)
+            self.keep_track_shared(grid, self.best_greedy_shared)
+            valid_attempts += 1
+
+        return self.best_greedy_shared
+
 
     def calc_cable_length(self, grid):
+        """
+        Calculate cable length
+        """
         sum = 0
 
         for point in grid.coordinates:
@@ -239,7 +341,6 @@ class Greedy(Random):
                 sum += 1
 
         grid.score = sum
-        print(sum)
 
     def keep_track_shared(self, new_grid, best_grid):
         """
@@ -250,21 +351,28 @@ class Greedy(Random):
         elif new_grid.score < best_grid.score:
             self.best_greedy_shared = new_grid
 
-    def run_shared(self):
+    # def run_shared(self):
+    #     """
+    #     This function runs our constrained greedy algorithm
+    #     """
+    #     best_grid = self.greedy_share()
+    #     print(f"Best score is {self.best_greedy_shared.score}")
+    #     return self.best_greedy_shared
+    
+    def run_shared_unc(self):
         """
         This function runs our constrained greedy algorithm
         """
-        self.greedy_share()
-        print(self.best_greedy_shared.score)
+        best_grid = self.greedy_shared_unc()
+        print(f"Best score is {self.best_greedy_shared.score}")
         return self.best_greedy_shared
 
+    def run_shared_con(self):
+        """
+        This function runs our constrained greedy algorithm
+        """
 
-
-
-
-        ### zoek dichtsbijzijnde coordinate dat verbonden is aan een batterij 
-                ## anders verbindt huis met dichtsbijzijnde batterij 
-        ### 
-
-
-    
+        best_grid = self.greedy_shared_con()
+        print(f"Best score is {self.best_greedy_shared.score}")
+        print(self.false_tries)
+        return self.best_greedy_shared
