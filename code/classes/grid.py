@@ -33,6 +33,7 @@ class Grid():
         self.batteries = self.load_batteries(infile_battery)
         self.score = 0
         self.is_valid = True
+        self.paths = []
 
         # create a empty list of lists filled with 0's
         for i in range(self.rows):
@@ -94,8 +95,8 @@ class Grid():
                 batteries.append(battery)
                 id += 1
 
-                self.coordinates[int(x) + (51 - int(y)) * 51].batteries.append(battery)
-                self.connected_coordinates.append(self.coordinates[int(x) + (51 - int(y)) * 51])
+                self.coordinates[DIMENSION * DIMENSION + int(x) - DIMENSION * (int(y) + 1)].batteries.append(battery)
+                self.connected_coordinates.append(self.coordinates[DIMENSION * DIMENSION + int(x) - DIMENSION * (int(y) + 1)])
 
         return batteries
 
@@ -142,8 +143,6 @@ class Grid():
     def shuffle_list(self, list):
         
         random.shuffle(list)
-
-    
     
     def pick_closest_battery(self, house):
         distances = []
@@ -240,20 +239,28 @@ class Grid():
     #######################
 
     def add_coordinates(self):
+        """
+       
+        """
         list = []
 
-        for y in range(DIMENSION):
+        for y in range(DIMENSION - 1, -1, -1):
             for x in range(DIMENSION):
                 coordinate = Coordinate(x, y)
                 list.append(coordinate)
-
         return list
 
     def calc_distance(self, point1, point2):
+        """
+        
+        """
         dist = abs(point1.y_coordinate - point2.y_coordinate) + abs(point1.x_coordinate - point2.x_coordinate)
         return dist
 
     def calc_path(self, point1, point2):
+        """
+        
+        """
         path = []
         
         if point1.x_coordinate < point2.x_coordinate:
@@ -273,24 +280,44 @@ class Grid():
         return path
 
     def mark_connected(self, coordinate, bat):
+        """
+        
+        """
         coordinate.batteries.append(bat)
 
     def is_connected(self, coordinate):
+        """
+        
+        """
         if coordinate.batteries:
             return True
         return False
 
     def connect_power(self, path, bat):
+        """
+        
+        """
         for point in path:
-            # for coordinate in self.coordinates:
-            #     if coordinate.id == 100 * point[0] + point[1]:
-            #         self.mark_connected(coordinate, bat)
-            print(point)
-            # print(bat)
-            self.coordinates[point[0] + (50 - point[1]) * 51].batteries.append(bat)
-            self.connected_coordinates.append(self.coordinates[point[0] + (50 - point[1]) * 51])
+            x = point[0]
+            y = point[1]
+
+            if bat not in self.coordinates[DIMENSION * DIMENSION + x - DIMENSION * (y + 1)].batteries:
+            # if len(self.coordinates[DIMENSION * DIMENSION + x - DIMENSION * (y + 1)].batteries) == 0:
+                self.coordinates[DIMENSION * DIMENSION + x - DIMENSION * (y + 1)].batteries.append(bat)
+            self.connected_coordinates.append(self.coordinates[DIMENSION * DIMENSION + x - DIMENSION * (y + 1)])
 
             
+    def add_path(self, path):
+        """
+        
+        """
+        self.paths.append(path)
+
+
+    def bat_full(self, point, house):
+        if house.output > point.batteries[0].capacity_left:
+            return True
+        return False
             
 
         

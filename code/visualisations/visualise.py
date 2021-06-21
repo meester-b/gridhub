@@ -6,11 +6,6 @@ pip3 install matplotlib
 # import matplotlib
 from matplotlib import pyplot as plt
 
-# In de juiste mappen gaan
-# import sys, os
-# sys.path.insert(0, os.path.abspath('../..'))
-
-
 def visualise(grid_input):
     """
     Visualise the grid we foud
@@ -54,19 +49,6 @@ def visualise(grid_input):
                 y_line = [y_begin, y_end]
 
                 plt.plot(x_line, y_line, color='blue')
-                
-                # if (x_begin == 38) & (y_begin == 12):
-                #     plt.plot(x_line, y_line, color='blue')
-                # elif (x_begin == 43) & (y_begin == 13):
-                #     plt.plot(x_line, y_line, color='yellow')
-                # elif (x_begin == 42) & (y_begin == 3):
-                #     plt.plot(x_line, y_line, color='green')
-                # elif (x_begin == 49) & (y_begin == 23):
-                #     plt.plot(x_line, y_line, color='red')
-                # elif (x_begin == 3) & (y_begin == 45):
-                #     plt.plot(x_line, y_line, color='purple')
-
-
 
     # for each battery plot the battery with x and y coordinates
     for battery in batteries:
@@ -112,16 +94,25 @@ def visualise_shared(grid_input):
         y_house = house.y_coordinate
         plt.plot(x_house, y_house, '^', color='red')
 
+    for battery in batteries:
+        x_bat = battery.x_coordinate
+        y_bat = battery.y_coordinate
+        plt.plot(x_bat, y_bat, 'o', color='green')
+    
+    
+    #  for each cable plot each cable segment line
+    for path in grid.paths:
+            for i in range(len(path)-1): 
+                x_begin = path[i][0]
+                y_begin = path[i][1]
+                x_end = path[i+1][0]
+                y_end = path[i+1][1]
+                x_line = [x_begin, x_end]
+                y_line = [y_begin, y_end]
 
-        # for each cable plot each cable segment line
-    i = 0
-    for coords in grid.connected_coords:
-        if (coords.x_coordinate != 0):
-            if grid.connected_coords[i - ]
-        if (i % 51 != 1):
-        
+                plt.plot(x_line, y_line, color='blue')
+    
+    plt.savefig("grid_shared.png")
 
-            plt.plot(x_line, y_line, color='blue')
-                
-                # if (x_begin == 38) & (y_begin == 12):
-                #  
+    # on mac
+    # plt.show()
