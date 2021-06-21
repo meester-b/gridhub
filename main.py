@@ -36,7 +36,7 @@ if __name__ == "__main__":
  
 
     # --------------------------------- Greedy SHARED CONSTRAINED ----------------------------------------------
-    greed = greedy.Greedy(1)
+    greed = greedy.Greedy(1000)
     valid_grid = greed.run_shared_con()
  
     # -------------------------------------- Visualise ----------------------------------------------------

@@ -375,4 +375,5 @@ class Greedy(Random):
         best_grid = self.greedy_shared_con()
         print(f"Best score is {self.best_greedy_shared.score}")
         print(self.false_tries)
+        # print(best_grid.paths)
         return self.best_greedy_shared
