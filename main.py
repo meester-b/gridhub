@@ -34,4 +34,4 @@ if __name__ == "__main__":
     # climber.run(1000)
 
     # --------------------------------- Visualise --------------------------------------
-    # vis.visualise(valid_grid)
+    vis.visualise(valid_grid)
