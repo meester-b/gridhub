@@ -166,7 +166,7 @@ class Greedy(Random):
         This function runs our unconstrained greedy algorithm
         """
         self.unconstrained_greedy()
-        print(self.best_greedy_unc.score)
+        #print(self.best_greedy_unc.score)
         return self.best_greedy_unc
 
     def run_constrained(self):
@@ -174,7 +174,7 @@ class Greedy(Random):
         This function runs our constrained greedy algorithm
         """
         self.constrained_greedy()
-        print(self.best_try.score)
+        #print(self.best_try.score)
         return self.best_try
 
     #######################
@@ -237,7 +237,6 @@ class Greedy(Random):
 
         # ga voor zoveel tries
         for x in range(self.tries):
-            print(x)
             
             # make deepcopy of houses and shuffle list
             grid = copy.deepcopy(test_grid) 
@@ -286,7 +285,6 @@ class Greedy(Random):
 
         ### ga langs random huis
         for x in range(self.tries):
-            print(x)
             
             # make deepcopy
             grid = copy.deepcopy(test_grid) 
@@ -364,7 +362,7 @@ class Greedy(Random):
         This function runs our constrained greedy algorithm
         """
         best_grid = self.greedy_shared_unc()
-        print(f"Best score is {self.best_greedy_shared.score}")
+        print(f"The best try has a distance of {self.best_greedy_shared.score}")
         return self.best_greedy_shared
 
     def run_shared_con(self):
@@ -373,7 +371,5 @@ class Greedy(Random):
         """
 
         best_grid = self.greedy_shared_con()
-        print(f"Best score is {self.best_greedy_shared.score}")
-        print(self.false_tries)
-        # print(best_grid.paths)
+        print(f"The best try has a distance of {self.best_greedy_shared.score}")
         return self.best_greedy_shared

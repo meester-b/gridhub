@@ -1,0 +1,12 @@
+Simulated Annealing schrijven voor random constrained
+Iterative optimalisation schrijven voor greedy constrained shared cables
+Output functie schrijven (zie case pagina)
+Main omschrijven met command line en keuzemenu
+
+Lange functies opsplitsen in kortere functies
+Alle onnodige/ongebruikte code weghalen
+Comments consequent in het Engels
+Onnodige files verwijderen
+Eventueel namen van functies aanpassen
+
+README netjes maken volgens inlever milestone (requirements.txt, case uitleg met afbeeldingen, gebruik, onderzoeksresultaten)

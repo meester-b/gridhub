@@ -1,5 +1,7 @@
 import copy
 import random
+import math
+import numpy as np
 
 from .hillclimber import HillClimber
 
@@ -7,29 +9,41 @@ class Annealing(HillClimber):
     """
     Simulated Annealing algorithm allows for some flexibility in the HillClimbing method.
     """
-    def __init__(self, grid):
-        super().__init__()
+    def __init__(self, grid, temperature=1):
+        super().__init__(grid)
         self.grid = grid
+
+        self.T0 = temperature
+        self.T = temperature
     
-    def reconnect_annealing(self, new_grid):
+    def update_temperature(self):
+        """
+
+        """
+        self.T = self.T - (self.T0 / self.iterations)
         
-        # shuffle the list of houses in the grid
-        new_grid.shuffle_list(new_grid.houses)
-
-        # grid input van Greedy
-
-        # copy
-
-        # repeat for i
-
-        # reconnect huis to new coordinate (cable/house/battery)
-
-        # check if input output is valid
-
+        # Exponential would look like this:
         
-    def check_solution_annealing(self, new_grid):
-        pass
+        # alpha = 0.99
+        # self.T = self.T * alpha
+    
+    def check_solution(self, new_grid):
+        """
 
+        """
+        new_grid.calc_dist()
+        new_score = new_grid.score
+        old_score = self.grid.score
+        delta = new_score - old_score
+        
+        # try except to prevent RuntimeWarning and OverflowError
+        try:
+            probability = np.exp(-delta / self.T)
+            if random.random() < probability:
+                self.grid = new_grid
+        except:
+            pass
 
-    def run_annealing(self, iterations):
-        pass
+        self.update_temperature()
+    
+    

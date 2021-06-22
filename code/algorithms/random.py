@@ -52,12 +52,6 @@ class Random():
             # remember if its the best try
             self.keep_track_random_unc(grid, self.best_random_unc)
 
-            # for bat in grid.batteries:
-            #     print(bat)
-
-            # for house in grid.houses:
-            #     print(house)
-
         # return grid
 
     def constrained_random(self):
@@ -76,7 +70,6 @@ class Random():
                 
                 if not grid.bat_available(house):
                     self.false_try(grid)
-                    print("failed")
                     break
                 else:
                     grid.connect_house_random_con(house, random_bat)
@@ -84,8 +77,6 @@ class Random():
             if grid.is_valid:
                 grid.calc_dist()
                 self.keep_track_random_con(grid, self.best_random_con)
-
-        # print(self.false_tries)
 
     def keep_track_random_unc(self, new_grid, best_grid):
         """
@@ -105,14 +96,21 @@ class Random():
         elif new_grid.score < best_grid.score:
             self.best_random_con = new_grid
 
-    def print_stats_random(self):
+    def print_stats_random_unc(self):
         """
 
         """
-        # min_dist_unc = self.best_random_unc.score
         min_dist = self.best_random_unc.score
         print(f"The best try has a distance of {min_dist}")
-        #  \nThe best valid try has a dist of {min_dist_con}")
+
+    def print_stats_random_con(self):
+        """
+
+        """
+        min_dist = self.best_random_con.score
+        # print(f"The number of valid attempts is {self.tries - self.false_tries}")
+        # print(f"The number of failed attempts is {self.false_tries}")
+        print(f"The best try has a distance of {min_dist}")
 
     def false_try(self, grid):
         """
@@ -121,13 +119,19 @@ class Random():
         grid.is_valid = False
         self.false_tries += 1
 
-    def run(self):
+    def run_unconstrained(self):
         """
 
         """
         self.unconstrained_random()
-        # self.constrained_random()
-        self.print_stats_random()
+        self.print_stats_random_unc()
         return self.best_random_unc
+    
+    def run_constrained(self):
+        """
 
+        """
+        self.constrained_random()
+        self.print_stats_random_con()
+        return self.best_random_con
 

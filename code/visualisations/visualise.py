@@ -59,9 +59,8 @@ def visualise(grid_input):
     # show this with matplotlib
 
     # ax.set_aspect('equal', adjustable='box')
-    # plt.savefig("grid.png")
+    plt.savefig("grid.png")
 
-    plt.show()
 
 def visualise_shared(grid_input):
     """
@@ -90,12 +89,6 @@ def visualise_shared(grid_input):
     
     # for each house plot the house with x and y coordinates
   
-
-    ## path is list [coordinaten]
-    # van coordinaat naar cordinate object (hoe?)
-    # check cordinate object connect bat
-    # kleur naar bat in list input bat
-    
     #  for each cable plot each cable segment line
     for path in grid.paths:
         for i in range(len(path)-1): 
@@ -109,9 +102,6 @@ def visualise_shared(grid_input):
             coord1 = grid.coordinates[grid.rows * grid.cols + x_begin - grid.rows * (y_begin + 1)]
             coord2 = grid.coordinates[grid.rows * grid.cols + x_end - grid.rows * (y_end + 1)]
 
-            # print(len(coord1.batteries))
-            # print(len(coord2.batteries))
-
             if grid.batteries[0] in coord1.batteries and grid.batteries[0] in coord2.batteries:
                 plt.plot(x_line, y_line, color='blue')
             elif grid.batteries[1] in coord1.batteries and grid.batteries[1] in coord2.batteries:
@@ -122,14 +112,6 @@ def visualise_shared(grid_input):
                 plt.plot(x_line, y_line, color='yellow')
             elif grid.batteries[4] in coord1.batteries and grid.batteries[4] in coord2.batteries:
                 plt.plot(x_line, y_line, color='purple')
-
-            if len(coord1.batteries) != 1:
-                if len(coord2.batteries) != 1:
-                    plt.plot(x_line, y_line, color='black')
-                else:
-                    plt.plot(x_begin, y_begin, '.', color='black')
-
-            # plt.plot(x_line, y_line, color='blue')
     
     for house in houses:
         x_house = house.x_coordinate
@@ -142,6 +124,3 @@ def visualise_shared(grid_input):
         plt.plot(x_bat, y_bat, 'o', color='green')
 
     plt.savefig("grid_shared.png")
-
-    # on mac
-    # plt.show()

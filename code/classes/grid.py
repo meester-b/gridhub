@@ -49,7 +49,21 @@ class Grid():
         # self.add_coordinates()
         self.add_houses(self.houses)
         self.add_batteries(self.batteries)
+    
+    def output(self):
+        """
+        district, cost
+
+        per batterij:
+        location, capacity, houses
         
+        per huis aan batterij:
+        location, output, cables
+
+        per kabel:
+        list of coordinates of the path
+        """
+        pass
 
     def load_houses(self, source_file):     
         """
