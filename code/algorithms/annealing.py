@@ -1,6 +1,4 @@
-import copy
 import random
-import math
 import numpy as np
 
 from .hillclimber import HillClimber
@@ -11,7 +9,9 @@ class Annealing(HillClimber):
     """
     def __init__(self, grid, temperature=1):
         super().__init__(grid)
+        # volgens mag deze hieronder weg
         self.grid = grid
+
 
         self.T0 = temperature
         self.T = temperature

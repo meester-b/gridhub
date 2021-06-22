@@ -15,6 +15,9 @@ class Cable():
         self.path = self.add_path()
         self.length = self.calc_length()
     
+    def __str__(self):
+        return f"Cable with path:{self.path}"
+    
     def add_path(self):
         """
         This function returns a list of the grid-segment steps from a battery to a house.
@@ -42,5 +45,4 @@ class Cable():
         length = len(self.path)
         return length
 
-    def __str__(self):
-        return f"Cable with path:{self.path}"
+    

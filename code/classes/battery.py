@@ -16,6 +16,9 @@ class Battery():
         self.houses = []
         self.capacity_left = float(1507)
         self.max_capacity = False
+    
+    def __str__(self):
+        return f"Battery {self.id}"
 
     def is_full(self):
         """
@@ -30,6 +33,3 @@ class Battery():
         """
         return [self.x_coordinate, self.y_coordinate]
 
-
-    def __str__(self):
-        return f"Battery {self.id}"

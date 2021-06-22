@@ -18,6 +18,12 @@ class House():
         self.available_bats = {}
         self.unavailable_bats = {}
         self.bat_options = len(self.available_bats)
+
+        # iterative
+        self.path = None
+    
+    def __str__(self):
+        return f"House {self.id}"
         
     def is_connected(self):
         """
@@ -52,5 +58,4 @@ class House():
             return min(self.available_bats, key=self.available_bats.get)
         return None
 
-    def __str__(self):
-        return f"House {self.id}"
+    

@@ -28,8 +28,8 @@ class Grid():
         self.cols = DIMENSION
         self.grid = []
         self.connected_coordinates = []
-        self.houses = self.load_houses(infile_house)
         self.coordinates = self.add_coordinates()
+        self.houses = self.load_houses(infile_house)
         self.batteries = self.load_batteries(infile_battery)
         self.score = 0
         self.is_valid = True
@@ -49,6 +49,9 @@ class Grid():
         # self.add_coordinates()
         self.add_houses(self.houses)
         self.add_batteries(self.batteries)
+    
+    def __str__(self):
+        return f"Grid object"
     
     def output(self):
         """
@@ -85,6 +88,9 @@ class Grid():
                 house = House(x, y, cap, id)
                 houses.append(house)
                 id += 1
+
+                # voor iterative
+                self.coordinates[DIMENSION * DIMENSION + int(x) - DIMENSION * (int(y) + 1)].houses.append(house)
 
         return houses
 
@@ -155,10 +161,15 @@ class Grid():
         return random.choice(list)
 
     def shuffle_list(self, list):
-        
+        """
+
+        """        
         random.shuffle(list)
     
     def pick_closest_battery(self, house):
+        """
+
+        """
         distances = []
         bats = []
 
@@ -222,7 +233,7 @@ class Grid():
 
     def calc_dist(self):
         """
-        Calculate the total distance 
+        Calculate the total distance of all cables in a grid
         """
         sum = 0
 
@@ -231,21 +242,7 @@ class Grid():
                 sum += cable.length
 
         self.score = sum
-
-    def delete_cable(self, bat, house):
-        """
-        Deletes a cable between a battery and a house.
-        """
-        
-        cable.Cable(bat, house).delete()        # werkt dit zo?
-
-        # access current cable between house and battery
-        # delete current cable
-
-    # def connect_house_greedy_con(self, house, bat):
     
-    def __str__(self):
-        return f"grid object"
 
 
     #######################
@@ -266,7 +263,7 @@ class Grid():
 
     def calc_distance(self, point1, point2):
         """
-        
+        Calculate the distance between two points on a grid
         """
         dist = abs(point1.y_coordinate - point2.y_coordinate) + abs(point1.x_coordinate - point2.x_coordinate)
         return dist

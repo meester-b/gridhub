@@ -87,7 +87,7 @@ class Greedy(Random):
                         house.unavailable_bats[bat] = dist
                 # break out of the loop if there are no available batteries left
                 if not grid.bat_available(house):
-                    self.false_try(grid)
+                    super().false_try(grid)
                     is_valid = False
                     failed_attempts += 1
                     break
@@ -304,10 +304,16 @@ class Greedy(Random):
                     if not grid.bat_full(point, house): 
                         distances[point] = grid.calc_distance(house, point)
 
+                        # # voor iterative
+                        # path = grid.calc_distance(house, point)
+                        # grid.
+                        # distances[point] = path
+                        # house.path.append(path)
+
                     # distances.append(grid.calc_distance(house, point))
 
                 if not distances:
-                    self.false_try(grid)
+                    super().false_try(grid)
                     failed_attempts += 1
                     break
                 
@@ -317,7 +323,9 @@ class Greedy(Random):
                 connected_point.batteries[0].capacity_left -= house.output
     
                 path = grid.calc_path(house, connected_point)
+                # print(path)
                 grid.add_path(path)
+                house.path = path
                 grid.connect_power(path, connected_point.batteries[0])
                 
 
@@ -372,4 +380,15 @@ class Greedy(Random):
 
         best_grid = self.greedy_shared_con()
         print(f"The best try has a distance of {self.best_greedy_shared.score}")
+
+        # sum = 0 
+        # for house in best_grid.houses:
+        #     print(house.path)
+        #     sum += 1
+        
+        # print(sum)
+
+        # for bat in best_grid.batteries:
+        #     print(bat.capacity_left)
+
         return self.best_greedy_shared

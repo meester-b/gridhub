@@ -1,4 +1,4 @@
-from code.algorithms import random, greedy, hillclimber, annealing
+from code.algorithms import random, greedy, hillclimber, annealing, iterative
 from code.classes import grid
 from code.visualisations import visualise as vis
 
@@ -43,11 +43,15 @@ if __name__ == "__main__":
     # valid_grid = greed.run_shared_unc()
 
     # --------------------------------- Greedy SHARED CONSTRAINED ----------------------------------------------
-    # greed = greedy.Greedy(100)
-    # valid_grid = greed.run_shared_con()
+    greed = greedy.Greedy(100)
+    valid_grid = greed.run_shared_con()
  
+    # ---------------------------------- Iterative -------------------------------------------------------------
+    iterate = iterative.Iterative(valid_grid)
+    valid_grid = iterate.run()
+    
     # -------------------------------------- Visualise ----------------------------------------------------
-    # vis.visualise_shared(valid_grid)
+    vis.visualise_shared(valid_grid)
 
 
     # output = valid_grid.output()
