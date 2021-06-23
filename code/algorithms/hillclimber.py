@@ -69,8 +69,12 @@ class HillClimber(Greedy):
         # Print statistics.
         self.print_stats()
         
-        # Retrun the grid.
+        # Return the grid.
         return self.grid
+
+
+
+
 
 
     # def select_houses(self, new_grid):

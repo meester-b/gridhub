@@ -51,14 +51,68 @@ TC = len(all grid-segments) * 9 + 5 * battery price
 ### Results
 
 ### Greedy algorithm
+#### Greedy unconstrained
+- Get a copy of a grid of one of the districts
+- Shuffle the list of houses that are on that grid
+- Loop through the houses
+- For each house, connect to the closest battery
+- Calculate the total distance of cables on the grid
+
+#### Greedy constrained
+- Get a copy of a grid of one of the districts
+- Shuffle the list of houses that are on that grid
+- Loop through the houses
+- For each house, connect to the closest battery
+- If that battery is full, connect to the second closest battery
+- Calculate the total distance of cables on the grid
+- If all batteries are full, break out and mark as failed attempt
+- Calculate the total distance of cables on the grid
+
+#### Greedy unconstrained shared cables
+- Get a copy of a grid of one of the districts
+- Shuffle the list of houses that are on that grid
+- Loop through the houses
+- Create a dictionary of all distances from the house to the closest connected coordinate
+- Add a path from the house to that coordinate
+- Calculate the total distance of cables on the grid
+
+#### Greedy constrained shared cables
+- Get a copy of a grid of one of the districts
+- Shuffle the list of houses that are on that grid
+- Loop through the houses
+- Create a dictionary of all distances from the house to the closest connected coordinate
+- Add a path from the house to that coordinate if the battery connected to that coordinate is not full
+- If battery is full, connect to another coordinate with a different battery
+- If there are no more available batteries, mark as a failed attempt
+- Calculate the total distance of cables on the grid
 
 #### Results
 
 ### Hillclimber algorithm
+- Get a valid grid as input
+- Make a copy of that grid
+- Shuffle the list of houses on the grid
+- Randomly select two houses from the grid
+- Swap the cables for both houses if battery capacity allows it
+- Check if the total cable length for the copy is smaller than the original
+- If shorter, make the new copy the input for the next iteration
+- If not shorter, go back to the previous situation
+- Check total distance of cables on the grid
 
 #### Results
 
 ### Simulated Annealing algorithm
+- Get a valid grid as input
+- Make a copy of that grid
+- Set a temperature that determines how much worse solutions the algorithm allows
+- Shuffle the list of houses on the grid
+- Randomly select two houses from the grid
+- Swap the cables for both houses if battery capacity allows it
+- Check if the total cable length for the copy is smaller than the original
+- If shorter, make the new copy the input for the next iteration
+- If not shorter, accept the new copy depending on the current temperature
+- Update temperature a small step towards zero
+- Check total distance of cables on the grid
 
 #### Results
 
