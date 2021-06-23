@@ -23,6 +23,8 @@ class Random():
         self.tries = tries
         self.false_tries = 0
 
+        # test_grid = grid.Grid(f"data/district_{district}/district-{district}_houses.csv", f"data/district_{district}/district-{district}_batteries.csv")
+
     def unconstrained_random(self):
         """
         Randomly connects houses to batteries.

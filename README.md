@@ -30,8 +30,12 @@ TC = len(all grid-segments) * 9 + 5 * battery price
 
 ## The Research
 ### Random algorithm
+#### Random unconstrained
 
-#### Results
+
+#### Random constrained
+
+### Results
 
 ### Greedy algorithm
 
@@ -69,5 +73,5 @@ Run `python3 main.py` in the VSCode terminal to start. You will be prompted for 
 - Which district do you want to work with? 1/2/3 and press Enter
 - Do you want to allow cable sharing? Y/N and press Enter
 - Do you want to respect the constraints? Y/N and press Enter
-- How many times do you want to run your chosen algorithm(s)? Any integer above 1 and press Enter
+- How many times do you want to run your chosen algorithm(s)? Any integer above 1 and press Enter\
 Depending on your choices, you will get options for which algorithm and improvement algorithm you want to run.

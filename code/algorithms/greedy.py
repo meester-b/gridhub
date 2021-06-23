@@ -22,6 +22,8 @@ class Greedy(Random):
         self.best_try = None
         self.best_greedy_shared = None
 
+        # test_grid = grid.Grid(f"data/district_{district}/district-{district}_houses.csv", f"data/district_{district}/district-{district}_batteries.csv")
+
     def unconstrained_greedy(self):
         """
         Sums up all minimum distances from houses to batteries, without constraints.
