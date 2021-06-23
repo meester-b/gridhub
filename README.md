@@ -110,25 +110,25 @@ TC = len(all grid-segments) * 9 + 5 * battery price
 
 
 ## Structure of the repository
-code
-/algorithms: contains random, greedy, hillclimber, annealing and iterative algorithms
-/classes: contains battery, cable, coordinate, grid and house classes
+code\
+/algorithms: contains random, greedy, hillclimber, annealing and iterative algorithms\
+/classes: contains battery, cable, coordinate, grid and house classes\
 /visualisations: contains visualise functions
 
-data
+data\
 contains all data from the three districts
 
-images
+images\
 contains the images used in this README.md 
 
-research_results
+research_results\
 will contain all visualisations of all algorithms for all three districts after they have completed running
 
-results
-/not shared: contains the visualisation of a grid without shared cables after running
+results\
+/not shared: contains the visualisation of a grid without shared cables after running\
 /shared cables: contains the visualisation of a grid with shared cables after running
 
-main.py: code to run the programme
+main.py: code to run the programme\
 requirements.txt: contains all necessary packages for this programme
 
 
