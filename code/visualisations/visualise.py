@@ -3,17 +3,18 @@ Do not forget to install matplotlib on laptop
 pip3 install matplotlib
 
 """
-# import matplotlib
+# Import matplotlib as plt
 from matplotlib import pyplot as plt
 
 def visualise(grid_input):
     """
-    Visualise the grid we foud
+    Visualise the grid result we got. 
     """
     # load visualisations
     print("Loading visualisation...")
     fig = plt.figure()
     ax = fig.add_subplot(111)
+    
     # create a grid with x and y axes -5 to -55 and every interval of 1 for each x and y
     plt.axis([-5, 55, -5, 55])
     # plt.xticks = np.arange(-5, 55)
@@ -59,7 +60,8 @@ def visualise(grid_input):
     # show this with matplotlib
 
     # ax.set_aspect('equal', adjustable='box')
-    plt.savefig("grid.png")
+    plt.savefig("results/not shared/grid.png")
+    print("Visualisation loaded")
 
 
 def visualise_shared(grid_input):
@@ -123,4 +125,5 @@ def visualise_shared(grid_input):
         y_bat = battery.y_coordinate
         plt.plot(x_bat, y_bat, 'o', color='green')
 
-    plt.savefig("grid_shared.png")
+    plt.savefig("results/shared cables/grid_shared.png")
+    print("Visualisation loaded")
