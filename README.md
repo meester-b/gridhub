@@ -31,9 +31,22 @@ TC = len(all grid-segments) * 9 + 5 * battery price
 ## The Research
 ### Random algorithm
 #### Random unconstrained
-
+- Get a copy of a grid of one of the districts
+- Shuffle the list of houses that are on that grid
+- Loop through the houses
+- For each house, select a random battery
+- Connect each house to that random battery
+- Calculate the total distance of cables on the grid
 
 #### Random constrained
+- Get a copy of a grid of one of the districts
+- Shuffle the list of houses that are on that grid
+- Loop through the houses
+- For each house, select a random battery
+- Connect each house to that random battery if house output is smaller than remaining capacity of the battery
+- If battery is full, connect to another battery
+- If all batteries are full, break out and mark as failed attempt
+- Calculate the total distance of cables on the grid
 
 ### Results
 
@@ -73,5 +86,6 @@ Run `python3 main.py` in the VSCode terminal to start. You will be prompted for 
 - Which district do you want to work with? 1/2/3 and press Enter
 - Do you want to allow cable sharing? Y/N and press Enter
 - Do you want to respect the constraints? Y/N and press Enter
-- How many times do you want to run your chosen algorithm(s)? Any integer above 1 and press Enter\
+- How many times do you want to run your chosen algorithm(s)? Any integer above 1 and press Enter
+
 Depending on your choices, you will get options for which algorithm and improvement algorithm you want to run.
