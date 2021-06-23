@@ -14,9 +14,6 @@ class Greedy(Random):
     Greedy inherits the functions of Random
     """
     def __init__(self, tries):
-        """
-        Initialialize Greedy
-        """
         super().__init__(tries)
         self.best_greedy_unc = None
         self.best_greedy_con = None
@@ -38,8 +35,6 @@ class Greedy(Random):
 
         grid.calc_dist()
         self.keep_track_greedy_unc(grid)
-
-        # return self.best_greedy_unc
 
     def constrained_greedy(self):
         """
@@ -68,12 +63,6 @@ class Greedy(Random):
             
             # keep track of the cable length in the current try
             sum_cables = 0
-
-            # c1 = 0
-            # c2 = 0
-            # c3 = 0
-            # c4 = 0
-            # c5 = 0
 
             # loop through the houses on the grid
             for house in grid.houses:
@@ -166,7 +155,6 @@ class Greedy(Random):
         This function runs our unconstrained greedy algorithm
         """
         self.unconstrained_greedy()
-        #print(self.best_greedy_unc.score)
         return self.best_greedy_unc
 
     def run_constrained(self):
@@ -174,7 +162,6 @@ class Greedy(Random):
         This function runs our constrained greedy algorithm
         """
         self.constrained_greedy()
-        #print(self.best_try.score)
         return self.best_try
 
     #######################
@@ -232,10 +219,9 @@ class Greedy(Random):
 
     def greedy_shared_unc(self):
         """
-        unconstrained greedy (BUT WITH MANY RUNS IT MAY RUN THE BASELINE)
+        Unconstrained greedy with shared cables (Note: with many runs it may run the baseline)
         """
-
-        # ga voor zoveel tries
+        # loop for the number of tries
         for x in range(self.tries):
             
             # make deepcopy of houses and shuffle list
@@ -268,12 +254,12 @@ class Greedy(Random):
             self.calc_cable_length(grid)
             self.keep_track_shared(grid, self.best_greedy_shared)
         
-        # return the best
+        # return the best try
         return self.best_greedy_shared
 
     def greedy_shared_con(self):
         """
-        constrained greedy
+        Constrained greedy with shared cables
         """
         # keep track of try valid ratio
         failed_attempts = 0
@@ -283,7 +269,7 @@ class Greedy(Random):
         min_sum_cables = 0
         total_dist = 0
 
-        ### ga langs random huis
+        # loop for the number of tries
         for x in range(self.tries):
             
             # make deepcopy
@@ -294,13 +280,13 @@ class Greedy(Random):
             # loop through the houses on the grid
             for house in grid.houses:
 
-                # make a list of distances 
+                # make a dict of distances 
                 distances = {}
              
                 # for every point on the connected coordinates cable line
                 for point in grid.connected_coordinates:
     
-                    # distances
+                    # add the point to the distances dict if battery is available
                     if not grid.bat_full(point, house): 
                         distances[point] = grid.calc_distance(house, point)
 
@@ -316,19 +302,18 @@ class Greedy(Random):
                     super().false_try(grid)
                     failed_attempts += 1
                     break
-                
-                # point object
+            
+                # get the closest point and subtract house output from battery capacity
                 connected_point = min(distances, key=distances.get)
-                # checking battery object capacity left
                 connected_point.batteries[0].capacity_left -= house.output
     
+                # add a path between the house and the point
                 path = grid.calc_path(house, connected_point)
-                # print(path)
                 grid.add_path(path)
                 house.path = path
                 grid.connect_power(path, connected_point.batteries[0])
                 
-
+            # calculate total score of the grid
             self.calc_cable_length(grid)
             self.keep_track_shared(grid, self.best_greedy_shared)
             valid_attempts += 1
@@ -377,7 +362,6 @@ class Greedy(Random):
         """
         This function runs our constrained greedy algorithm
         """
-
         best_grid = self.greedy_shared_con()
         print(f"The best try has a distance of {self.best_greedy_shared.score}")
 

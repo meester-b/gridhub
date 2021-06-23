@@ -5,7 +5,7 @@ class Battery():
     """
     def __init__(self, x_coordinate, y_coordinate, capacity, uid):
         """
-        Initializes the Battery class
+        Initializes the Battery class.
         """
         
         self.id = uid
