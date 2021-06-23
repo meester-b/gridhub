@@ -91,7 +91,7 @@ def visualise_shared(grid_input):
             coord1 = grid.coordinates[grid.rows * grid.cols + x_begin - grid.rows * (y_begin + 1)]
             coord2 = grid.coordinates[grid.rows * grid.cols + x_end - grid.rows * (y_end + 1)]
 
-            # Print different colours for every battery
+            # Print different colours for every battery.
             if grid.batteries[0] in coord1.batteries and grid.batteries[0] in coord2.batteries:
                 plt.plot(x_line, y_line, color='blue')
             elif grid.batteries[1] in coord1.batteries and grid.batteries[1] in coord2.batteries:
@@ -103,6 +103,7 @@ def visualise_shared(grid_input):
             elif grid.batteries[4] in coord1.batteries and grid.batteries[4] in coord2.batteries:
                 plt.plot(x_line, y_line, color='purple')
     
+    # 
     if len(coord1.batteries) != 1:
         if len(coord2.batteries) != 1:
             plt.plot(x_line, y_line, color='black')
@@ -119,5 +120,6 @@ def visualise_shared(grid_input):
         y_bat = battery.y_coordinate
         plt.plot(x_bat, y_bat, 'o', color='green')
 
+    # Save cables
     plt.savefig(f"results/shared cables/grid_shared_{grid.district}.png")
     print("Visualisation loaded")
