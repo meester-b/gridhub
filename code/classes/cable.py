@@ -38,9 +38,9 @@ class Cable():
         length = len(self.path)
         return length
 
-    def __str__(self):
-        """
-        Give the Cable Object a name.
-        """
-        return f"Cable with path:{self.path}"
+    # def __str__(self):
+    #     """
+    #     Give the Cable Object a name.
+    #     """
+    #     return f"{self.path}"
     

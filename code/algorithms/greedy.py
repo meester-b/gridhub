@@ -6,23 +6,17 @@ import random
 from code.classes import grid
 from .random import Random
 
-# Select districts.
-district = "1"
-test_grid = grid.Grid(f"data/district_{district}/district-{district}_houses.csv", f"data/district_{district}/district-{district}_batteries.csv")
-  
-
 class Greedy(Random):
     """
     Greedy inherits the functions of Random.
     """
-    def __init__(self, tries):
-        super().__init__(tries)
+    def __init__(self, tries, district):
+        super().__init__(tries, district)
         self.best_greedy_unc = None
         self.best_greedy_con = None
         self.best_try = None
         self.best_greedy_shared = None
-
-        # test_grid = grid.Grid(f"data/district_{district}/district-{district}_houses.csv", f"data/district_{district}/district-{district}_batteries.csv")
+        self.test_grid = grid.Grid(f"data/district_{district}/district-{district}_houses.csv", f"data/district_{district}/district-{district}_batteries.csv")
 
     def unconstrained_greedy(self):
         """
@@ -30,7 +24,7 @@ class Greedy(Random):
         """
         
         # Make a deepcopy of the grid.
-        grid = copy.deepcopy(test_grid)
+        grid = copy.deepcopy(self.test_grid)
 
         # Loop through the houses on the grid, pick the closest battery, add it and lay the cable.
         for house in grid.houses:
@@ -45,8 +39,7 @@ class Greedy(Random):
     def constrained_greedy(self):
         """
         Sums up all minimum distances from houses to batteries, without constraints.
-        """
-        
+        """ 
         # Keep track of try valid ratio.
         failed_attempts = 0
         valid_attempts = 0 
@@ -59,7 +52,7 @@ class Greedy(Random):
         for x in range(self.tries):
             
             # Make a deepcopy
-            grid = copy.deepcopy(test_grid)
+            grid = copy.deepcopy(self.test_grid)
             
             # Shuffle the houses in the grid.
             random.shuffle(grid.houses)
@@ -92,8 +85,9 @@ class Greedy(Random):
                 closest_battery = min(house.available_bats, key=house.available_bats.get)
                 shortest_dist = house.available_bats.get(closest_battery)
                 house.bats.append(closest_battery)
+                closest_battery.houses.append(house)
                 grid.lay_cable(closest_battery, house)
-
+                
                 # Subtract the output of the house from the remaining capacity of the battery.
                 closest_battery.capacity_left -= float(house.output)             
 
@@ -187,7 +181,7 @@ class Greedy(Random):
         for x in range(self.tries):
             
             # make deepcopy of houses and shuffle list
-            grid = copy.deepcopy(test_grid) 
+            grid = copy.deepcopy(self.test_grid) 
             grid.shuffle_list(grid.houses)      
 
             # loop through the houses on the grid
@@ -223,7 +217,6 @@ class Greedy(Random):
         """
         Constrained greedy with shared cables.
         """
-        
         # Keep track of try valid ratio.
         failed_attempts = 0
         valid_attempts = 0 
@@ -236,7 +229,7 @@ class Greedy(Random):
         for x in range(self.tries):
             
             # Make deepcopy and shuffle the list of grid houses (randomise)
-            grid = copy.deepcopy(test_grid)
+            grid = copy.deepcopy(self.test_grid)
             grid.shuffle_list(grid.houses)      
 
             # Loop through the houses on the grid.
@@ -251,14 +244,6 @@ class Greedy(Random):
                     # Add the point to the distances dict if battery is available.
                     if not grid.bat_full(point, house): 
                         distances[point] = grid.calc_distance(house, point)
-
-                        # # voor iterative
-                        # path = grid.calc_distance(house, point)
-                        # grid.
-                        # distances[point] = path
-                        # house.path.append(path)
-
-                    # distances.append(grid.calc_distance(house, point))
 
                 # Keep track of failed attempts if it is not possible.
                 if not distances:

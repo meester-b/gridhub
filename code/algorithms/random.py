@@ -1,29 +1,23 @@
 # Import copy, random and statistics.
 import copy
-import random
-import statistics
 
 # Import grid from classes.
 from code.classes import grid
-
-# Select district
-district = "1"
-test_grid = grid.Grid(f"data/district_{district}/district-{district}_houses.csv", f"data/district_{district}/district-{district}_batteries.csv")
-
 
 class Random():
     """
     Baseline algorithm randomly connects houses to batteries. Unconstrained version does not take max capacity into account,
     constrained version does.
     """
-    def __init__(self, tries):
+    def __init__(self, tries, district):
         self.score_list = []
         self.best_random_unc = None
         self.best_random_con = None
         self.tries = tries
         self.false_tries = 0
-
-        # test_grid = grid.Grid(f"data/district_{district}/district-{district}_houses.csv", f"data/district_{district}/district-{district}_batteries.csv")
+        self.district = district
+        self.test_grid = grid.Grid(f"data/district_{district}/district-{district}_houses.csv", f"data/district_{district}/district-{district}_batteries.csv")
+        self.test_grid.district = district
 
     def unconstrained_random(self):
         """
@@ -33,7 +27,7 @@ class Random():
         for x in range(self.tries):
 
             # Make a deepcopy.
-            grid = copy.deepcopy(test_grid)
+            grid = copy.deepcopy(self.test_grid)
 
             # Loop for each grid through all available houses.
             for i in range(len(grid.houses)):
@@ -64,7 +58,7 @@ class Random():
         for x in range(self.tries):
             
             # Make a deepcopy and shuffle the list
-            grid = copy.deepcopy(test_grid)
+            grid = copy.deepcopy(self.test_grid)
             grid.shuffle_list(grid.houses)
             
             # For every house.
@@ -143,4 +137,3 @@ class Random():
             return self.best_random_con
         else:
             print("No valid result found")
-

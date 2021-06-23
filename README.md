@@ -1,4 +1,4 @@
-# GridHub solves Smart Grid
+# GridHub solves SmartGrid
 ## Case Introduction
 SmartGrid is a case where 150 houses and 5 batteries are distributed on a 50x50 grid. Each house contains solars panels that have a distinctive output and each battery has a max capacity of 1507 to hold output. Houses are connected to a battery with a cable. This cable has a certain cost of 9 per grid-segment. Each battery also has a cost of 5000, which remains constant for now.
 
@@ -48,8 +48,6 @@ TC = len(all grid-segments) * 9 + 5 * battery price
 - If all batteries are full, break out and mark as failed attempt
 - Calculate the total distance of cables on the grid
 
-### Results
-
 ### Greedy algorithm
 #### Greedy unconstrained
 - Get a copy of a grid of one of the districts
@@ -86,8 +84,6 @@ TC = len(all grid-segments) * 9 + 5 * battery price
 - If there are no more available batteries, mark as a failed attempt
 - Calculate the total distance of cables on the grid
 
-#### Results
-
 ### Hillclimber algorithm
 - Get a valid grid as input
 - Make a copy of that grid
@@ -98,8 +94,6 @@ TC = len(all grid-segments) * 9 + 5 * battery price
 - If shorter, make the new copy the input for the next iteration
 - If not shorter, go back to the previous situation
 - Check total distance of cables on the grid
-
-#### Results
 
 ### Simulated Annealing algorithm
 - Get a valid grid as input
@@ -114,11 +108,28 @@ TC = len(all grid-segments) * 9 + 5 * battery price
 - Update temperature a small step towards zero
 - Check total distance of cables on the grid
 
-#### Results
 
-### Iterative algorithm
+## Structure of the repository
+code
+/algorithms: contains random, greedy, hillclimber, annealing and iterative algorithms
+/classes: contains battery, cable, coordinate, grid and house classes
+/visualisations: contains visualise functions
 
-#### Results
+data
+contains all data from the three districts
+
+images
+contains the images used in this README.md 
+
+research_results
+will contain all visualisations of all algorithms for all three districts after they have completed running
+
+results
+/not shared: contains the visualisation of a grid without shared cables after running
+/shared cables: contains the visualisation of a grid with shared cables after running
+
+main.py: code to run the programme
+requirements.txt: contains all necessary packages for this programme
 
 
 ## Usage
@@ -142,4 +153,4 @@ Run `python3 main.py` in the VSCode terminal to start. You will be prompted for 
 - Do you want to respect the constraints? Y/N and press Enter
 - How many times do you want to run your chosen algorithm(s)? Any integer above 1 and press Enter
 
-Depending on your choices, you will get options for which algorithm and improvement algorithm you want to run.
+Depending on your choices, you will get options for which algorithm and improvement algorithm you want to run. You will be prompted with the file path where you can find the visualisation of your algorithm result.

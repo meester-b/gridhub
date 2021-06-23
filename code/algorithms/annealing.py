@@ -11,8 +11,6 @@ class Annealing(HillClimber):
     """
     def __init__(self, grid, temperature=1):
         super().__init__(grid)
-        # volgens mag deze hieronder weg ----------
-        self.grid = grid
 
         self.T0 = temperature
         self.T = temperature
@@ -22,7 +20,6 @@ class Annealing(HillClimber):
         This function reduces the temperature linearly to zero when all iterations have passed.
         """
         self.T = self.T - (self.T0 / self.iterations)
-
     
     def check_solution(self, new_grid):
         """
