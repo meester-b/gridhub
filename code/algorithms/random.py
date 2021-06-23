@@ -54,8 +54,6 @@ class Random():
             # Remember if its the best try.
             self.keep_track_random_unc(grid, self.best_random_unc)
 
-        # return grid ?
-
     def constrained_random(self):
         """
         Randomly connects houses to batteries, with battery capacity constraints.
@@ -138,6 +136,9 @@ class Random():
         Function to run Random contrained.
         """
         self.constrained_random()
-        self.print_stats_random_con()
-        return self.best_random_con
+        if self.best_random_con is not None:
+            self.print_stats_random_con()
+            return self.best_random_con
+        else:
+            print("No valid result found")
 

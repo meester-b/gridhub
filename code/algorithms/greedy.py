@@ -168,7 +168,10 @@ class Greedy(Random):
         This function runs our constrained greedy algorithm.
         """
         self.constrained_greedy()
-        return self.best_try
+        if self.best_try is not None:
+            return self.best_try
+        else:
+            print("No valid result found")
 
     #######################
     # Cable Sharing
@@ -303,17 +306,22 @@ class Greedy(Random):
     
     def run_shared_unc(self):
         """
-        This function runs our constrained greedy algorithm
+        This function runs our unconstrained greedy algorithm
         """
-        #best_grid = self.greedy_shared_unc()
+        self.greedy_shared_unc()
         if self.best_greedy_shared is not None:
-        print(f"The best try has a distance of {self.best_greedy_shared.score}")
-        return self.best_greedy_shared
+            print(f"The best try has a distance of {self.best_greedy_shared.score}")
+            return self.best_greedy_shared
+        else:
+            print("No valid result found")
 
     def run_shared_con(self):
         """
         This function runs our constrained greedy algorithm
         """
-        #best_grid = self.greedy_shared_con()
-        print(f"The best try has a distance of {self.best_greedy_shared.score}")
-        return self.best_greedy_shared
+        self.greedy_shared_con()
+        if self.best_greedy_shared is not None:
+            print(f"The best try has a distance of {self.best_greedy_shared.score}")
+            return self.best_greedy_shared
+        else:
+            print("No valid result found")

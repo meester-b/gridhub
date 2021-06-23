@@ -1,8 +1,8 @@
 # GridHub solves Smart Grid
-## CASE INTRODUCTION
+## Case Introduction
 SmartGrid is a case where 150 houses and 5 batteries are distributed on a 50x50 grid. Each house contains solars panels that have a distinctive output and each battery has a max capacity of 1507 to hold output. Houses are connected to a battery with a cable. This cable has a certain cost of 9 per grid-segment. Each battery also has a cost of 5000, which remains constant for now.
 
-#### Case restrictions
+### Case restrictions
 - Batteries may not be connected to each other 
 - Each house can only be connected with 1 battery 
 - Each hose has a unique cable to the battery 
@@ -28,7 +28,7 @@ Our ultimate goal is to match each house to a battery, and doing this in the mos
 TC = len(all grid-segments) * 9 + 5 * battery price
 
 
-## THE RESEARCH
+## The Research
 ### Random algorithm
 
 #### Results
@@ -50,7 +50,7 @@ TC = len(all grid-segments) * 9 + 5 * battery price
 #### Results
 
 
-## REPLICATE THE RESULTS
+## Usage
 It is strongly recommended to use Visual Studio Code to run this programme. The programme requires Python to be installed.
 
 Run:

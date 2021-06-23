@@ -80,38 +80,39 @@ if __name__ == "__main__":
                 random_algorithm = random.Random(tries)
                 print(f"Running Random constrained...")
                 valid_grid = random_algorithm.run_constrained()
-                vis.visualise(valid_grid)
-                print("Open results/not shared/grid.png to see the results!")
+                if valid_grid is not None:
+                    vis.visualise(valid_grid)
+                    print("Open results/not shared/grid.png to see the results!")
                     
-                while True:
-                    hill_sim = input("Would you like to improve your grid with a HILLCLIMBER (H) or SIMULATED ANNEALING (S) algorithm or NOT (N)? ")
-                    if hill_sim.lower() not in ('h', 's', 'n'):
-                        print("Please pick an improvement algorithm with 'H' or 'S' or answer 'N' if you're done!")
-                        continue
-                    else:
-                        break
+                    while True:
+                        hill_sim = input("Would you like to improve your grid with a HILLCLIMBER (H) or SIMULATED ANNEALING (S) algorithm or NOT (N)? ")
+                        if hill_sim.lower() not in ('h', 's', 'n'):
+                            print("Please pick an improvement algorithm with 'H' or 'S' or answer 'N' if you're done!")
+                            continue
+                        else:
+                            break
                 
-                if hill_sim.lower() == 'h':
-                    climber = hillclimber.HillClimber(valid_grid)
-                    print(f"Running HillClimber...")
-                    climber.run(tries)
-                    vis.visualise(valid_grid)
-                    print("Open results/not shared/grid.png to see the results!")
-                
-                elif hill_sim.lower() == 's':
-                    annealing = annealing.Annealing(valid_grid)
-                    print(f"Running Simulated Annealing...")
-                    annealing.run(tries)
-                    vis.visualise(valid_grid)
-                    print("Open results/not shared/grid.png to see the results!")
+                    if hill_sim.lower() == 'h':
+                        climber = hillclimber.HillClimber(valid_grid)
+                        print(f"Running HillClimber...")
+                        climber.run(tries)
+                        vis.visualise(valid_grid)
+                        print("Open results/not shared/grid.png to see the results!")
+                    
+                    elif hill_sim.lower() == 's':
+                        annealing = annealing.Annealing(valid_grid)
+                        print(f"Running Simulated Annealing...")
+                        annealing.run(tries)
+                        vis.visualise(valid_grid)
+                        print("Open results/not shared/grid.png to see the results!")
 
             elif greedy_random_con.lower() == 'g':
                 greed = greedy.Greedy(tries)
                 print(f"Running Greedy constrained...")
                 valid_grid = greed.run_constrained()
-                vis.visualise(valid_grid)
-                print("Local optimum reached")
-                print("Open results/not shared/grid.png to see the results!")
+                if valid_grid is not None:
+                    vis.visualise(valid_grid)
+                    print("Open results/not shared/grid.png to see the results!")
 
 
     # Cable sharing algorithms
@@ -128,8 +129,9 @@ if __name__ == "__main__":
             greed = greedy.Greedy(tries)
             print(f"Running Greedy shared constrained...")
             valid_grid = greed.run_shared_con()
-            vis.visualise_shared(valid_grid)
-            print("Open results/shared cables/grid_shared.png to see the results!")
+            if valid_grid is not None:
+                vis.visualise_shared(valid_grid)
+                print("Open results/shared cables/grid_shared.png to see the results!")
 
             # while True:
             #     improve_it = input("Would you like to improve your grid with an ITERATIVE algorithm? (Y/N) ")
