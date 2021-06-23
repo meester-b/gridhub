@@ -2,6 +2,8 @@ from code.algorithms import random, greedy, hillclimber, annealing, iterative
 from code.classes import grid
 from code.visualisations import visualise as vis
 
+import sys
+
 
 if __name__ == "__main__":
     # do you want to allow cable sharing
@@ -31,6 +33,9 @@ if __name__ == "__main__":
     # do you want to use iterative?
 
 
+
+    if len(sys.argv) == 1:
+        pass
 
     # --------------------------------------------- Random UNCONSTRAINED-------------------------------------------------------
     # random_algorithm = random.Random(10)
@@ -78,7 +83,7 @@ if __name__ == "__main__":
     # valid_grid = iterate.run()
     
     # -------------------------------------- Visualise ----------------------------------------------------
-    vis.visualise_shared(valid_grid)
+    # vis.visualise_shared(valid_grid)
 
 
     # output = valid_grid.output()

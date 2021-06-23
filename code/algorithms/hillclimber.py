@@ -12,7 +12,6 @@ class HillClimber(Greedy):
     def __init__(self, grid):
         self.grid = grid
 
-
     # def select_random_house(self, list):
     #     """ 
     #     Selects a random house from the list of houses.

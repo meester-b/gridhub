@@ -1,6 +1,6 @@
 class House():
     """
-    This Battery Class initializes the House object with attributes: coordinates, output and cables.
+    This House class initializes the House object with attributes: coordinates, output and cables.
     It also has certain functions and tracks if a House is connected.
     """
     
@@ -42,18 +42,20 @@ class House():
         Adds a house to a battery.
         """
         self.bats.append(bat)
-    
-    # def print_house(self):
-    #     print(self.x_coordinate)
-    #     print(self.y_coordinate)
-    #     print(self.cables)
 
+    # Deze gebruiken we nu niet meer (was voor het niet-werkende deel van hillclimber) dus kan weg?
     def better_option(self):
+        """
+
+        """
         if min(self.unavailable_bats, key=self.unavailable_bats) < min(self.available_bats, key=self.available_bats):
             return True
         return False
     
     def best_option(self):
+        """
+
+        """
         if self.available_bats:
             return min(self.available_bats, key=self.available_bats.get)
         return None

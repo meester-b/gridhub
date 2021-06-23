@@ -108,8 +108,6 @@ class Random():
 
         """
         min_dist = self.best_random_con.score
-        # print(f"The number of valid attempts is {self.tries - self.false_tries}")
-        # print(f"The number of failed attempts is {self.false_tries}")
         print(f"The best try has a distance of {min_dist}")
 
     def false_try(self, grid):

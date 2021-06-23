@@ -16,13 +16,13 @@ DIMENSION = 51
 
 class Grid():
     """
-    This Grid Class initializes the Battery object with attributes: a grid with DIMENSION rows and columns.
+    This Grid class initializes the Grod object with attributes: a grid with DIMENSION rows and columns.
     Also the list of house and battery objects live here
     """
 
     def __init__(self, infile_house, infile_battery):
         """
-        Initialize the Grid class.
+        Initializes the Grid class.
         """
         self.rows = DIMENSION
         self.cols = DIMENSION
@@ -122,7 +122,7 @@ class Grid():
 
     def add_batteries(self, batteries):
         """
-        Functie die battery objects in de grid plaatst en coordinaten vervangt.
+        Function that places batteries in the grid as a 1.
         """
 
         for battery in batteries:
@@ -132,7 +132,7 @@ class Grid():
 
     def add_houses(self, houses):
         """
-        Functie die house objects in de grid plaatst en coordinaten vervangt.
+        Function that places houses in the grid as a 2.
         """
 
         for house in houses:
@@ -162,13 +162,13 @@ class Grid():
 
     def shuffle_list(self, list):
         """
-
+        Randomly shuffle a list.
         """        
         random.shuffle(list)
     
     def pick_closest_battery(self, house):
         """
-
+        Picks the closest battery from a given house.
         """
         distances = []
         bats = []
@@ -184,7 +184,6 @@ class Grid():
         """
         Creates a cable between a battery and a house.
         """
-
         new_cable = cable.Cable(bat, house)
         house.cables.append(new_cable)
         house.bats.append(bat)
@@ -193,7 +192,7 @@ class Grid():
 
     def bat_available(self, house):
         """
-
+        Checks whether there are batteries available for a house to connect to.
         """
         count = 0
 
@@ -208,7 +207,7 @@ class Grid():
 
     def connect_house_random_con(self, house, bat):
         """
-
+        Randomly connects a house to a battery within capacity restraints.
         """
         while house.output > bat.capacity_left:
             bat = self.pick_random_bat(self.batteries)
@@ -216,13 +215,9 @@ class Grid():
         bat.capacity_left -= house.output
         self.lay_cable(bat, house)
 
-    def connect_con(self, bat, house):
-        bat.capacity_left -= house.output
-        self.lay_cable(bat, house)
-
     def reconnect_constraint(self, house, bat):
         """
-
+        Reconnects a house to a different battery than the original, within capacity restraints.
         """
         bat.capacity_left -= house.output
         
@@ -245,13 +240,13 @@ class Grid():
     
 
 
-    #######################
+    ####################################################
     # Shared cables
-    #######################
+    ####################################################
 
     def add_coordinates(self):
         """
-       
+        Creates Coordinate objects for each coordinate and append them to a list.
         """
         list = []
 
@@ -263,14 +258,14 @@ class Grid():
 
     def calc_distance(self, point1, point2):
         """
-        Calculate the distance between two points on a grid
+        Calculate the distance between two points on a grid.
         """
         dist = abs(point1.y_coordinate - point2.y_coordinate) + abs(point1.x_coordinate - point2.x_coordinate)
         return dist
 
     def calc_path(self, point1, point2):
         """
-        
+        Calculates the path between two points on the grid.
         """
         path = []
         
@@ -292,13 +287,13 @@ class Grid():
 
     def mark_connected(self, coordinate, bat):
         """
-        
+        Appends a battery to list of batteries of a coordinate and thus marks as connected.
         """
         coordinate.batteries.append(bat)
 
     def is_connected(self, coordinate):
         """
-        
+        Checks whether a coordinate has batteries and thus is connected.
         """
         if coordinate.batteries:
             return True
@@ -306,26 +301,28 @@ class Grid():
 
     def connect_power(self, path, bat):
         """
-        
+        Lays a path by adding a battery to a coordinate.
         """
         for point in path:
             x = point[0]
             y = point[1]
 
             if bat not in self.coordinates[DIMENSION * DIMENSION + x - DIMENSION * (y + 1)].batteries:
-            # if len(self.coordinates[DIMENSION * DIMENSION + x - DIMENSION * (y + 1)].batteries) == 0:
                 self.coordinates[DIMENSION * DIMENSION + x - DIMENSION * (y + 1)].batteries.append(bat)
             self.connected_coordinates.append(self.coordinates[DIMENSION * DIMENSION + x - DIMENSION * (y + 1)])
 
             
     def add_path(self, path):
         """
-        
+        Adds a path to the list of paths.
         """
         self.paths.append(path)
 
 
     def bat_full(self, point, house):
+        """
+        Checks whether a battery is full.
+        """
         if house.output > point.batteries[0].capacity_left:
             return True
         return False

@@ -1,10 +1,11 @@
 class Coordinate():
     """
-    
+    Coordinate class initializes the coordinates, which allows for every coordinate on the grid
+    to be accessed and checked for batteries.
     """
     def __init__(self, x_coordinate, y_coordinate):
         """
-        
+        Initializes the Coordinate class.
         """
         self.id = 100 * x_coordinate + y_coordinate
         self.x_coordinate = x_coordinate 
