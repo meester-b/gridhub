@@ -58,12 +58,14 @@ if __name__ == "__main__":
                 print(f"Running Random unconstrained...")
                 grid = random_algorithm.run_unconstrained()
                 vis.visualise(grid)
+                print("Open results/not shared/grid.png to see the results!")
 
             elif greedy_random_unc.lower() == 'g':
                 greed = greedy.Greedy(tries)
                 print(f"Running Greedy unconstrained...")
                 grid = greed.run_unconstrained()
                 vis.visualise(grid)
+                print("Open results/not shared/grid.png to see the results!")
         
         elif constraints.lower() == 'y':
             while True:
@@ -79,6 +81,7 @@ if __name__ == "__main__":
                 print(f"Running Random constrained...")
                 valid_grid = random_algorithm.run_constrained()
                 vis.visualise(valid_grid)
+                print("Open results/not shared/grid.png to see the results!")
                     
                 while True:
                     hill_sim = input("Would you like to improve your grid with a HILLCLIMBER (H) or SIMULATED ANNEALING (S) algorithm or NOT (N)? ")
@@ -93,12 +96,14 @@ if __name__ == "__main__":
                     print(f"Running HillClimber...")
                     climber.run(tries)
                     vis.visualise(valid_grid)
+                    print("Open results/not shared/grid.png to see the results!")
                 
                 elif hill_sim.lower() == 's':
                     annealing = annealing.Annealing(valid_grid)
                     print(f"Running Simulated Annealing...")
                     annealing.run(tries)
                     vis.visualise(valid_grid)
+                    print("Open results/not shared/grid.png to see the results!")
 
             elif greedy_random_con.lower() == 'g':
                 greed = greedy.Greedy(tries)
@@ -106,6 +111,7 @@ if __name__ == "__main__":
                 valid_grid = greed.run_constrained()
                 vis.visualise(valid_grid)
                 print("Local optimum reached")
+                print("Open results/not shared/grid.png to see the results!")
 
 
     # Cable sharing algorithms
@@ -116,12 +122,14 @@ if __name__ == "__main__":
             print(f"Running Greedy shared unconstrained...")
             valid_grid = greed.run_shared_unc()
             vis.visualise_shared(valid_grid)
+            print("Open results/shared cables/grid_shared.png to see the results!")
         
         elif constraints.lower() == 'y':
             greed = greedy.Greedy(tries)
             print(f"Running Greedy shared constrained...")
             valid_grid = greed.run_shared_con()
             vis.visualise_shared(valid_grid)
+            print("Open results/shared cables/grid_shared.png to see the results!")
 
             # while True:
             #     improve_it = input("Would you like to improve your grid with an ITERATIVE algorithm? (Y/N) ")

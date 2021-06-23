@@ -61,6 +61,7 @@ def visualise(grid_input):
 
     # ax.set_aspect('equal', adjustable='box')
     plt.savefig("results/not shared/grid.png")
+    print("Visualisation loaded")
 
 
 def visualise_shared(grid_input):
@@ -125,3 +126,4 @@ def visualise_shared(grid_input):
         plt.plot(x_bat, y_bat, 'o', color='green')
 
     plt.savefig("results/shared cables/grid_shared.png")
+    print("Visualisation loaded")

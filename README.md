@@ -31,17 +31,33 @@ TC = len(all grid-segments) * 9 + 5 * battery price
 ## THE RESEARCH
 ### Random algorithm
 
+#### Results
+
 ### Greedy algorithm
+
+#### Results
 
 ### Hillclimber algorithm
 
+#### Results
+
 ### Simulated Annealing algorithm
 
+#### Results
+
 ### Iterative algorithm
+
+#### Results
 
 
 ## REPLICATE THE RESULTS
 It is strongly recommended to use Visual Studio Code to run this programme. The programme requires Python to be installed.
+
+Run:
+```
+sudo apt install python3-pip
+```
+This will install pip.
 
 Run:
 ```
