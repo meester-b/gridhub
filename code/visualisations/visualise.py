@@ -59,7 +59,7 @@ def visualise(grid_input):
     # show this with matplotlib
 
     # ax.set_aspect('equal', adjustable='box')
-    plt.savefig("grid.png")
+    plt.savefig("results/not shared/grid.png")
 
 
 def visualise_shared(grid_input):
