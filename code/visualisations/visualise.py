@@ -123,4 +123,4 @@ def visualise_shared(grid_input):
         y_bat = battery.y_coordinate
         plt.plot(x_bat, y_bat, 'o', color='green')
 
-    plt.savefig("grid_shared.png")
+    plt.savefig("results/shared cables/grid_shared.png")

@@ -4,6 +4,33 @@ from code.visualisations import visualise as vis
 
 
 if __name__ == "__main__":
+    # do you want to allow cable sharing
+    # y or n
+
+    #### NO SHARING
+    # do you want to allow constraints?
+    # y or n
+    # NO (unconstrained)
+    # Random, greedy
+
+    # YES (constrained) 
+    # loading valid solutions
+    # random, greedy 
+    # greedy --> local optimum reached
+    # on random --> do you want to use Hillclimb or Annealing
+
+
+    #### SHARING
+   # do you want to allow constraints?
+    # y or n
+    # NO (unconstrained)
+    # run greedy
+
+    # YES (constrained) 
+    # run greedy
+    # do you want to use iterative?
+
+
 
     # --------------------------------------------- Random UNCONSTRAINED-------------------------------------------------------
     # random_algorithm = random.Random(10)
@@ -39,16 +66,16 @@ if __name__ == "__main__":
     ##############################################################################################################
 
     # --------------------------------- Greedy SHARED UNCONSTRAINED ----------------------------------------------
-    # greed = greedy.Greedy(1)
-    # valid_grid = greed.run_shared_unc()
+    greed = greedy.Greedy(1)
+    valid_grid = greed.run_shared_unc()
 
     # --------------------------------- Greedy SHARED CONSTRAINED ----------------------------------------------
-    greed = greedy.Greedy(100)
-    valid_grid = greed.run_shared_con()
+    # greed = greedy.Greedy(100)
+    # valid_grid = greed.run_shared_con()
  
     # ---------------------------------- Iterative -------------------------------------------------------------
-    iterate = iterative.Iterative(valid_grid)
-    valid_grid = iterate.run()
+    # iterate = iterative.Iterative(valid_grid)
+    # valid_grid = iterate.run()
     
     # -------------------------------------- Visualise ----------------------------------------------------
     vis.visualise_shared(valid_grid)

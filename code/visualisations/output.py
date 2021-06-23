@@ -4,9 +4,12 @@ input == grid
 dict with "district" and "costs-shared"
 for bat in grid.batteries:
     bat_dict = {}
+    bat_dict["location"] =     
+    bat_dict["capacity"] =
+    bat_dict["houses"] =  
 
     house_list = []
-
+    for house
 
 
 [

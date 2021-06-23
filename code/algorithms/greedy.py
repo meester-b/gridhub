@@ -332,7 +332,7 @@ class Greedy(Random):
             self.calc_cable_length(grid)
             self.keep_track_shared(grid, self.best_greedy_shared)
             valid_attempts += 1
-
+        
         return self.best_greedy_shared
 
 
