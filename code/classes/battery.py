@@ -4,10 +4,6 @@ class Battery():
     It also has certain functions and tracks the cables and houses connected.
     """
     def __init__(self, x_coordinate, y_coordinate, capacity, uid):
-        """
-        Initializes the Battery class.
-        """
-        
         self.id = uid
         self.x_coordinate = int(x_coordinate)
         self.y_coordinate = int(y_coordinate)
@@ -17,9 +13,6 @@ class Battery():
         self.capacity_left = float(1507)
         self.max_capacity = False
     
-    def __str__(self):
-        return f"Battery {self.id}"
-
     def is_full(self):
         """
         Checks if a battery as at max capacity.
@@ -33,3 +26,8 @@ class Battery():
         """
         return [self.x_coordinate, self.y_coordinate]
 
+    def __str__(self):
+        """
+        Give the Battery Object a name.
+        """
+        return f"Battery {self.id}"

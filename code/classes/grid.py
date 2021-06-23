@@ -1,29 +1,26 @@
-# import csv and random
+# Import csv and random.
 import csv
 import random
 
-# import all the battery adn
+# Import the classes from battery, cable, house and coordinate.
 from .battery import *
 from .cable import *
 from .house import *
 from .coordinate import *
 
 
-from code.classes import cable
+from code.classes import cable              ### ONNODIG??
 
-# Dimensions in our grid
+# Dimensions in our grid.
 DIMENSION = 51
 
 class Grid():
     """
     This Grid class initializes the Grod object with attributes: a grid with DIMENSION rows and columns.
-    Also the list of house and battery objects live here
+    The Grid has a list of connected coordinates, coordinates, houses, batteries, a score, a is_valid function
+    and paths.
     """
-
     def __init__(self, infile_house, infile_battery):
-        """
-        Initializes the Grid class.
-        """
         self.rows = DIMENSION
         self.cols = DIMENSION
         self.grid = []
@@ -35,23 +32,21 @@ class Grid():
         self.is_valid = True
         self.paths = []
 
-        # create a empty list of lists filled with 0's
+        # Create a empty list of lists filled with 0's.
         for i in range(self.rows):
             new_row = []
 
-            # append 0's into every list
+            # A[pend 0's into every list.
             for i in range(self.cols):
                 new_row.append(0)
 
             self.grid.append(new_row)
 
-        # place into grid
-        # self.add_coordinates()
+        # Place into grid.
         self.add_houses(self.houses)
         self.add_batteries(self.batteries)
     
-    def __str__(self):
-        return f"Grid object"
+
     
     def output(self):
         """
@@ -72,15 +67,17 @@ class Grid():
         """
         Creates House objects and load them into a list of houses from csv.
         """
-
+        
+        # Start with an ID of 1 for the first house and create a list of houses.
         id = 1
         houses = []
 
-        # Open the data from 
+        # Open the data from the file and read it with csv.
         with open(source_file, 'r') as in_file:           
             reader = csv.reader(in_file)
             next(reader)
 
+            # For every row create a House object and append it to the list of houses.
             for row in reader:
                 x = row[0]
                 y = row[1]
@@ -89,23 +86,27 @@ class Grid():
                 houses.append(house)
                 id += 1
 
-                # voor iterative
+                # For the Iterative algorithm.
                 self.coordinates[DIMENSION * DIMENSION + int(x) - DIMENSION * (int(y) + 1)].houses.append(house)
 
+        # Return the list of houses.
         return houses
 
     def load_batteries(self, source_file):     
         """
         Creates battery objects and load them into a list of batteries from csv.
         """
-
+        
+        # Start with an ID of 1 for the first battery and create a list of batteries.
         id = 1
         batteries = []
 
+        # Open the data from the file and read it with csv.
         with open(source_file, 'r') as in_file:           
             reader = csv.reader(in_file)
             next(reader)
-
+            
+            # For every row create a Battery object and append it to the list of batteries.
             for row in reader:
                 cap = row[1]
                 split = row[0].split(",")
@@ -115,16 +116,17 @@ class Grid():
                 batteries.append(battery)
                 id += 1
 
+                # ######################################################################################################################
                 self.coordinates[DIMENSION * DIMENSION + int(x) - DIMENSION * (int(y) + 1)].batteries.append(battery)
                 self.connected_coordinates.append(self.coordinates[DIMENSION * DIMENSION + int(x) - DIMENSION * (int(y) + 1)])
 
+        # Return the list of batteries.
         return batteries
 
     def add_batteries(self, batteries):
         """
         Function that places batteries in the grid as a 1.
         """
-
         for battery in batteries:
             x_coordinate = int(battery.x_coordinate)
             y_coordinate = int(battery.y_coordinate)
@@ -134,7 +136,6 @@ class Grid():
         """
         Function that places houses in the grid as a 2.
         """
-
         for house in houses:
             x_coordinate = int(house.x_coordinate)
             y_coordinate = int(house.y_coordinate)
@@ -144,7 +145,6 @@ class Grid():
         """
         Function that prints the grid.
         """
-
         for list in self.grid:
             print(f"{list}\n")
 
@@ -240,9 +240,9 @@ class Grid():
     
 
 
-    ####################################################
+    ##################
     # Shared cables
-    ####################################################
+    ##################
 
     def add_coordinates(self):
         """
@@ -311,7 +311,6 @@ class Grid():
                 self.coordinates[DIMENSION * DIMENSION + x - DIMENSION * (y + 1)].batteries.append(bat)
             self.connected_coordinates.append(self.coordinates[DIMENSION * DIMENSION + x - DIMENSION * (y + 1)])
 
-            
     def add_path(self, path):
         """
         Adds a path to the list of paths.
@@ -328,6 +327,8 @@ class Grid():
         return False
             
 
-        
-
-
+    def __str__(self):
+        """
+        Give the Grid Object a name.
+        """
+        return f"Grid object"

@@ -1,19 +1,21 @@
+# Import copy, random and statistics.
 import copy
 import random
 import statistics
 
+# Import grid from classes.
 from code.classes import grid
 
+# Select district
 district = "1"
-
 test_grid = grid.Grid(f"data/district_{district}/district-{district}_houses.csv", f"data/district_{district}/district-{district}_batteries.csv")
 
 
 class Random():
-    '''
+    """
     Baseline algorithm randomly connects houses to batteries. Unconstrained version does not take max capacity into account,
     constrained version does.
-    '''
+    """
     def __init__(self, tries):
         self.score_list = []
         self.best_random_unc = None
@@ -22,65 +24,71 @@ class Random():
         self.false_tries = 0
 
     def unconstrained_random(self):
-        '''
+        """
         Randomly connects houses to batteries.
-        '''    
-        # loop for a given number of tries to create a new grid
+        """ 
+        # Loop for a given number of tries to create a new grid.
         for x in range(self.tries):
 
-            # make a deepcopy
+            # Make a deepcopy.
             grid = copy.deepcopy(test_grid)
 
-            # loop for each grid through all available houses
+            # Loop for each grid through all available houses.
             for i in range(len(grid.houses)):
                 
-                # select a random house from the list of houses
+                # Select a random house from the list of houses.
                 house = grid.pick_random_house(grid.houses, i)
                 
-                # select a random battery from the list of batteries
+                # Select a random battery from the list of batteries.
                 random_bat = grid.pick_random_bat(grid.batteries)
 
-                # connect the house to the battery
+                # Connect the house to the battery.
                 house.add_bat(random_bat)
 
-                # create a cable between house and battery
+                # Create a cable between house and battery.
                 grid.lay_cable(random_bat, house)
 
-            # calc the total length of cable for this try
+            # Calculate the total length of cable for this try.
             grid.calc_dist()
 
-            # remember if its the best try
+            # Remember if its the best try.
             self.keep_track_random_unc(grid, self.best_random_unc)
 
-        # return grid
+        # return grid ?
 
     def constrained_random(self):
-        '''
-        Randomly connects houses to batteries, with battery constraints.
-        '''
-
+        """
+        Randomly connects houses to batteries, with battery capacity constraints.
+        """
+        # Loop through the number of tries.
         for x in range(self.tries):
+            
+            # Make a deepcopy and shuffle the list
             grid = copy.deepcopy(test_grid)
-
             grid.shuffle_list(grid.houses)
-
+            
+            # For every house.
             for i in range(len(grid.houses)):
+                
+                # Select a random house and a random bat.
                 house = grid.pick_random_house(grid.houses, i)
                 random_bat = grid.pick_random_bat(grid.batteries)
                 
+                # Break if there is no battery available, else connect house to a battery.
                 if not grid.bat_available(house):
                     self.false_try(grid)
                     break
                 else:
                     grid.connect_house_random_con(house, random_bat)
-                    
+
+            # If this grid is valid, calculate the distance and keep track of random.     
             if grid.is_valid:
                 grid.calc_dist()
                 self.keep_track_random_con(grid, self.best_random_con)
 
     def keep_track_random_unc(self, new_grid, best_grid):
         """
-
+        Function that keeps track of the best grid score in the unconstrained version.
         """
         if self.best_random_unc is None:
             self.best_random_unc = new_grid
@@ -89,7 +97,7 @@ class Random():
 
     def keep_track_random_con(self, new_grid, best_grid):
         """
-
+        Function that keeps track of the best grid score in the constrained version.
         """
         if self.best_random_con is None:
             self.best_random_con = new_grid
@@ -98,28 +106,28 @@ class Random():
 
     def print_stats_random_unc(self):
         """
-
+        Function that prints the statistics of the random unconstrained version.
         """
         min_dist = self.best_random_unc.score
         print(f"The best try has a distance of {min_dist}")
 
     def print_stats_random_con(self):
         """
-
+        Function that prints the statistics of the random constrained version.
         """
         min_dist = self.best_random_con.score
         print(f"The best try has a distance of {min_dist}")
 
     def false_try(self, grid):
         """
-
+        Function that keeps track of false tries.
         """
         grid.is_valid = False
         self.false_tries += 1
 
     def run_unconstrained(self):
         """
-
+        Function to run Random uncontrained.
         """
         self.unconstrained_random()
         self.print_stats_random_unc()
@@ -127,7 +135,7 @@ class Random():
     
     def run_constrained(self):
         """
-
+        Function to run Random contrained.
         """
         self.constrained_random()
         self.print_stats_random_con()

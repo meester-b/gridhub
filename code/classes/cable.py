@@ -1,20 +1,15 @@
 class Cable():
     """
     Cable class links two objects. It is always drawn from a House.
+    It cosists of a x and y coordinate start, x and y coordinate end, a path and the length of that path
     """
     def __init__(self, first_item, second_item):
-        """
-        Initialize the Cable class.
-        """
         self.x_start = first_item.x_coordinate
         self.y_start = first_item.y_coordinate
         self.x_end = second_item.x_coordinate
         self.y_end = second_item.y_coordinate
         self.path = self.add_path()
         self.length = self.calc_length()
-    
-    def __str__(self):
-        return f"Cable with path:{self.path}"
     
     def add_path(self):
         """
@@ -43,4 +38,9 @@ class Cable():
         length = len(self.path)
         return length
 
+    def __str__(self):
+        """
+        Give the Cable Object a name.
+        """
+        return f"Cable with path:{self.path}"
     

@@ -6,8 +6,26 @@ import sys
 
 
 if __name__ == "__main__":
-    # do you want to allow cable sharing
-    # y or n
+    
+    # 1) Which district?
+    # while True:
+    #     district = int(input("Which district do you want to work with? (1/2/3) "))
+    #     if district not in [1, 2, 3]:
+    #         print("Please enter only the number 1, 2 or 3")
+    #         continue
+    #     else:
+    #         break
+
+    # 2) Cable sharing?
+    # while True:
+    #     sharing = input("Do you want to allow cable sharing? (Y/N) ")
+    #     if sharing.lower() not in ('y', 'n'):
+    #         print("Please enter only 'Y' or 'N'")
+    #         continue
+    #     else:
+    #         break
+    
+    # if sharing == 'n' or sharing == 'N':
 
     #### NO SHARING
     # do you want to allow constraints?
@@ -34,23 +52,27 @@ if __name__ == "__main__":
 
 
 
-    if len(sys.argv) == 1:
-        pass
+    # if len(sys.argv) == 1:
+    #     pass
 
     # --------------------------------------------- Random UNCONSTRAINED-------------------------------------------------------
     # random_algorithm = random.Random(10)
+    # print(f"Running Random unconstrained...")
     # valid_grid = random_algorithm.run_unconstrained()
 
     # --------------------------------------------- Random CONSTRAINED-------------------------------------------------------
     # random_algorithm = random.Random(50)
+    # print(f"Running Random constrained...")
     # valid_grid = random_algorithm.run_constrained()
 
     # ---------------------------------------------- Greedy UNCONSTRAINED-----------------------------------------
     # greed = greedy.Greedy(10)
+    # print(f"Running Greedy unconstrained...")
     # valid_grid = greed.run_unconstrained()
 
     # --------------------------------------- Greedy CONSTRAINED ------------------------------------------------
     # greed = greedy.Greedy(30)
+    # print(f"Running Greedy constrained...")
     # valid_grid = greed.run_constrained()
 
     # ----------------------------------------- Hill Climber ----------------------------------------------------
@@ -69,21 +91,24 @@ if __name__ == "__main__":
     ##############################################################################################################
     ############################################# SHARED CABLES ##################################################
     ##############################################################################################################
-
+  
     # --------------------------------- Greedy SHARED UNCONSTRAINED ----------------------------------------------
-    greed = greedy.Greedy(1)
-    valid_grid = greed.run_shared_unc()
+    # greed = greedy.Greedy(1)
+    # print(f"Running Greedy shared unconstrained...")
+    # valid_grid = greed.run_shared_unc()
 
     # --------------------------------- Greedy SHARED CONSTRAINED ----------------------------------------------
-    # greed = greedy.Greedy(100)
-    # valid_grid = greed.run_shared_con()
+    greed = greedy.Greedy(15)
+    # print(f"Running Greedy shared constrained...")
+    valid_grid = greed.run_shared_con()
  
     # ---------------------------------- Iterative -------------------------------------------------------------
-    # iterate = iterative.Iterative(valid_grid)
-    # valid_grid = iterate.run()
+    iterate = iterative.Iterative(valid_grid)
+    # print(f"Running Iterative...")
+    valid_grid = iterate.run()
     
     # -------------------------------------- Visualise ----------------------------------------------------
-    # vis.visualise_shared(valid_grid)
+    vis.visualise_shared(valid_grid)
 
 
     # output = valid_grid.output()

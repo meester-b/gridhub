@@ -3,12 +3,12 @@ Do not forget to install matplotlib on laptop
 pip3 install matplotlib
 
 """
-# import matplotlib
+# Import matplotlib as plt
 from matplotlib import pyplot as plt
 
 def visualise(grid_input):
     """
-    Visualise the grid we foud
+    Visualise the grid result we got. 
     """
     # load visualisations
     print("Loading visualisation...")

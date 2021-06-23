@@ -9,7 +9,15 @@ for bat in grid.batteries:
     bat_dict["houses"] =  
 
     house_list = []
-    for house
+    for house in grid.bat.houses:
+      house_dict = {}
+      house_dict["location"] =     
+      house_dict["capacity"] =
+      location = house
+
+
+      house_dict["cables"] = 
+      house_list.append(house_dict)
 
 
 [
