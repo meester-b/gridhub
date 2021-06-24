@@ -36,18 +36,18 @@ def visualise(grid):
         # plot a red triangle
         plt.plot(x_house, y_house, '^', color='red')
 
-        # # For each cable plot each cable segment line
-        # for cable in house.cables:
-        #     for i in range(len(cable.path)-1): 
-        #         x_begin = cable.path[i][0]
-        #         y_begin = cable.path[i][1]
-        #         x_end = cable.path[i+1][0]
-        #         y_end = cable.path[i+1][1]
-        #         x_line = [x_begin, x_end]
-        #         y_line = [y_begin, y_end]
+        # For each cable plot each cable segment line
+        for cable in house.cables:
+            for i in range(len(cable.path)-1): 
+                x_begin = cable.path[i][0]
+                y_begin = cable.path[i][1]
+                x_end = cable.path[i+1][0]
+                y_end = cable.path[i+1][1]
+                x_line = [x_begin, x_end]
+                y_line = [y_begin, y_end]
 
-        #         # plot a blue line
-        #         plt.plot(x_line, y_line, color='blue')
+                # plot a blue line
+                plt.plot(x_line, y_line, color='blue')
     
     # Show this with matplotlib and inform completion
     plt.savefig("results/not shared/grid.png")

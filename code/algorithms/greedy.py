@@ -161,6 +161,7 @@ class Greedy(Random):
         """
 
         self.unconstrained_greedy()
+        print(self.best_greedy_unc.score)
         return self.best_greedy_unc
 
     def run_constrained(self):
@@ -169,6 +170,7 @@ class Greedy(Random):
         """
 
         self.constrained_greedy()
+
         if self.best_try is not None:
             return self.best_try
         else:
