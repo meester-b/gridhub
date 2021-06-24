@@ -3,6 +3,7 @@ class Battery():
     This Battery Class initializes the Battery object with attributes: coordinates, capacity, cost and if the max is reached.
     It also has certain functions and tracks the cables and houses connected.
     """
+
     def __init__(self, x_coordinate, y_coordinate, capacity, uid):
         self.id = uid
         self.x_coordinate = int(x_coordinate)
@@ -18,16 +19,19 @@ class Battery():
         Checks if a battery as at max capacity.
         Or if no new house can be added without breaking capacity
         """
+
         return self.max_capacity
 
     def bat_coords(self):
         """
         Adds a house to a battery.
         """
+
         return [self.x_coordinate, self.y_coordinate]
 
     def __str__(self):
         """
         Give the Battery Object a name.
         """
+        
         return f"Battery {self.id}"
