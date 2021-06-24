@@ -1,15 +1,13 @@
 # Import csv and random.
 import csv
 import random
+import string
 
 # Import the classes from battery, cable, house and coordinate.
-from .battery import *
-from .cable import *
-from .house import *
-from .coordinate import *
-
-
-from code.classes import cable              ### ONNODIG??
+from .battery import Battery
+from .cable import Cable
+from .house import House
+from .coordinate import Coordinate
 
 # Dimensions in our grid.
 DIMENSION = 51
@@ -31,6 +29,7 @@ class Grid():
         self.score = 0
         self.is_valid = True
         self.paths = []
+        self.district = 1
 
         # Create a empty list of lists filled with 0's.
         for i in range(self.rows):
@@ -45,29 +44,11 @@ class Grid():
         # Place into grid.
         self.add_houses(self.houses)
         self.add_batteries(self.batteries)
-    
-
-    
-    def output(self):
-        """
-        district, cost
-
-        per batterij:
-        location, capacity, houses
-        
-        per huis aan batterij:
-        location, output, cables
-
-        per kabel:
-        list of coordinates of the path
-        """
-        pass
 
     def load_houses(self, source_file):     
         """
         Creates House objects and load them into a list of houses from csv.
         """
-        
         # Start with an ID of 1 for the first house and create a list of houses.
         id = 1
         houses = []
@@ -87,7 +68,7 @@ class Grid():
                 id += 1
 
                 # For the Iterative algorithm.
-                self.coordinates[DIMENSION * DIMENSION + int(x) - DIMENSION * (int(y) + 1)].houses.append(house)
+                self.coordinates[self.rows * self.cols + int(x) - self.rows * (int(y) + 1)].houses.append(house)
 
         # Return the list of houses.
         return houses
@@ -96,7 +77,6 @@ class Grid():
         """
         Creates battery objects and load them into a list of batteries from csv.
         """
-        
         # Start with an ID of 1 for the first battery and create a list of batteries.
         id = 1
         batteries = []
@@ -116,9 +96,9 @@ class Grid():
                 batteries.append(battery)
                 id += 1
 
-                # ######################################################################################################################
-                self.coordinates[DIMENSION * DIMENSION + int(x) - DIMENSION * (int(y) + 1)].batteries.append(battery)
-                self.connected_coordinates.append(self.coordinates[DIMENSION * DIMENSION + int(x) - DIMENSION * (int(y) + 1)])
+                # Load the corrcet coordinates into the coor
+                self.coordinates[self.rows * self.cols + int(x) - self.rows * (int(y) + 1)].batteries.append(battery)
+                self.connected_coordinates.append(self.coordinates[self.rows * self.cols + int(x) - self.rows * (int(y) + 1)])
 
         # Return the list of batteries.
         return batteries
@@ -184,7 +164,7 @@ class Grid():
         """
         Creates a cable between a battery and a house.
         """
-        new_cable = cable.Cable(bat, house)
+        new_cable = Cable(bat, house)
         house.cables.append(new_cable)
         house.bats.append(bat)
 
@@ -237,7 +217,6 @@ class Grid():
                 sum += cable.length
 
         self.score = sum
-    
 
 
     ##################
@@ -250,8 +229,8 @@ class Grid():
         """
         list = []
 
-        for y in range(DIMENSION - 1, -1, -1):
-            for x in range(DIMENSION):
+        for y in range(self.rows - 1, -1, -1):
+            for x in range(self.cols):
                 coordinate = Coordinate(x, y)
                 list.append(coordinate)
         return list
@@ -307,9 +286,9 @@ class Grid():
             x = point[0]
             y = point[1]
 
-            if bat not in self.coordinates[DIMENSION * DIMENSION + x - DIMENSION * (y + 1)].batteries:
-                self.coordinates[DIMENSION * DIMENSION + x - DIMENSION * (y + 1)].batteries.append(bat)
-            self.connected_coordinates.append(self.coordinates[DIMENSION * DIMENSION + x - DIMENSION * (y + 1)])
+            if bat not in self.coordinates[self.rows * self.cols + int(x) - self.rows * (int(y) + 1)].batteries:
+                self.coordinates[self.rows * self.cols + int(x) - self.rows * (int(y) + 1)].batteries.append(bat)
+            self.connected_coordinates.append(self.coordinates[self.rows * self.cols + int(x) - self.rows * (int(y) + 1)])
 
     def add_path(self, path):
         """
@@ -322,10 +301,61 @@ class Grid():
         """
         Checks whether a battery is full.
         """
+
         if house.output > point.batteries[0].capacity_left:
             return True
+
         return False
             
+
+    def create_output(self):
+        """
+        Create the right CS50 output.
+        """
+        
+        output = []
+
+        cable_length = self.score
+        print(cable_length)
+        total_cost = cable_length * 9 + 25000
+
+        header_dict = {}
+
+        header_dict["district"] = self.district
+        header_dict["cost_shared"] = total_cost
+
+        output.append(header_dict)
+        
+        for bat in self.batteries:
+            bat_dict = {}
+            bat_dict["location"] = f"{bat.x_coordinate},{bat.y_coordinate}"
+            bat_dict["capacity"] = bat.capacity
+
+            house_list = []
+
+            for house in bat.houses:
+                house_dict = {}
+                house_dict["location"] = f"{house.x_coordinate},{house.y_coordinate}"
+                house_dict["capacity"] = house.output
+                
+                coordinate_list = []
+
+                for cable in house.cables:
+                    for coord in cable.path:
+                        x = coord[0]
+                        y = coord[1]
+                        text = f"{x},{y}"
+                        coordinate_list.append(text)
+
+                house_dict["cables"] = coordinate_list
+                    
+                house_list.append(house_dict)
+
+            bat_dict["houses"] = house_list
+            
+            output.append(bat_dict)
+
+        return output
 
     def __str__(self):
         """

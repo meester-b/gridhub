@@ -1,116 +1,134 @@
-from code.algorithms import random, greedy, hillclimber, annealing, iterative
+from code.algorithms import random, greedy, hillclimber, annealing
 from code.classes import grid
 from code.visualisations import visualise as vis
-
-import sys
 
 
 if __name__ == "__main__":
     
     # 1) Which district?
-    # while True:
-    #     district = int(input("Which district do you want to work with? (1/2/3) "))
-    #     if district not in [1, 2, 3]:
-    #         print("Please enter only the number 1, 2 or 3")
-    #         continue
-    #     else:
-    #         break
+    while True:
+        district = int(input("Which district do you want to work with? (1/2/3) "))
+        if district not in [1, 2, 3]:
+            print("Please enter only the number 1, 2 or 3")
+            continue
+        else:
+            break
 
     # 2) Cable sharing?
-    # while True:
-    #     sharing = input("Do you want to allow cable sharing? (Y/N) ")
-    #     if sharing.lower() not in ('y', 'n'):
-    #         print("Please enter only 'Y' or 'N'")
-    #         continue
-    #     else:
-    #         break
+    while True:
+        sharing = input("Do you want to allow cable sharing? (Y/N) ")
+        if sharing.lower() not in ('y', 'n'):
+            print("Please enter only 'Y' or 'N'")
+            continue
+        else:
+            break
+
+    # 3) Constraints?
+    while True:
+        constraints = input("Do you want to respect the constraints? (Y/N) ")
+        if constraints.lower() not in ('y', 'n'):
+            print("Please enter only 'Y' or 'N'")
+            continue
+        else:
+            break
     
-    # if sharing == 'n' or sharing == 'N':
+    # 4) Number of tries?
+    while True:
+        tries = int(input("How many times do you want to run your chosen algorithm(s)? "))
+        if tries < 1:
+            print("Number of tries must be above 0")
+            continue
+        else:
+            break
 
-    #### NO SHARING
-    # do you want to allow constraints?
-    # y or n
-    # NO (unconstrained)
-    # Random, greedy
+    # No cable sharing algorithms
+    if sharing.lower() == 'n':
+        
+        if constraints.lower() == 'n':
+            while True:
+                greedy_random_unc = input("Do you want to run the RANDOM (R) or GREEDY (G) algorithm? (R/G) ")
+                if greedy_random_unc.lower() not in ('r', 'g'):
+                    print("Please pick either 'R' or 'G'!")
+                    continue
+                else:
+                    break
+            
+            if greedy_random_unc.lower() == 'r':
+                random_algorithm = random.Random(tries, district)
+                print(f"Running Random unconstrained...")
+                grid = random_algorithm.run_unconstrained()
+                vis.visualise(grid)
+                print("Open results/not shared/grid.png to see the results!")
 
-    # YES (constrained) 
-    # loading valid solutions
-    # random, greedy 
-    # greedy --> local optimum reached
-    # on random --> do you want to use Hillclimb or Annealing
+            elif greedy_random_unc.lower() == 'g':
+                greed = greedy.Greedy(tries, district)
+                print(f"Running Greedy unconstrained...")
+                grid = greed.run_unconstrained()
+                vis.visualise(grid)
+                print("Open results/not shared/grid.png to see the results!")
+        
+        elif constraints.lower() == 'y':
+            while True:
+                greedy_random_con = input("Do you want to run the RANDOM (R) or GREEDY (G) algorithm? (R/G) ")
+                if greedy_random_con.lower() not in ('r', 'g'):
+                    print("Please pick either 'R' or 'G'!")
+                    continue
+                else:
+                    break
 
+            if greedy_random_con.lower() == 'r':
+                random_algorithm = random.Random(tries, district)
+                print(f"Running Random constrained...")
+                valid_grid = random_algorithm.run_constrained()
+                if valid_grid is not None:
+                    vis.visualise(valid_grid)
+                    print("Open results/not shared/grid.png to see the results!")
+                    
+                    while True:
+                        hill_sim = input("Would you like to improve your grid with a HILLCLIMBER (H) or SIMULATED ANNEALING (S) algorithm or NOT (N)? ")
+                        if hill_sim.lower() not in ('h', 's', 'n'):
+                            print("Please pick an improvement algorithm with 'H' or 'S' or answer 'N' if you're done!")
+                            continue
+                        else:
+                            break
+                
+                    if hill_sim.lower() == 'h':
+                        climber = hillclimber.HillClimber(valid_grid)
+                        print(f"Running HillClimber...")
+                        climber.run(tries)
+                        vis.visualise(valid_grid)
+                        print("Open results/not shared/grid.png to see the results!")
+                    
+                    elif hill_sim.lower() == 's':
+                        annealing = annealing.Annealing(valid_grid)
+                        print(f"Running Simulated Annealing...")
+                        annealing.run(tries)
+                        vis.visualise(valid_grid)
+                        print("Open results/not shared/grid.png to see the results!")
 
-    #### SHARING
-   # do you want to allow constraints?
-    # y or n
-    # NO (unconstrained)
-    # run greedy
-
-    # YES (constrained) 
-    # run greedy
-    # do you want to use iterative?
-
-
-
-    # if len(sys.argv) == 1:
-    #     pass
-
-    # --------------------------------------------- Random UNCONSTRAINED-------------------------------------------------------
-    # random_algorithm = random.Random(10)
-    # print(f"Running Random unconstrained...")
-    # valid_grid = random_algorithm.run_unconstrained()
-
-    # --------------------------------------------- Random CONSTRAINED-------------------------------------------------------
-    # random_algorithm = random.Random(50)
-    # print(f"Running Random constrained...")
-    # valid_grid = random_algorithm.run_constrained()
-
-    # ---------------------------------------------- Greedy UNCONSTRAINED-----------------------------------------
-    # greed = greedy.Greedy(10)
-    # print(f"Running Greedy unconstrained...")
-    # valid_grid = greed.run_unconstrained()
-
-    # --------------------------------------- Greedy CONSTRAINED ------------------------------------------------
-    # greed = greedy.Greedy(30)
-    # print(f"Running Greedy constrained...")
-    # valid_grid = greed.run_constrained()
-
-    # ----------------------------------------- Hill Climber ----------------------------------------------------
-    # climber = hillclimber.HillClimber(valid_grid)
-    # print(f"Running HillClimber...")
-    # climber.run(1000)
-
-    # ------------------------------------------ Simulated Annealing -------------------------------------------
-    # annealing = annealing.Annealing(valid_grid)
-    # print(f"Running Simulated Annealing...")
-    # annealing.run(1000)
-
-    # --------------------------------------- Visualise ---------------------------------------------------------
-    # vis.visualise(valid_grid)
-
-    ##############################################################################################################
-    ############################################# SHARED CABLES ##################################################
-    ##############################################################################################################
-  
-    # --------------------------------- Greedy SHARED UNCONSTRAINED ----------------------------------------------
-    # greed = greedy.Greedy(1)
-    # print(f"Running Greedy shared unconstrained...")
-    # valid_grid = greed.run_shared_unc()
-
-    # --------------------------------- Greedy SHARED CONSTRAINED ----------------------------------------------
-    greed = greedy.Greedy(15)
-    # print(f"Running Greedy shared constrained...")
-    valid_grid = greed.run_shared_con()
- 
-    # ---------------------------------- Iterative -------------------------------------------------------------
-    iterate = iterative.Iterative(valid_grid)
-    # print(f"Running Iterative...")
-    valid_grid = iterate.run()
-    
-    # -------------------------------------- Visualise ----------------------------------------------------
-    vis.visualise_shared(valid_grid)
+            elif greedy_random_con.lower() == 'g':
+                greed = greedy.Greedy(tries, district)
+                print(f"Running Greedy constrained...")
+                valid_grid = greed.run_constrained()
+                if valid_grid is not None:
+                    vis.visualise(valid_grid)
+                    print("Open results/not shared/grid.png to see the results!")
 
 
-    # output = valid_grid.output()
-    # return output
-    ## print de totale kosten TOTAL COST: $ ...! 
+    # Cable sharing algorithms
+    elif sharing.lower() == 'y':
+        
+        if constraints.lower() == 'n':
+            greed = greedy.Greedy(tries, district)
+            print(f"Running Greedy shared unconstrained...")
+            valid_grid = greed.run_shared_unc()
+            vis.visualise_shared(valid_grid)
+            print("Open results/shared cables/grid_shared.png to see the results!")
+        
+        elif constraints.lower() == 'y':
+            greed = greedy.Greedy(tries, district)
+            print(f"Running Greedy shared constrained...")
+            valid_grid = greed.run_shared_con()
+            if valid_grid is not None:
+                vis.visualise_shared(valid_grid)
+                print("Open results/shared cables/grid_shared.png to see the results!")
