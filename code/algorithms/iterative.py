@@ -1,5 +1,3 @@
-import string
-
 # Import Greedy
 from .greedy import Greedy
 
@@ -14,6 +12,7 @@ class Iterative(Greedy):
     the cable length. The concept might seem a bit vague but it is created 
     in a way that earlier algorithms dont need to be adjusted.
     """
+
     def __init__(self, grid):
         self.grid = grid
         self.bat_houses = {}
@@ -22,6 +21,7 @@ class Iterative(Greedy):
         """
         Link battery to houses.
         """
+
         list = []
 
         for coord in self.grid.coordinates:
@@ -35,6 +35,7 @@ class Iterative(Greedy):
         """
         Check if path is greater than 7.
         """
+
         if len(path) > 7:
             return True
         return False
@@ -43,6 +44,7 @@ class Iterative(Greedy):
         """
         Find house with the coordinate in the path provided.
         """
+
         for coord in path:
             if self.grid.coordinates[self.grid.cols * self.grid.rows + int(coord[0]) - self.grid.rows * (int(coord[1]) + 1)].houses:
                 return coord 
@@ -51,11 +53,11 @@ class Iterative(Greedy):
         """
         Determine a cluster of houses.
         """
+
         x = coord[0]
         y = coord[1]
         cluster_path = [[x, y]]
         bat = self.grid.coordinates[self.grid.cols * self.grid.rows + int(x) - self.grid.rows * (int(y) + 1)].batteries[0]
-
         repeat = 0
 
         while repeat == 0:
@@ -89,6 +91,7 @@ class Iterative(Greedy):
         """
         Determine if path is better than the previous path
         """
+
         if len(path1) > len(path2):
             return True
         return False
@@ -97,6 +100,7 @@ class Iterative(Greedy):
         """
         Unconnect path with battery
         """
+
         for i in path:
             if len(i) > 2:
                 for j in i:
@@ -114,6 +118,7 @@ class Iterative(Greedy):
         """
         Replace path.
         """
+
         self.unconnect(path1, bat)
 
         for coord in cluster_path:
@@ -122,14 +127,10 @@ class Iterative(Greedy):
         distances = {}
 
         for coord in self.bat_houses[bat]:
-
-            print(f"Coord: {coord}")
             for x in coord:
-                print(f"X: {x}")
                 y = self.grid.coordinates[self.grid.cols * self.grid.rows + int(x[0]) - self.grid.rows * (int(x[1]) + 1)]
-                for point in cluster_path:
-                    print(f"point: {point}")
-                    
+
+                for point in cluster_path:                    
                     if len(point) > 2:
                         for k in point:
                             z = self.grid.coordinates[self.grid.cols * self.grid.rows + int(k[0]) - self.grid.rows * (int(k[1]) + 1)]
@@ -137,7 +138,6 @@ class Iterative(Greedy):
                         z = self.grid.coordinates[self.grid.cols * self.grid.rows + int(point[0]) - self.grid.rows * (int(point[1]) + 1)]
 
                     dist = self.grid.calc_distance(y, z)
-
                     distances[[y, z]] = dist
 
         shortest_dist = min(distances, key=distances.get)
@@ -154,8 +154,9 @@ class Iterative(Greedy):
 
     def run(self):
         """
-        Run
+        Runs the algorithm.
         """
+
         for bat in self.grid.batteries:
             self.link_bat_houses(bat)
 
@@ -168,6 +169,6 @@ class Iterative(Greedy):
 
 
         self.grid.keep_track_shared(self.best_greedy_shared, self.grid)
-        print(self.best_greedy_shared.score)
+        print(f"The improved score is now: {self.best_greedy_shared.score}")
     
         return self.best_greedy_shared

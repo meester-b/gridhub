@@ -1,7 +1,5 @@
 # Import copy, random and math.
 import copy
-import random
-import math
 
 # Import Greedy as Hillclimber inherits its functions.
 from .greedy import Greedy
@@ -11,6 +9,7 @@ class HillClimber(Greedy):
     HillClimber class takes a valid grid as input and randomly changes one cable. Each improvement is saved and
     used as input for the next iteration.
     """
+
     def __init__(self, grid):
         self.grid = grid
 
@@ -18,6 +17,7 @@ class HillClimber(Greedy):
         """
         Picks two houses and swaps their cables if it fits within the battery capacity constraints.
         """
+
         # Shuffle the list of houses in the grid.
         new_grid.shuffle_list(new_grid.houses)
 
@@ -26,7 +26,7 @@ class HillClimber(Greedy):
         current_bat_1 = random_house_1.bats[0]
         random_house_2 = new_grid.pick_random_house(new_grid.houses, 1)
         current_bat_2 = random_house_2.bats[0]
-
+        
         # Add the selected houses' output to the remaining capacity of the battery.
         current_bat_1.capacity_left += random_house_1.output
         current_bat_2.capacity_left += random_house_2.output
@@ -44,7 +44,9 @@ class HillClimber(Greedy):
         """
         Saves the new grid if the total cable length is shorter after the swap.
         """
+
         new_grid.calc_dist()
+
         if new_grid.score < self.grid.score:
             self.grid = new_grid
 
@@ -52,12 +54,14 @@ class HillClimber(Greedy):
         """
         Prints the result of the HillClimber algorithm.
         """
+
         print(f"The improved version has a distance of {self.grid.score}")
                     
     def run(self, iterations):
         """
         Runs HillClimber algorithm for given number of iterations.
         """
+
         self.iterations = iterations
         
         # Run iterations times, make a deepcopy, reconect houses and check this solution.
@@ -68,6 +72,6 @@ class HillClimber(Greedy):
         
         # Print statistics.
         self.print_stats()
-        
+
         # Return the grid.
         return self.grid
