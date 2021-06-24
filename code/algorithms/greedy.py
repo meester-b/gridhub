@@ -6,7 +6,7 @@ import random
 from code.classes import grid
 from .random import Random
 
-# Select districts.
+# Select district
 district = "1"
 test_grid = grid.Grid(f"data/district_{district}/district-{district}_houses.csv", f"data/district_{district}/district-{district}_batteries.csv")
   
