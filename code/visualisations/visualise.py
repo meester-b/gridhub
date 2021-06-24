@@ -115,7 +115,7 @@ def visualise_shared(grid):
         y_house = house.y_coordinate
         plt.plot(x_house, y_house, '^', color='red')
 
-    # print 
+    # Print green circles for batteries
     for battery in grid.batteries:
         x_bat = battery.x_coordinate
         y_bat = battery.y_coordinate
