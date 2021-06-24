@@ -36,6 +36,7 @@ class Greedy(Random):
         # Calculate distance and keep track of the total cable distance.
         grid.calc_dist()
         self.keep_track_greedy_unc(grid)
+        self.print_stats_greedy_unc()
 
     def constrained_greedy(self):
         """
@@ -154,6 +155,14 @@ class Greedy(Random):
         print(f"The average distance is {avg_dist}\n")
         print(f"The number of valid attempts is {valid_attempts}")
         print(f"The number of failed attempts is {failed_attempts}")
+
+    def print_stats_greedy_unc(self):
+        """
+        Function that prints the statistics.
+        """
+
+        print(f"The total cable distance is {self.best_greedy_unc.score}")
+
 
     def run_unconstrained(self):
         """

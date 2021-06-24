@@ -24,6 +24,9 @@ def visualise(grid):
     for battery in grid.batteries:
         x_bat = battery.x_coordinate
         y_bat = battery.y_coordinate
+
+        # plot a green circle
+        plt.plot(x_bat, y_bat, 'o', color='green')
     
     # For each house plot the house with x and y coordinates
     for house in grid.houses:
@@ -33,7 +36,7 @@ def visualise(grid):
         # plot a red triangle
         plt.plot(x_house, y_house, '^', color='red')
 
-        # For each cable plot each cable segment line
+        # # For each cable plot each cable segment line
         for cable in house.cables:
             for i in range(len(cable.path)-1): 
                 x_begin = cable.path[i][0]
@@ -43,11 +46,14 @@ def visualise(grid):
                 x_line = [x_begin, x_end]
                 y_line = [y_begin, y_end]
 
-                # plot a blue line
+        #         # plot a blue line
                 plt.plot(x_line, y_line, color='blue')
+<<<<<<< HEAD
 
     # plot a green circle
     plt.plot(x_bat, y_bat, 'o', color='green')
+=======
+>>>>>>> 003524c516e7321859f5d8caefafdff46a21a170
     
     # Show this with matplotlib and inform completion
     plt.savefig("results/not shared/grid.png")
