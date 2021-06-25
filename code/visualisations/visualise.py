@@ -46,14 +46,8 @@ def visualise(grid):
                 x_line = [x_begin, x_end]
                 y_line = [y_begin, y_end]
 
-        #         # plot a blue line
+                # plot a blue line
                 plt.plot(x_line, y_line, color='blue')
-<<<<<<< HEAD
-
-    # plot a green circle
-    plt.plot(x_bat, y_bat, 'o', color='green')
-=======
->>>>>>> 003524c516e7321859f5d8caefafdff46a21a170
     
     # Show this with matplotlib and inform completion
     plt.savefig("results/not shared/grid.png")
