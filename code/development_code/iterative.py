@@ -1,10 +1,6 @@
 # Import Greedy
 from .greedy import Greedy
 
-## in andere files gedaan:
-# path opslaan in house
-# house opslaan in coord en deze opslaan in bat
-
 class Iterative(Greedy):
     """
     Improves a grid based without changing houses-battery combinations.
@@ -89,7 +85,7 @@ class Iterative(Greedy):
 
     def path_is_better(self, path1, path2):
         """
-        Determine if path is better than the previous path
+        Determine if path is better than the previous path.
         """
 
         if len(path1) > len(path2):
@@ -98,7 +94,7 @@ class Iterative(Greedy):
 
     def unconnect(self, path, bat):
         """
-        Unconnect path with battery
+        Unconnect path with battery.
         """
 
         for i in path:
