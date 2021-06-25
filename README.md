@@ -31,7 +31,10 @@ Our ultimate goal is to match each house to a battery, and doing this in the mos
 TC = len(all grid-segments) * 9 + 5 * battery price
 
 **Our final best result for District 1**\
-![The best result that we have obtained](images/Wijk1_greedy_shared_con.PNG)
+![The best result that we have obtained](images/Wijk1_greedy_shared_con.PNG)\
+
+Total cable length: 617\
+Total cost: €30553,-
 
 ## The Research algorithms
 ### Random algorithm
